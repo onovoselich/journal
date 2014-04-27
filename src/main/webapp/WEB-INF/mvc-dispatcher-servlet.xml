@@ -55,7 +55,7 @@
     <bean id="dataSource"
           class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
-        <property name="url" value="jdbc:mysql://localhost:3306/kep_v2?characterEncoding=UTF-8"/>
+        <property name="url" value="jdbc:mysql://localhost:3306/kep_v4?characterEncoding=UTF-8"/>
         <property name="username" value="journal"/>
         <property name="password" value="qwe"/>
 
