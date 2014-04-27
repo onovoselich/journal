@@ -13,7 +13,7 @@
                     <li class="birth-day">${student.getbDate()} р.н.</li>
                 </c:if>
                 <c:if test="${not empty student.getEducForm()}">
-                    <li class="study-form">${student.getEducForm()} форми навчання</li>
+                    <li class="study-form">${student.getEducForm()} форма навчання</li>
                 </c:if>
                 <c:if test="${not empty student.getEdukType()}">
                     <li class="derg-zamovlenya">${student.getEdukType()} замовлення</li>

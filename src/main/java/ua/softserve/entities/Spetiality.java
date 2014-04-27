@@ -8,10 +8,10 @@ import java.sql.SQLException;
 /**
  * Created by troll on 04.03.14.
  */
-public class Spetiality {
+public class Spetiality  implements Comparable<Spetiality> {
 
         private int id;
-        private Float degree;
+        private float degree;
         private String specName;
         private String viddil;
         private Teacher zavViddil;
@@ -46,7 +46,7 @@ public class Spetiality {
         this.id = id;
     }
 
-    public float getDegree() {
+    public Float getDegree() {
             return degree;
         }
 
@@ -81,4 +81,14 @@ public class Spetiality {
 
 
 
+
+    @Override
+    public int compareTo(Spetiality o) {
+        return  this.getSpecName().compareTo(o.getSpecName());
+    }
+
+    @Override
+    public String toString() {
+        return  specName ;
+    }
 }

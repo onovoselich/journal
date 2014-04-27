@@ -4,32 +4,25 @@ import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.ServletContextAware;
 import org.springframework.web.multipart.MultipartFile;
-import ua.softserve.db.GroupDao;
-import ua.softserve.db.StudentDao;
-import ua.softserve.db.TeacherDao;
-import ua.softserve.db.UserDao;
+import ua.softserve.db.*;
 import ua.softserve.entities.Student;
 import ua.softserve.exceptions.UpdateException;
 
 import javax.servlet.ServletContext;
-
 import java.io.File;
 import java.io.IOException;
 
-import static ua.softserve.web.Messages.*;
 import static ua.softserve.db.UserDao.ROLE_STUDENT;
+import static ua.softserve.web.Messages.SUCCESS;
 
 /**
  * Created by troll on 03.03.14.
  */
 @Controller
-@RequestMapping({"/secretary/students", "/secretary/"+ROLE_STUDENT})
+@RequestMapping({"/secretary/students", "/secretary/" + ROLE_STUDENT})
 public class SecStudentsController implements ServletContextAware {
     private static final String STUDENTS_PAGE = "secStudsPage";
     private static final String ADD_USER_PAGE = "addUserPage";
@@ -42,39 +35,59 @@ public class SecStudentsController implements ServletContextAware {
     StudentDao studentDao;
     @Autowired
     UserDao userDao;
+    @Autowired
+    SpecDao specDao;
 
     private ServletContext servletContext;
 
     @RequestMapping({"/", ""})
-    public String studentsView(@RequestParam(value = "group_id",required = false) Integer groupId, ModelMap model
-                              ) {
+    public String studentsView(ModelMap model
+    ) {
 
-
-        model.put("groups_list",groupDao.getAllGroups());
-        if(groupId != null)
-            model.put("students_list", studentDao.getGroupStudentsInfo(groupId));
-        else
+        model.put("spec_list",specDao.getAllSpecs());
+        model.put("groups_list", groupDao.getAllGroups());
             model.put("students_list", studentDao.getAllStudents());
 
         return STUDENTS_PAGE;
     }
+    @RequestMapping("spec{specId}")
+    public String studentsSpecView(ModelMap model
+            ,@PathVariable Integer specId
+    ) {
 
-    @RequestMapping(value="add_student",method = RequestMethod.POST)
+        model.put("spec_list",specDao.getAllSpecs());
+        model.put("groups_list", groupDao.getSpecGrops(specId));
+        model.put("students_list", studentDao.getSpecStudents(specId));
+
+        return STUDENTS_PAGE;
+    }
+    @RequestMapping("group{groupId}")
+    public String studentsGroupView(ModelMap model
+                                    ,@PathVariable Integer groupId
+    ) {
+
+        model.put("spec_list",specDao.getAllSpecs());
+        model.put("groups_list", groupDao.getAllGroups());
+        model.put("students_list", studentDao.getGroupStudents(groupId));
+
+        return STUDENTS_PAGE;
+    }
+    @RequestMapping(value = "add_student", method = RequestMethod.POST)
     public String addStudent(ModelMap model,
-                               @ModelAttribute Student stud) throws UpdateException {
+                             @ModelAttribute Student stud) throws UpdateException, IOException {
 
         if (stud.getbDate().equals("")) stud.setbDate(null);
+        for(Student st:studentDao.getAllStudents())
+
+            if(st.getGradebook()==stud.getGradebook())
+                throw new IOException("Цей номер залікової книжки уже зайнятий!");
+
+        if (!studentDao.newStudent(stud))
+            throw new UpdateException();
+        model.put("message", SUCCESS);
 
 
-
-            if (!studentDao.newStudent(stud))
-                throw new UpdateException();
-            model.put("message", SUCCESS);
-
-
-
-
-        model.put("group_id",stud.getGroupId());
+        model.put("group_id", stud.getGroupId());
         return "redirect: ";
     }
 
@@ -85,45 +98,40 @@ public class SecStudentsController implements ServletContextAware {
 
         if (stud.getbDate().equals("")) stud.setbDate(null);
 
-            if (!studentDao.updStudent(stud))
-                throw new UpdateException();
-            model.put("message", SUCCESS);
-
+        if (!studentDao.updStudent(stud))
+            throw new UpdateException();
+        model.put("message", SUCCESS);
 
 
         if (!image.isEmpty()) {
 
-                validateImage(image);
+            validateImage(image);
 
 
-
-
-                saveImage(stud.getId() + ".jpg", image);
+            saveImage(stud.getId() + ".jpg", image);
 
         }
-       model.put("group_id",stud.getGroupId());
+        model.put("group_id", stud.getGroupId());
         return "redirect: ";
 
     }
 
 
-
-
-
     @RequestMapping("upd_user")
     public String user(ModelMap model,
-                       @RequestParam(value = "login")String login){
+                       @RequestParam(value = "login") String login) {
 
-        model.put("login",login);
-        model.put("role",UserDao.ROLE_STUDENT);
+        model.put("login", login);
+        model.put("role", UserDao.ROLE_STUDENT);
         return UPDATE_USER_PAGE;
     }
+
     @RequestMapping("add_user")
     public String user(ModelMap model,
-                       @RequestParam("id")Integer id){
+                       @RequestParam("id") Integer id) {
 
-        model.put("id",id);
-        model.put("role",UserDao.ROLE_STUDENT);
+        model.put("id", id);
+        model.put("role", UserDao.ROLE_STUDENT);
 
         return ADD_USER_PAGE;
     }
@@ -137,9 +145,10 @@ public class SecStudentsController implements ServletContextAware {
         if (!image.getContentType().equals("image/jpeg")) {
             throw new RuntimeException("Оберіть JPG файл");
         }
-        if(image.getSize()>5242880)
+        if (image.getSize() > 5242880)
             throw new RuntimeException("Фотографія повинна важити не більше 5 МБ");
     }
+
     private void saveImage(String filename, MultipartFile image)
             throws RuntimeException, IOException {
 

@@ -165,6 +165,9 @@
 .input label{
     cursor: pointer;
     width: 90%;
+    position: relative;
+    left: 30px;
+    top: -20px;
 }
 .input label:hover{
 /*    font-size: 18px;*/

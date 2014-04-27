@@ -5,6 +5,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -42,11 +43,22 @@ public class StudentController {
     @RequestMapping({"/", ""})
     public String main(ModelMap model) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        Student student =  studentDao.getStudentInfo(auth.getName());
+        Student student = studentDao.getStudentInfo(auth.getName());
         model.put("student", student);
         model.put("subjectList", subjectDao.getGroupSubjects(student.getGroupId()));
         return STUDENT_PAGE;
     }
+
+/*
+    @RequestMapping("{sum}sumestr")
+    public String studRoom(@PathVariable Integer sum){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Student student = studentDao.getStudentInfo(auth.getName());
+        model.put("student", student);
+        model.put("subjectList", subjectDao.getGroupSubjects(student.getGroupId()));
+        return STUDENT_PAGE;
+    }
+*/
 
     @RequestMapping(value = "/vidomist", method = RequestMethod.GET)
     public String view(@RequestParam(value = "subj", required = false) String[] subjectsId,
@@ -57,15 +69,15 @@ public class StudentController {
 
         Student stud = studentDao.getStudentInfo(auth.getName());
         Map<String, Map<Subject, Mark>> markList = new HashMap<String, Map<Subject, Mark>>();
-            markList.put(Subject.EXAM, new TreeMap<Subject, Mark>());
-            markList.put(Subject.ZALIK, new TreeMap<Subject, Mark>());
-            markList.put(Subject.DUF_ZALIK, new TreeMap<Subject, Mark>());
+        markList.put(Subject.EXAM, new TreeMap<Subject, Mark>());
+        markList.put(Subject.ZALIK, new TreeMap<Subject, Mark>());
+        markList.put(Subject.DUF_ZALIK, new TreeMap<Subject, Mark>());
 
-        if (subjectsId == null ){
+        if (subjectsId == null) {
             List<Subject> grlst = subjectDao.getGroupSubjects(stud.getGroupId());
 
-        subjectsId = new String[grlst.size()];
-        for (int i = 0; i < grlst.size(); i++) {
+            subjectsId = new String[grlst.size()];
+            for (int i = 0; i < grlst.size(); i++) {
                 subjectsId[i] = new String(Integer.toString(grlst.get(i).getId()));
             }
         }

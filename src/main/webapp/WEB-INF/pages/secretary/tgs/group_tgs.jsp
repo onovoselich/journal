@@ -19,13 +19,13 @@
 
                     <input type="hidden" name="id" value="${tuple.key}">
                 <tr>
-                    <td><select name="subj_id">
+                    <td><select name="subj_id" required="required" >
                         <option value="" selected></option>
                         <c:forEach items="${subj_list}" var="subj">
                             <option value="${subj.getId()}" <c:if test="${subj.getId() == tuple.value.getX().getId()}">selected</c:if>>${subj}</option>
                         </c:forEach>
                     </select></td>
-                    <td><select name="teac_id">
+                    <td><select name="teac_id" required="required" >
                         <option value="" selected></option>
                         <c:forEach items="${teac_list}" var="teac">
                             <option value="${teac.getId()}" <c:if test="${teac.getId() == tuple.value.getY().getId()}">selected</c:if>>${teac}</option>
@@ -42,13 +42,13 @@
 
                 <input type="hidden" name="gr_id" value="${group.getId()}">
                 <tr>
-                    <td><select name="subj_id">
+                    <td><select name="subj_id" required="required" >
                         <option value="" selected></option>
                         <c:forEach items="${subj_list}" var="subj">
                             <option value="${subj.getId()}" >${subj}</option>
                         </c:forEach>
                     </select></td>
-                    <td><select name="teac_id">
+                    <td><select name="teac_id" required="required" >
                         <option value="" selected></option>
                         <c:forEach items="${teac_list}" var="teac">
                             <option value="${teac.getId()}" >${teac}</option>

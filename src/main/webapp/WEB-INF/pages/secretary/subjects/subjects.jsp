@@ -7,12 +7,19 @@
 
 <div class="header-of-main">Предмети</div>
 <div class="main-part">
+    <div class="tabs"><ul>
+        <li><a href="/secretary/subjects">all</a></li>
+        <c:forEach items="${tab_list}" var="sp"><li>
+            <a href="/secretary/subjects/spec${sp.getId()}" >${sp}</a>
+        </li></c:forEach></ul>
+    </div>
     <div class="table">
     <table>
         <tr>
             <th>Id</th>
             <th>Назва</th>
-            <th>Кредити ECTS</th>
+            <th>Спеціальність</th>
+            <th>ECTS</th>
             <th>Години</th>
             <th>Форма контролю</th>
 
@@ -21,10 +28,17 @@
         <form action="/secretary/subjects/alter_subject" method="post">
             <tr>
                 <td><input type="text" size="3" name="id" value="${subj.getId()}" readonly/></td>
-                <td><input type="text" name="name" size="50" value="${subj.getName()}"/></td>
-                <td><input type="text" name="ects" onkeypress="return isNumberPointKey(event)"  value="${subj.getEcts()}"/></td>
-                <td><input type="text" name="hours" size="5" onkeypress="return isNumberKey(event)"  value="${subj.getHours()}"/></td>
-                <td><select name="controlForm">
+                <td><input type="text" name="name" required="required"  size="50" value="${subj.getName()}"/></td>
+                <td><select name="specId" required="required" >
+                    <option  value="" selected> </option>
+                <c:forEach items="${spec_list}" var="sp">
+
+                    <option value="${sp.getId()}" <c:if test="${sp.getId() == subj.getSpetiality().getId()}">selected</c:if>>${sp}</option>
+                </c:forEach></select>
+                </td>
+                <td><input type="text" required="required"  name="ects"size="6"  onkeypress="return isNumberPointKey(event)"  value="${subj.getEcts()}"/></td>
+                <td><input type="text" required="required"  name="hours" size="5"  onkeypress="return isNumberKey(event)"  value="${subj.getHours()}"/></td>
+                <td><select name="controlForm" required="required" >
                     <option value=""  selected></option>
                     <option value="Іспит" <c:if test="${subj.getControlForm().equals('Іспит')}">selected</c:if>>Іспит</option>
                     <option value="Залік" <c:if test="${subj.getControlForm().equals('Залік')}">selected</c:if>>Залік</option>
@@ -43,10 +57,17 @@
         <form action="/secretary/subjects/add_subject" method="post">
             <tr>
                 <td><input type="text" name="id" size="3" value="" readonly/></td>
-                <td><input type="text" name="name" size="50" value=""/></td>
-                <td><input type="text" name="ects" onkeypress="return isNumberPointKey(event)"  value=""/></td>
-                <td><input type="text" name="hours" size="5" onkeypress="return isNumberKey(event)"  value=""/></td>
-                <td><select name="controlForm">
+                <td><input type="text" name="name" required="required"  size="50" value=""/></td>
+                <td><select name="specId" required="required" >
+
+                    <option  value="" selected> </option>
+                    <c:forEach items="${spec_list}" var="sp">
+                        <option value="${sp.getId()}" >${sp}</option>
+                    </c:forEach></select>
+                </td>
+                <td><input type="text" name="ects" required="required"  size="6"  onkeypress="return isNumberPointKey(event)"  value=""/></td>
+                <td><input type="text" name="hours" required="required"  size="5" onkeypress="return isNumberKey(event)"  value=""/></td>
+                <td><select name="controlForm" required="required" >
                     <option value=""  selected></option>
                     <option value="Іспит">Іспит</option>
                     <option value="Залік">Залік</option>

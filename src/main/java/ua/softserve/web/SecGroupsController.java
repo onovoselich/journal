@@ -15,7 +15,6 @@ import ua.softserve.exceptions.UpdateException;
 
 import java.util.List;
 
-import static ua.softserve.web.Messages.FAIL;
 import static ua.softserve.web.Messages.SUCCESS;
 
 /**
@@ -69,26 +68,26 @@ public class SecGroupsController {
 
     @RequestMapping(value = "add_spec", method = RequestMethod.POST)
     public String addSpec(ModelMap model,
-                          @ModelAttribute Spetiality spec  ,
-                          @RequestParam (value = "zavViddilId") Integer zavViddilId) throws UpdateException {
+                          @ModelAttribute Spetiality spec,
+                          @RequestParam(value = "zavViddilId") Integer zavViddilId) throws UpdateException {
 
         spec.setZavViddil(new Teacher(zavViddilId));
-            if (!specDao.addSpec(spec))
-                throw new UpdateException();
-            model.put("message", SUCCESS);
+        if (!specDao.addSpec(spec))
+            throw new UpdateException();
+        model.put("message", SUCCESS);
 
 
         return "redirect: ";
     }
+
     @RequestMapping(value = "alter_spec", method = RequestMethod.POST)
     public String alterSpec(ModelMap model,
-                            @ModelAttribute Spetiality spec   ,
-                            @RequestParam (value = "zavViddilId") Integer zavViddilId) throws UpdateException {
-
-            spec.setZavViddil(new Teacher(zavViddilId));
-            if (!specDao.alterSpec(spec))
-                throw new UpdateException();
-                model.put("message", SUCCESS);
+                            @ModelAttribute Spetiality spec,
+                            @RequestParam(value = "zavViddilId") Integer zavViddilId) throws UpdateException {
+        spec.setZavViddil(new Teacher(zavViddilId));
+        if (!specDao.alterSpec(spec))
+            throw new UpdateException();
+        model.put("message", SUCCESS);
 
 
         return "redirect: ";
@@ -96,18 +95,17 @@ public class SecGroupsController {
 
     @RequestMapping(value = "alter_group", method = RequestMethod.POST)
     public String alterGroup(
-             @RequestParam("degree_id") Integer degId
+            @RequestParam("degree_id") Integer degId
             , @RequestParam("curator_id") Integer curId,
-                             ModelMap model,
-                             @ModelAttribute Group group) throws UpdateException {
+            ModelMap model,
+            @ModelAttribute Group group) throws UpdateException {
         if (group.getStartDate().equals("")) group.setStartDate(null);
         if (group.getFinishDate().equals("")) group.setFinishDate(null);
-group.setSpec(new Spetiality(degId));
-group.setCurator(new Teacher(curId));
-            if (!groupDao.updGroup(group))
-                throw new UpdateException();
-                model.put("message", SUCCESS);
-
+        group.setSpec(new Spetiality(degId));
+        group.setCurator(new Teacher(curId));
+        if (!groupDao.updGroup(group))
+            throw new UpdateException();
+        model.put("message", SUCCESS);
 
 
         return "redirect: ";
@@ -123,10 +121,9 @@ group.setCurator(new Teacher(curId));
         if (group.getFinishDate().equals("")) group.setFinishDate(null);
         group.setSpec(new Spetiality(degId));
         group.setCurator(new Teacher(curId));
-            if (groupDao.addGroup(group))
-                throw new UpdateException();
-                model.put("message", SUCCESS);
-
+        if (!groupDao.addGroup(group))
+            throw new UpdateException();
+        model.put("message", SUCCESS);
 
 
         return "redirect: ";
@@ -135,13 +132,14 @@ group.setCurator(new Teacher(curId));
 
     @RequestMapping("appointments")
     public String groupTgs(ModelMap model,
-                           @RequestParam("id")Integer grpId
-    ){
+                           @RequestParam("id") Integer grpId
+    ) {
 
-        model.put("group",groupDao.getGroup(grpId));
-        model.put("tgs_list",tgsDao.getGroupTgs(grpId));
-        model.put("teac_list",teacherDao.getAllTeachers());
-        model.put("subj_list",subjectDao.getAllSubjects());
+        Group group = groupDao.getGroup(grpId);
+        model.put("group", group);
+        model.put("tgs_list", tgsDao.getGroupTgs(grpId));
+        model.put("teac_list", teacherDao.getAllTeachers());
+        model.put("subj_list", subjectDao.getSpecSubjects(group.getSpec().getId()));
         return TGS_PAGE;
     }
 
@@ -149,37 +147,37 @@ group.setCurator(new Teacher(curId));
     @RequestMapping("upd_tgs")
     public String updTgs(
 
-            @RequestParam(value="id", required = false)Integer id,
-            @RequestParam("gr_id")Integer grId,
-            @RequestParam("teac_id")Integer teacId,
-            @RequestParam("subj_id")Integer subjectId,
+            @RequestParam(value = "id", required = false) Integer id,
+            @RequestParam("gr_id") Integer grId,
+            @RequestParam("teac_id") Integer teacId,
+            @RequestParam("subj_id") Integer subjectId,
             ModelMap model) throws UpdateException {
 
 
-            if (!tgsDao.updTgs(id, teacId, grId, subjectId))
-                throw new UpdateException();
-                model.put("message", SUCCESS);
+        if (!tgsDao.updTgs(id, teacId, grId, subjectId))
+            throw new UpdateException();
+        model.put("message", SUCCESS);
 
 
-        model.put("id",grId);
-        return"redirect: appointments";
+        model.put("id", grId);
+        return "redirect: appointments";
     }
+
     @RequestMapping("add_tgs")
     public String addTgs(
 
-            @RequestParam(value="id", required = false)Integer id,
-            @RequestParam("gr_id")Integer grId,
-            @RequestParam("teac_id")Integer teacId,
-            @RequestParam("subj_id")Integer subjectId,
+            @RequestParam(value = "id", required = false) Integer id,
+            @RequestParam("gr_id") Integer grId,
+            @RequestParam("teac_id") Integer teacId,
+            @RequestParam("subj_id") Integer subjectId,
             ModelMap model) throws UpdateException {
 
-            if (!tgsDao.addTgs(teacId, grId, subjectId))
-                throw new UpdateException();
-                model.put("message", SUCCESS);
+        if (!tgsDao.addTgs(teacId, grId, subjectId))
+            throw new UpdateException();
+        model.put("message", SUCCESS);
 
 
-
-        model.put("id",grId);
-        return"redirect: appointments";
+        model.put("id", grId);
+        return "redirect: appointments";
     }
 }

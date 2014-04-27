@@ -23,7 +23,7 @@
         <input type="hidden" name="role" value="${role}">
         <input type="hidden" name="id" value="${id}">
         <input class="email" type="email" name = "login"  readonly value="${login}" placeholder="Username"/>
-        <input class="password" type="text" name = "password" placeholder="Password"/>
+        <input class="password" required="required"  type="text" name = "password" placeholder="Password"/>
         <input type="submit"  value="ok" name="btn-login"/>
         <input type="reset" value="cancel" name="btn-reset"/>
         </form>

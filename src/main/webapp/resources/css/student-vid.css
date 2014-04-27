@@ -158,8 +158,7 @@
 }
 .table table tr td{
     border: 1px solid #000;
-    border-bottom: none;
-    border-right: none;
+    padding: 8px;
 }
 .table table tr td div{
     width: 123px;

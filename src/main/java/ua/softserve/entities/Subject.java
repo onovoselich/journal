@@ -26,10 +26,9 @@ public class Subject implements Comparable {
             Subject subject = new Subject(resultSet);
             subject.setEcts(resultSet.getDouble("ECTSCredits"));
             subject.setHours(resultSet.getInt("Hours"));
-           /* subject.setLections(resultSet.getInt("Lections"));
-            subject.setPract(resultSet.getInt("Pract"));
-            subject.setLabor(resultSet.getInt("Labor"));
-            subject.setConsult(resultSet.getInt("Consult"));*/
+            /*
+            subject.setSumestr(resultSet.getInt("sumestr"));
+            subject.setYears(resultSet.getString("Years"));*/
 
             return subject;
         }
@@ -39,13 +38,11 @@ public class Subject implements Comparable {
     private String name;
     private Double ects;
     private Integer hours;
-    private int lections;
-    private int pract;
-    private int labor;
-    private int consult;
     private String controlForm;
-    private Teacher teacher;
-    private int sumestr;
+    private Teacher teacher;/*
+    private String years;
+    private Integer sumestr;*/
+    private Spetiality spetiality;
 
     public Subject() {
     }
@@ -53,17 +50,28 @@ public class Subject implements Comparable {
     public Subject(ResultSet rs)throws SQLException{
         this.id = rs.getInt("Id");
         this.name = rs.getString("Name");
+        this.setSpetiality(new Spetiality(rs.getInt("specId")));
         this.controlForm = rs.getString("ControlForm");
     }
 
-
-    public int getSumestr() {
-        return sumestr;
+    public Spetiality getSpetiality() {
+        return spetiality;
     }
 
-    public void setSumestr(int sumestr) {
-        this.sumestr = sumestr;
+    public void setSpetiality(Spetiality spetiality) {
+        this.spetiality = spetiality;
     }
+
+
+
+    public void setEcts(Double ects) {
+        this.ects = ects;
+    }
+
+    public void setHours(Integer hours) {
+        this.hours = hours;
+    }
+
 
     public Teacher getTeacher() {
         return teacher;
@@ -73,7 +81,7 @@ public class Subject implements Comparable {
         this.teacher = teacher;
     }
 
-    public double getEcts() {
+    public Double getEcts() {
         return ects;
     }
 
@@ -81,7 +89,7 @@ public class Subject implements Comparable {
         this.ects = ects;
     }
 
-    public int getHours() {
+    public Integer getHours() {
         return hours;
     }
 
@@ -89,37 +97,7 @@ public class Subject implements Comparable {
         this.hours = hours;
     }
 
-    public int getLections() {
-        return lections;
-    }
 
-    public void setLections(int lections) {
-        this.lections = lections;
-    }
-
-    public int getPract() {
-        return pract;
-    }
-
-    public void setPract(int pract) {
-        this.pract = pract;
-    }
-
-    public int getLabor() {
-        return labor;
-    }
-
-    public void setLabor(int labor) {
-        this.labor = labor;
-    }
-
-    public int getConsult() {
-        return consult;
-    }
-
-    public void setConsult(int consult) {
-        this.consult = consult;
-    }
 
     public String getControlForm() {
         return controlForm;

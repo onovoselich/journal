@@ -15,12 +15,15 @@ import ua.softserve.entities.Student;
 import ua.softserve.entities.Teacher;
 import ua.softserve.exceptions.UpdateException;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
-import static ua.softserve.web.Messages.*;
+import static ua.softserve.web.Messages.DELETED_SUCCESS;
+import static ua.softserve.web.Messages.SUCCESS;
 
 /**
  * Created by troll on 13.01.14.
@@ -32,6 +35,7 @@ public class TeacherController {
     private static final String TEACHER_PAGE = "teacherPage";
     private static final String TEACHER_VID_PAGE = "teacherVid";
     private static final String STUD_INFO_PAGE = "studInfo";
+
     @Autowired
     GroupDao groupDao;
     @Autowired
@@ -67,7 +71,7 @@ public class TeacherController {
     @RequestMapping(value = "/vidomist", method = RequestMethod.GET)
     public String view(@RequestParam("group_id") Integer groupId,
                        @RequestParam("subject_id") Integer subjectId,
-                       ModelMap model)  {
+                       ModelMap model) {
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         Teacher teac = teacherDao.getTeacherInfo(auth.getName());
@@ -83,56 +87,58 @@ public class TeacherController {
             }
 
 
-        model.put("group_id",groupId);
-        model.put("subject_id",subjectId);
+        model.put("group_id", groupId);
+        model.put("subject_id", subjectId);
         model.put("teac_subj_grp_id", tgsId);
         model.put("stud_mark_list", studMarkList);
 
 
         return TEACHER_VID_PAGE;
     }
+
     @RequestMapping(value = "/delMark", method = RequestMethod.POST)
     public String delMark(@RequestParam("student_id") Integer studId,
                           @RequestParam("teac_subj_grp_id") Integer tsgId,
                           @RequestParam("group_id") Integer groupId,
                           @RequestParam("subject_id") Integer subjectId,
+                          HttpServletResponse response,
+                          HttpServletRequest request,
                           ModelMap model) throws IOException {
 
 
-            if (!markDao.insert(0,null, studId, tsgId))
-                throw new IOException("Невдалося видалити оцінку!");
+        if (!markDao.insert(0, null, studId, tsgId))
+            throw new IOException("Невдалося видалити оцінку!");
 
         model.put("message", DELETED_SUCCESS);
 
-        model.put("group_id",groupId);
-        model.put("subject_id",subjectId);
+        model.put("group_id", groupId);
+        model.put("subject_id", subjectId);
         return "redirect:/teacher/vidomist";
 
 
     }
+
     @RequestMapping(value = "/updMark", method = RequestMethod.POST)
     public String updMark(@RequestParam("student_id") Integer studId,
                           @RequestParam("teac_subj_grp_id") Integer tsgId,
                           @RequestParam("mark") Integer mark,
-                          @RequestParam("date")String date,
+                          @RequestParam("date") String date,
                           @RequestParam("group_id") Integer groupId,
                           @RequestParam("subject_id") Integer subjectId,
-                          ModelMap model) throws  UpdateException, IOException {
+                          ModelMap model) throws UpdateException, IOException {
 
-        if (date.equals("") ) date = null;
-
-
-            if (mark == null || mark > 12 || mark < 1)
-                throw new IOException("Введіть значення від 1 до 12!");
-            if (!markDao.insert(mark, date, studId, tsgId))
-                throw new UpdateException();
-            model.put("message", SUCCESS);
+        if (date.equals("")) date = null;
 
 
+        if (mark == null || mark > 12 || mark < 1)
+            throw new IOException("Введіть значення від 1 до 12!");
+        if (!markDao.insert(mark, date, studId, tsgId))
+            throw new UpdateException();
+        model.put("message", SUCCESS);
 
 
-        model.put("group_id",groupId);
-        model.put("subject_id",subjectId);
+        model.put("group_id", groupId);
+        model.put("subject_id", subjectId);
         return "redirect:/teacher/vidomist";
 
 
@@ -140,11 +146,10 @@ public class TeacherController {
 
     @RequestMapping("studentinfo")
     public String studCard(ModelMap model,
-                           @RequestParam("stud_id")Integer studId){
-        model.put("student",studentDao.getStudentInfo(studId));
+                           @RequestParam("stud_id") Integer studId) {
+        model.put("student", studentDao.getStudentInfo(studId));
         return STUD_INFO_PAGE;
     }
-
 
 
 }

@@ -7,8 +7,9 @@
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/student-vid.css">
 <div class="header-of-main">це ваша відомість успішності</div>
 <div class="main-part">
-    <a href="/student/vidomist">Всі предмети</a> <br>
-    <div class="table">
+    <div class="tabs"><ul><li>  <a href="/student/vidomist">Всі предмети</a></li>
+    </ul></div>
+ <div class="table">
 <table>
 
 

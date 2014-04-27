@@ -19,10 +19,10 @@
             <form action="/secretary/groups/alter_spec" enctype="multipart/form-data"  method="post">
             <tr>
                 <td><input type="text" size="3" name="id" value="${spec.getId()}" readonly/>  </td>
-                <td><input type="text" size="8" onkeypress="return isNumberPointKey(event)"  name="degree" value="${spec.getDegree()}"/>  </td>
-                <td><input type="text" size="24" name="specName" value="${spec.getSpecName()}"/></td>
-                <td><input type="text" size="24" name="viddil" value="${spec.getViddil()}"/></td>
-                <td><select name="zavViddilId">
+                <td><input type="text" size="8" required="required"  onkeypress="return isNumberPointKey(event)"  name="degree" value="${spec.getDegree()}"/>  </td>
+                <td><input type="text" size="24" required="required"  name="specName" value="${spec.getSpecName()}"/></td>
+                <td><input type="text" size="24" required="required"  name="viddil" value="${spec.getViddil()}"/></td>
+                <td><select name="zavViddilId" required="required" >
                     <option value="" selected ></option>
                     <c:forEach var="teacher" items="${teacher_list}">
                         <option value="${teacher.getId()}"<c:if test="${teacher.getId().equals(spec.getZavViddil().getId())}">selected</c:if>>${teacher}  </option>
@@ -41,10 +41,10 @@
         <form action="/secretary/groups/add_spec" enctype="multipart/form-data"  method="post">
             <tr>
                 <td><input type="text" size="3"  value="" readonly/>  </td>
-                <td><input type="text"size="8" name="degree" onkeypress="return isNumberPointKey(event)"  value=""/>  </td>
-                <td><input type="text" size="24" name="specName" value=""/></td>
-                <td><input type="text"size="24" name="viddil" value=""/></td>
-                <td><select name="zavViddilId">
+                <td><input type="text"size="8"  required="required" name="degree" onkeypress="return isNumberPointKey(event)"  value=""/>  </td>
+                <td><input type="text" size="24" required="required"  name="specName" value=""/></td>
+                <td><input type="text"size="24" required="required"  name="viddil" value=""/></td>
+                <td><select name="zavViddilId" required="required" >
                     <option value="" selected ></option>
                     <c:forEach var="teacher" items="${teacher_list}">
                         <option value="${teacher.getId()}">${teacher}  </option>

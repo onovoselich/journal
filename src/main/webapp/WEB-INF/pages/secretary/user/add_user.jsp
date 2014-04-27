@@ -19,8 +19,8 @@
             <form novalidate="novalidate" action="/secretary/users/add_user" method="post">
                 <input type="hidden" name="role" value="${role}">
                 <input type="hidden" name="id" value="${id}">
-                <input class="email" type="email" name = "login"   placeholder="Username"/>
-                <input class="password" type="text"  name = "password" placeholder="Password"/>
+                <input class="email" required="required"  type="email" name = "login"   placeholder="Username"/>
+                <input class="password"  required="required" type="text"  name = "password" placeholder="Password"/>
 
                 <input type="submit"  value="ok"/>
                 <input type="reset" value="cancel"/>

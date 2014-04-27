@@ -20,10 +20,12 @@ public interface SqlQueries {
     public static final String GET_STUDENT_INFO = "select * from `students` WHERE  `id` = ?";
     public static final String GET_GROUP_SUBJECTS = "CALL `get_group_subjects`(?);";
     public static final String GET_GROUP_STUDENTS = "SELECT `id`,`name`,`surname`,`patronimic`,`gradebook` FROM `students` WHERE `groupId` = ?;";
+    public static final String GET_SPEC_STUDENTS = "SELECT    `students`.`Id`    ,`students`.`Surname`    , `students`.`Name`    , `students`.`Patronimic`    , `students`.`Gradebook`FROM    `kep_v2`.`students`    INNER JOIN `kep_v2`.`groups`         ON (`students`.`GroupId` = `groups`.`Id`)WHERE (`groups`.`Degree` =?);";
+
     public static final String GET_GROUP_STUDENTS_INFO = "SELECT * FROM `students` WHERE `groupId` = ?;";
     public static final String GET_TEACHER_BY_SUBJ = "call `get_teacher`(?,?);";
     public static final String GET_TEACHER_INFO = "select * from `teachers` where `id` = ?";
-    public static final String GET_SUBJECT = "select `Id`, `Name`, `ControlForm` from `subjects` where `Id` = ?";
+    public static final String GET_SUBJECT = "select * from `subjects` where `Id` = ?";
     public static final String GET_MARK = "CALL `get_mark`(?,?);";
     public static final String GET_GROUP_BY_CURATOR = "select `id`, `name`, `educYear`,`degree` from `groups` where `curatorId` = ?";
     public static final String GET_TEACHER_GROUPS = "CALL `get_teacher_groups`(?);";
@@ -32,6 +34,7 @@ public interface SqlQueries {
     public static final String GET_TEACHER_SUBJECT_GROUP_ID = "SELECT `id`FROM `group_teacher_subject` WHERE (`teacher_ID` =? AND `group_ID` =? AND `subject_ID` =?);";
     public static final String GET_ALL_TEACHERS = "select * from `teachers`";
     public static final String GET_ALL_SUBJECTS = "select * from `subjects`";
+    public static final String GET_SPEC_SUBJECTS = "select * from `subjects` where `specId` = ?";
     public static final String GET_ALL_SPECS = "select * from `spec`";
     public static final String GET_ALL_GROUPS = "select * from `groups`";
     public static final String GET_ALL_STUDENTS = "select * from `students`";
@@ -49,8 +52,8 @@ public interface SqlQueries {
     public static final String UPDATE_STUDENT = "UPDATE `students` SET `Name` = ?,`Surname`=?,`Patronimic`=?,`groupId`=?,`BDate`=?,`Gradebook`=?,`EducForm`=?,`EducType`=?,`Gender`=?,`Address`=?,`Phone`=?  WHERE `students`.`Id` = ?;";
     public static final String INSERT_STUDENT = "INSERT INTO `students` ( `Name`,`Surname`,`Patronimic`,`groupId`,`bdate`,`gradebook`,`EducForm`,`EducType`,`Gender`,`Address`,`Phone`)  values (?,?,?,?,?,?,?,?,?,?,?);";
 
-    public static final String UPDATE_SUBJECT = "UPDATE `subjects` SET `Name` = ?,`ECTSCredits`=?,`Hours`=?,`ControlForm`=?  WHERE `subjects`.`Id` = ?;";
-    public static final String INSERT_SUBJECT = "INSERT INTO `subjects` ( `Name`,`ECTSCredits`,`Hours`,`ControlForm`)  values (?,?,?,?);";
+    public static final String UPDATE_SUBJECT = "UPDATE `subjects` SET `Name` = ?,`ECTSCredits`=?,`Hours`=?,`ControlForm`=?,`specId`=?  WHERE `subjects`.`Id` = ?;";
+    public static final String INSERT_SUBJECT = "INSERT INTO `subjects` ( `Name`,`ECTSCredits`,`Hours`,`ControlForm`,`specId`)  values (?,?,?,?,?);";
 
     public static final String UPDATE_SPEC = "UPDATE `spec` SET `Degree` = ?,`Name`=?,`Viddil`=?,`ZavViddil`=?  WHERE `spec`.`Id` = ?;";
     public static final String INSERT_SPEC = "INSERT INTO `spec` ( `Degree`,`Name`,`Viddil`,`ZavViddil`)  values (?,?,?,?);";

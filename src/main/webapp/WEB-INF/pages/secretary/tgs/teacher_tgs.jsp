@@ -18,16 +18,22 @@
                     <form action="/secretary/teachers/upd_tgs" method="post">
                         <input type="hidden" name="teac_id" value="${teacher.getId()}">
                         <input type="hidden" name="id" value="${tuple.key}">
-                        <tr><td><select name="gr_id">
+                        <tr><td><select name="gr_id" required="required">
                             <option value="" selected></option>
                             <c:forEach items="${grp_list}" var="grp">
                                 <option value="${grp.getId()}" <c:if test="${grp.getId() == tuple.value.getX().getId()}">selected</c:if>>${grp}</option>
                             </c:forEach>
                         </select></td>
-                            <td><select name="subj_id">
+                            <td><select name="subj_id" required="required" >
                                 <option value="" selected></option>
-                                <c:forEach items="${subj_list}" var="subj">
-                                    <option value="${subj.getId()}" <c:if test="${subj.getId() == tuple.value.getY().getId()}">selected</c:if>>${subj}</option>
+
+                                <c:forEach items="${subj_list}" var="subjlist">
+                                    <optgroup label="${subjlist.key.getSpecName()}">
+                                        <c:forEach items="${subjlist.value}" var="subj">
+
+                                            <option <c:if test="${subj.getId() == tuple.value.getY().getId()}">selected</c:if> value="${subj.getId()}" >${subj}</option>
+                                        </c:forEach>
+                                    </optgroup>
                                 </c:forEach>
                             </select></td>
 
@@ -40,16 +46,21 @@
             </c:forEach>
             <form action="/secretary/teachers/add_tgs" method="post">
                 <input type="hidden" name="teac_id" value="${teacher.getId()}">
-                <tr><td><select name="gr_id">
+                <tr><td><select name="gr_id" required="required" >
                     <option value="" selected></option>
                     <c:forEach items="${grp_list}" var="grp">
                         <option value="${grp.getId()}" >${grp}</option>
                     </c:forEach>
                 </select></td>
-                    <td><select name="subj_id">
+                    <td><select name="subj_id" required="required" >
                         <option value="" selected></option>
-                        <c:forEach items="${subj_list}" var="subj">
-                            <option value="${subj.getId()}" >${subj}</option>
+                        <c:forEach items="${subj_list}" var="subjlist">
+                            <optgroup label="${subjlist.key.getSpecName()}">
+                            <c:forEach items="${subjlist.value}" var="subj">
+
+                                <option value="${subj.getId()}" >${subj}</option>
+                            </c:forEach>
+                            </optgroup>
                         </c:forEach>
                     </select></td>
 

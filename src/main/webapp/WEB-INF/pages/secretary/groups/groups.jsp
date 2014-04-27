@@ -13,8 +13,8 @@
             <th >Id</th>
             <th>Назва</th>
             <th>Спеціальність</th>
-            <th>Дата вступу</th>
-            <th>Дата випуску</th>
+            <th>Вступ</th>
+            <th>Випуск</th>
             <th>Куратор</th>
             <th>Курс</th>
         </tr>
@@ -22,8 +22,8 @@
             <form action="/secretary/groups/alter_group" method="post">
             <tr>
                 <td><input name="id" size="2" type="text" value="${group.getId()}" readonly/></td>
-                <td><input name="name" size="7" type="text" value="${group.getName()}"/></td>
-                <td><select name="degree_id">
+                <td><input name="name" size="7" type="text"  required="required"  value="${group.getName()}"/></td>
+                <td><select name="degree_id" required="required" >
                     <option value="" selected ></option>
                     <c:forEach var="spec" items="${specs_list}">
                         <option value="${spec.getId()}" <c:if test="${spec.getId() == group.getSpec().getId()}">selected </c:if>>${spec.getDegree()} | ${spec.getSpecName()}</option>
@@ -31,7 +31,7 @@
                 </select> </td>
                 <td><input name="startDate" class="data"  size="9"  type="text" value="${group.getStartDate()}"/></td>
                 <td><input name="finishDate" size="9" class="data" type="text" value="${group.getFinishDate()}"/></td>
-                <td><select name="curator_id">
+                <td><select name="curator_id" required="required" >
                     <option value="" selected ></option>
                     <c:forEach var="teacher" items="${teacher_list}">
                         <option value="${teacher.getId()}"<c:if test="${teacher.getId().equals(group.getCurator().getId())}">selected</c:if>>${teacher}  </option>
@@ -40,14 +40,14 @@
                 <td>
 
 
-                    <select name="educYear">
+                    <select name="educYear" required="required" >
                         <option value="" selected></option>
                         <c:forEach var="i" begin="1" end="4">
                             <option value="${i}" <c:if test="${group.getEducYear() == i}">selected</c:if>>${i}</option>
                         </c:forEach>
                     </select>
                 </td>
-                <td><a href="/secretary/students?group_id=${group.getId()}"><img class="str-down"  alt="right" src="${pageContext.request.contextPath}/resources/img/str-right.png"/></a></td>
+                <td><a href="/secretary/students/group${group.getId()}"><img class="str-down"  alt="right" src="${pageContext.request.contextPath}/resources/img/str-right.png"/></a></td>
                 <td>
                     <input type="submit" value="upd"/>
 
@@ -61,8 +61,8 @@
         <form action="/secretary/groups/add_group" method="post">
         <tr>
             <td><input name="id" size="2" type="text" value="" readonly/></td>
-            <td><input name="name" size="7" type="text" value=""/></td>
-            <td><select name="degree_id">
+            <td><input name="name" required="required" size="7" type="text" value=""/></td>
+            <td><select  required="required" name="degree_id">
                 <option value="" selected ></option>
                 <c:forEach var="spec" items="${specs_list}">
                     <option value="${spec.getId()}" >${spec.getDegree()} | ${spec.getSpecName()}</option>
@@ -70,7 +70,7 @@
             </select> </td>
             <td><input name="startDate"  class="data" size="9"  type="text" value=""/></td>
             <td><input name="finishDate"  class="data" size="9"  type="text" value=""/></td>
-            <td><select name="curator_id">
+            <td><select name="curator_id"  required="required" >
                 <option value="" selected ></option>
                 <c:forEach var="teacher" items="${teacher_list}">
                     <option value="${teacher.getId()}">${teacher}  </option>
@@ -78,7 +78,7 @@
             </select></td>
             <td>
 
-                <select name="educYear">
+                <select name="educYear"  required="required" >
                     <option value="" selected></option>
                 <c:forEach var="i" begin="1" end="4">
                     <option value="${i}">${i}</option>

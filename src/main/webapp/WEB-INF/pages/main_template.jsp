@@ -36,12 +36,9 @@
 <section class="content-of-home-page">
 <tiles:insertAttribute name="body_title"/>
     <div class="main-content">
-        <c:if test="${not empty error}">
-            <span class="message"><font color="red"> ERROR: ${error}</font></span>
-        </c:if>
 
         <c:if test="${not empty message}">
-            <span class="message"><font color="green">MESSAGE: ${message}</font></span>
+            <span class="message">MESSAGE: ${message}</span>
         </c:if>
         <tiles:insertAttribute name="body"/>
     </div>

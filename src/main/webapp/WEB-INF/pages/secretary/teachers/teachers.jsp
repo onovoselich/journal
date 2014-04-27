@@ -24,9 +24,9 @@
                 <form action="/secretary/teachers/alter_teacher" method="post">
                 <tr>
                     <td><input type="text" name="id" size="3" value="${teac.getId()}" readonly/></td>
-                    <td><input type="text" size="10" name="name" value="${teac.getName()}"/></td>
+                    <td><input type="text" size="10" name="name" required="required"  value="${teac.getName()}"/></td>
                     <td><input type="text" name="patronimic" value="${teac.getPatronimic()}"/></td>
-                    <td><input type="text" size="10" name="surname" value="${teac.getSurname()}"/></td>
+                    <td><input type="text" size="10" name="surname" required="required"  value="${teac.getSurname()}"/></td>
                     <td><c:if test="${not empty teac.getLogin()}" >
                         ${teac.getLogin()} &nbsp<a href="/secretary/teachers/upd_user?login=${teac.getLogin()}">new password</a>
                     </c:if>
@@ -52,9 +52,9 @@
                 <tr></tr>
                 <tr>
                     <td><input type="text" name="id" size="3" value="" readonly/></td>
-                    <td><input type="text" size="10" name="name" value=""/></td>
+                    <td><input type="text" size="10" name="name" required="required"  value=""/></td>
                     <td><input type="text" name="patronimic" value=""/></td>
-                    <td><input type="text" size="10" name="surname" value=""/></td>
+                    <td><input type="text" size="10" name="surname" required="required"  value=""/></td>
                     <td>${teac.getLogin()}</td>
                     <%-- <td><input type="text" name="spec" value=""/></td>
                      <td><input type="text" name="dyplom" value=""/></td>

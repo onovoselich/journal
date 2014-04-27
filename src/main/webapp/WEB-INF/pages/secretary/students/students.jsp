@@ -9,6 +9,18 @@
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/students.css">
 <div class="header-of-main">Студенти</div>
 <div class="main-part">
+    <div class="tabs"><ul>
+        <li><a href="/secretary/students">all</a></li>
+        <c:forEach items="${spec_list}" var="sp"><li>
+            <a href="/secretary/students/spec${sp.getId()}" >${sp}</a>
+        </li></c:forEach></ul>
+    </div>
+
+    <div class="tabs"><ul>
+        <c:forEach items="${groups_list}" var="gr"><li>
+            <a href="/secretary/students/group${gr.getId()}" >${gr}</a>
+        </li></c:forEach></ul>
+    </div>
     <div class="table">
         <table>
             <tr>
@@ -31,10 +43,10 @@
                 <form action="/secretary/students/alter_student" enctype="multipart/form-data" method="post">
                     <tr>
                         <td><input name="id" size="3" type="text" readonly value="${student.getId()}"/></td>
-                        <td><input name="name" type="text" size="8" value="${student.getName()}"/></td>
+                        <td><input name="name" required="required"  type="text" size="8" value="${student.getName()}"/></td>
                         <td><input name="patronimic" type="text" size="8" value="${student.getPatronimic()}"/></td>
-                        <td><input name="surname" type="text" size="8" value="${student.getSurname()}"/></td>
-                        <td><select name="groupId">
+                        <td><input name="surname"  required="required" type="text" size="8" value="${student.getSurname()}"/></td>
+                        <td><select name="groupId" required="required" >
                             <option value="" selected></option>
                             <c:forEach var="grp" items="${groups_list}">
                                 <option value="${grp.getId()}"
@@ -42,7 +54,7 @@
                             </c:forEach>
                         </select></td>
                         <td>
-                            <input name="gradebook" type="text" size="8" value="${student.getGradebook()}"/>
+                            <input name="gradebook" required="required"  type="text" size="8" value="${student.getGradebook()}"/>
                         </td>
                         <td><c:if test="${not empty student.getLogin()}">
                             ${student.getLogin()} &nbsp<a href="/secretary/students/upd_user?login=${student.getLogin()}">new
@@ -148,23 +160,23 @@
             <form action="/secretary/students/add_student" method="post">
                 <tr>
                     <td><input name="id" size="3" type="text" readonly value=""/></td>
-                    <td><input name="name" type="text" size="8" value=""/></td>
-                    <td><input name="patronimic" type="text" size="8" value=""/></td>
-                    <td><input name="surname" type="text" size="8" value=""/></td>
-                    <td><select name="groupId">
+                    <td><input name="name"  required="required" type="text" size="8" value=""/></td>
+                    <td><input name="patronimic"   type="text" size="8" value=""/></td>
+                    <td><input name="surname"  required="required" type="text" size="8" value=""/></td>
+                    <td><select name="groupId" required="required" >
                         <option value="" selected></option>
                         <c:forEach var="grp" items="${groups_list}">
                             <option value="${grp.getId()}">${grp.getName()}</option>
                         </c:forEach>
                     </select></td>
-                    <td><input name="gradebook" type="text" size="8" value="${student.getGradebook()}"/></td>
+                    <td><input name="gradebook" required="required"  type="text" size="8" value="${student.getGradebook()}"/></td>
                     <td></td>
                     <td>
                         <img class="str-down" onclick="down(event)" alt="down"
                              src="${pageContext.request.contextPath}/resources/img/str-down.png"/>
                     </td>
                     <td rowspan="2">
-                        <input type="submit" value="upd"/>
+                        <input type="submit" value="add"/>
                         <input type="reset" value="cancel"/>
                     </td>
                 </tr>
