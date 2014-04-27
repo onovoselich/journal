@@ -87,8 +87,8 @@ public class TeacherController {
             }
 
 
-        model.put("group_id", groupId);
-        model.put("subject_id", subjectId);
+        model.put("group", groupDao.getGroup(groupId));
+        model.put("subject", subjectDao.getSubject(subjectId));
         model.put("teac_subj_grp_id", tgsId);
         model.put("stud_mark_list", studMarkList);
 

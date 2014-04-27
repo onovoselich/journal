@@ -19,6 +19,7 @@ public interface SqlQueries {
     public static final  String GET_ID = "call get_user_id(?);";
     public static final String GET_STUDENT_INFO = "select * from `students` WHERE  `id` = ?";
     public static final String GET_GROUP_SUBJECTS = "CALL `get_group_subjects`(?);";
+    public static final String GET_GROUP_SUBJECTS_SUM = "CALL `get_group_subjects_sum`(?,?);";
     public static final String GET_GROUP_STUDENTS = "SELECT `id`,`name`,`surname`,`patronimic`,`gradebook` FROM `students` WHERE `groupId` = ?;";
     public static final String GET_SPEC_STUDENTS = "SELECT    `students`.`Id`    ,`students`.`Surname`    , `students`.`Name`    , `students`.`Patronimic`    , `students`.`Gradebook`FROM    `kep_v2`.`students`    INNER JOIN `kep_v2`.`groups`         ON (`students`.`GroupId` = `groups`.`Id`)WHERE (`groups`.`Degree` =?);";
 

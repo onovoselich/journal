@@ -6,8 +6,19 @@
 
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/students.css">
 
-<div class="header-of-main">Відомість успішності групи</div>
+<div class="header-of-main">Відомість успішності групи ${group} з дисципліни ${subject}</div>
 <div class="main-part">
+    <div class="tabs"><ul>
+        <li><a href="/student/1sumestr">I</a></li>
+        <li><a href="/student/2sumestr">II</a></li>
+        <li><a href="/student/3sumestr">III</a></li>
+        <li><a href="/student/4sumestr">IV</a></li>
+        <li><a href="/student/5sumestr">V</a></li>
+        <li><a href="/student/6sumestr">VI</a></li>
+        <li><a href="/student/7sumestr">VII</a></li>
+        <li><a href="/student/8sumestr">VIII</a> </li>
+    </ul>
+    </div>
     <div class="table">
 <table >
     <tbody>
@@ -35,8 +46,8 @@
             <form method="post">
                 <input type="hidden" name="student_id" value="${row.key.getId()}">
                 <input type="hidden" name="teac_subj_grp_id" value="${teac_subj_grp_id}">
-                <input type="hidden" name="group_id" value="${group_id}">
-                <input type="hidden" name="subject_id" value="${subject_id}">
+                <input type="hidden" name="group_id" value="${group.getId()}">
+                <input type="hidden" name="subject_id" value="${subject.getId()}">
                 <td>
                     <%=++i%>
                 </td>

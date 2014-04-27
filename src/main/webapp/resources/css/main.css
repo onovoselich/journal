@@ -4,3 +4,32 @@ body {
     font-size: 90.5%;
     font-family: Verdana, Geneva, sans-serif;
 }
+
+.tabs ul{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+.tabs li{
+    float: left;
+    margin: 0.5px 1px;
+    /* height: 44px; */
+}
+.tabs a:link, .tabs a:visited{
+    background-color: #1A1A4D;
+    border-radius: 6px 6px 0px 0px;
+    display: block;
+    width: auto;
+    text-align: center;
+    vertical-align: bottom;
+    padding: 4px 25px;
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+
+}
+.tabs a:hover, .tabs a:active{
+
+    background-color: #31315F;
+}

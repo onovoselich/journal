@@ -4,6 +4,7 @@ import org.springframework.jdbc.core.simple.ParameterizedRowMapper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -38,6 +39,7 @@ public class Group {
     private String startDate;
     private String finishDate;
     private int educYear;
+    private int sumestr;
 
     public Group() {
     }
@@ -110,5 +112,12 @@ public class Group {
 
     public void setSpec(Spetiality spec) {
         this.spec = spec;
+    }
+
+    public Integer getSumestr() {
+        Integer sum=this.getEducYear()*2;
+        if(Calendar.getInstance().get(Calendar.MONTH)<Calendar.MARCH)
+            sum-=1;
+        return sum;
     }
 }

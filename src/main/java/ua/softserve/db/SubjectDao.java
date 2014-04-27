@@ -24,6 +24,15 @@ public class SubjectDao {
         }
         return result;
     }
+    public List<Subject> getGroupSubjects(int grId, int sum){
+        JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
+        List<Subject> result =  (List<Subject>)jdbcTemplate.query(GET_GROUP_SUBJECTS_SUM, new Object[]{grId,sum},Subject.subjectRm);
+
+        if(result.isEmpty()){
+            return null;
+        }
+        return result;
+    }
 
     public Subject getSubject(int subId){
         JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);

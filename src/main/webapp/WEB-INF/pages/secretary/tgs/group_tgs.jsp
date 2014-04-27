@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ page import="ua.softserve.logic.Number" %>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
 <div class="header-of-main">ПРЕДМЕТИ ГРУПИ ${group}</div>
@@ -11,7 +12,8 @@
         <table>
             <tr>
                 <th>Предмет</th>
-                <th>Викладач</th>
+                <th>Викладач</th
+                <th>Симестр</th>
             </tr>
             <c:forEach var="tuple" items="${tgs_list}">
                 <form action="/secretary/groups/upd_tgs" method="post">
@@ -31,6 +33,12 @@
                             <option value="${teac.getId()}" <c:if test="${teac.getId() == tuple.value.getY().getId()}">selected</c:if>>${teac}</option>
                         </c:forEach>
                     </select></td>
+                    <td>
+                        <%for(int i=1; i<=8;i++){%>
+                            <input type="checkbox" name="sum" id="sum<%=i%>" value="<%=i%>">
+                        <label for="sum<%=i%>"> <%=Number.arabic2roman(i)%> </label>
+                        <%;}%>
+                    </td>
                     <td>
                         <input type="submit"  value="upd"/>
                         <input type="reset" value="cancel"/>

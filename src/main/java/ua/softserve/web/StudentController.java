@@ -9,18 +9,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import ua.softserve.db.MarkDao;
-import ua.softserve.db.StudentDao;
-import ua.softserve.db.SubjectDao;
-import ua.softserve.db.TeacherDao;
+import ua.softserve.db.*;
 import ua.softserve.entities.Mark;
 import ua.softserve.entities.Student;
 import ua.softserve.entities.Subject;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 
 /**
  * Created by troll on 13.01.14.
@@ -39,29 +33,37 @@ public class StudentController {
     private TeacherDao teacherDao;
     @Autowired
     private MarkDao markDao;
+    @Autowired
+    private GroupDao groupDao;
 
     @RequestMapping({"/", ""})
     public String main(ModelMap model) {
+
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         Student student = studentDao.getStudentInfo(auth.getName());
-        model.put("student", student);
-        model.put("subjectList", subjectDao.getGroupSubjects(student.getGroupId()));
-        return STUDENT_PAGE;
+        int sum;
+        try{
+            sum = groupDao.getGroup(student.getGroupId()).getSumestr();
+        }catch(Exception e){
+            sum = 1;
+        }
+        return "redirect:student/"+sum+"sumestr";
     }
 
-/*
     @RequestMapping("{sum}sumestr")
-    public String studRoom(@PathVariable Integer sum){
+    public String studRoom(@PathVariable Integer sum,
+                           ModelMap model){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         Student student = studentDao.getStudentInfo(auth.getName());
+        model.put("sum",sum);
         model.put("student", student);
-        model.put("subjectList", subjectDao.getGroupSubjects(student.getGroupId()));
+        model.put("subjectList", subjectDao.getGroupSubjects(student.getGroupId(),sum));
         return STUDENT_PAGE;
     }
-*/
 
     @RequestMapping(value = "/vidomist", method = RequestMethod.GET)
     public String view(@RequestParam(value = "subj", required = false) String[] subjectsId,
+                       @RequestParam(value = "sum") Integer sum,
                        ModelMap model) {
 
 
@@ -74,7 +76,9 @@ public class StudentController {
         markList.put(Subject.DUF_ZALIK, new TreeMap<Subject, Mark>());
 
         if (subjectsId == null) {
-            List<Subject> grlst = subjectDao.getGroupSubjects(stud.getGroupId());
+            List<Subject> grlst = subjectDao.getGroupSubjects(stud.getGroupId(),sum);
+        if (grlst==null)
+            throw new RuntimeException("Немає даних по предметам");
 
             subjectsId = new String[grlst.size()];
             for (int i = 0; i < grlst.size(); i++) {
@@ -89,7 +93,7 @@ public class StudentController {
             markList.get(subj.getControlForm()).put(subj, mark);
         }
 
-
+        model.put("sum",sum);
         model.put("student", stud);
         model.put("marks", markList);
 
