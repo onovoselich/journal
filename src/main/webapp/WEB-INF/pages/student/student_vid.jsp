@@ -5,9 +5,20 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/student-vid.css">
-<div class="header-of-main">це ваша відомість успішності</div>
+<div class="header-of-main">відомість успішності за ${sum}-й симестр</div>
 <div class="main-part">
-    <div class="tabs"><ul><li>  <a href="/student/vidomist">Всі предмети</a></li>
+    <div class="tabs"><ul>
+        <li><a href="/student/vidomist?sum=1">I</a></li>
+        <li><a href="/student/vidomist?sum=2">II</a></li>
+        <li><a href="/student/vidomist?sum=3">III</a></li>
+        <li><a href="/student/vidomist?sum=4">IV</a></li>
+        <li><a href="/student/vidomist?sum=5">V</a></li>
+        <li><a href="/student/vidomist?sum=6">VI</a></li>
+        <li><a href="/student/vidomist?sum=7">VII</a></li>
+        <li><a href="/student/vidomist?sum=8">VIII</a> </li>
+    </ul>
+    </div>
+    <div class="tabs"><ul><li>  <a href="/student/vidomist?sum=${sum}">Всі предмети</a></li>
     </ul></div>
  <div class="table">
 <table>
