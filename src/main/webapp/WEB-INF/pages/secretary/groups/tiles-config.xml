@@ -1,0 +1,20 @@
+<!DOCTYPE tiles-definitions PUBLIC
+        "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN"
+        "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+<tiles-definitions>
+
+
+    <definition name="sec_groups_body" template="/WEB-INF/pages/secretary/groups/groups_template.jsp">
+        <put-attribute name="specs" value="/WEB-INF/pages/secretary/groups/specs.jsp"/>
+        <put-attribute name="groups" value="/WEB-INF/pages/secretary/groups/groups.jsp"/>
+    </definition>
+
+
+    <definition name="secGroupsPage" extends="template">
+        <put-attribute name="body" value="sec_groups_body"/>
+    </definition>
+
+
+
+
+</tiles-definitions>

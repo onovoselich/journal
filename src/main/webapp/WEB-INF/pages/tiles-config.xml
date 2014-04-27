@@ -1,0 +1,30 @@
+<!DOCTYPE tiles-definitions PUBLIC
+        "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN"
+        "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+<tiles-definitions>
+    <definition name="template"
+                template="/WEB-INF/pages/main_template.jsp">
+        <put-attribute name="header"
+                       value="/WEB-INF/pages/parts/header.jsp"/>
+        <put-attribute name="body_title"
+                       value="/WEB-INF/pages/parts/title.jsp"/>
+        <put-attribute name="footer"
+                       value="/WEB-INF/pages/parts/footer.jsp"/>
+    </definition>
+
+
+
+    <definition name="mainPage" extends="template">
+        <put-attribute name="body" value="/WEB-INF/pages/main_body.jsp"/>
+    </definition>
+    
+    <definition name="loginPage" extends="template">
+        <put-attribute name="body" value="/WEB-INF/pages/login_body.jsp"/>
+    </definition>
+
+    <definition name="errorPage" extends="template">
+        <put-attribute name="body" value="/WEB-INF/pages/error_page.jsp"/>
+    </definition>
+
+
+</tiles-definitions>

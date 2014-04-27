@@ -1,0 +1,33 @@
+<!DOCTYPE tiles-definitions PUBLIC
+        "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN"
+        "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+<tiles-definitions>
+
+    <definition name="stud_body"
+                template="/WEB-INF/pages/student/body_template.jsp">
+        <put-attribute name="stud_card"
+                       value="/WEB-INF/pages/student/student_card.jsp"/>
+        <put-attribute name="content"
+                       value="/WEB-INF/pages/student/student_home.jsp"/>
+    </definition>
+
+
+    <definition name="studentPage" extends="template">
+        <put-attribute name="body" value="stud_body"/>
+
+    </definition>
+
+    <definition name="stud_vid" extends="stud_body">
+        <put-attribute name="content"
+                       value="/WEB-INF/pages/student/student_vid.jsp"/>
+    </definition>
+
+    <definition name="studentVid" extends="template">
+        <put-attribute name="body" value="stud_vid" />
+    </definition>
+
+    <definition name="studentCard" extends="template">
+        <put-attribute name="body" value="/WEB-INF/pages/student/student_card.jsp"/>
+    </definition>
+
+</tiles-definitions>

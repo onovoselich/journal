@@ -1,0 +1,17 @@
+<!DOCTYPE tiles-definitions PUBLIC
+        "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN"
+        "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+<tiles-definitions>
+
+
+
+
+    <definition name="addUserPage" extends="template">
+        <put-attribute name="body" value="/WEB-INF/pages/secretary/user/add_user.jsp"/>
+    </definition>
+    <definition name="updUserPage" extends="template">
+        <put-attribute name="body" value="/WEB-INF/pages/secretary/user/upd_user.jsp"/>
+    </definition>
+
+
+</tiles-definitions>

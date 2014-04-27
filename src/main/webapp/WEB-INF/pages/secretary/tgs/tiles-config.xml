@@ -1,0 +1,17 @@
+<!DOCTYPE tiles-definitions PUBLIC
+        "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN"
+        "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+<tiles-definitions>
+
+
+
+
+    <definition name="teacherTgsPage" extends="template">
+        <put-attribute name="body" value="/WEB-INF/pages/secretary/tgs/teacher_tgs.jsp"/>
+    </definition>
+    <definition name="groupTgsPage" extends="template">
+        <put-attribute name="body" value="/WEB-INF/pages/secretary/tgs/group_tgs.jsp"/>
+    </definition>
+
+
+</tiles-definitions>
