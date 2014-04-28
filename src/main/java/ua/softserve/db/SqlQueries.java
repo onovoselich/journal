@@ -8,8 +8,11 @@ public interface SqlQueries {
     public static final String INSERT_USER = "call `new_user`(?,?,?,?);";
     public static final String DELETE_USER = "DELETE FROM `users` WHERE `login` = ?";
 
+    public static final String DELETE_TGS = "DELETE FROM    `kep_v4`.`group_teacher_subject`WHERE (`teacher_ID` =?    AND `group_ID` =?    AND `subject_ID` =?    AND `sumestr` =?);";
     public static final String UPDATE_TGS = "UPDATE `group_teacher_subject` SET `teacher_ID`=?,`group_ID`=?,`subject_ID`=?  WHERE `group_teacher_subject`.`Id` = ?;";
     public static final String INSERT_TGS = "INSERT INTO `group_teacher_subject` ( `teacher_ID`,`group_ID`,`subject_ID`,`sumestr`)  values (?,?,?,?);";
+    public static final String GET_TGS_BY_ID = "SELECT * FROM `group_teacher_subject` WHERE `group_teacher_subject`.`id`=?";
+    public static final String GET_TGS_IDS = "SELECT `group_teacher_subject`.`id` FROM `group_teacher_subject` WHERE (`teacher_ID` =?    AND `group_ID` =?    AND `subject_ID` =?);";
 
 
     public static final String MARK_INSERT = "call insert_mark(?,?,?,?)";
@@ -27,6 +30,7 @@ public interface SqlQueries {
     public static final String GET_TEACHER_BY_SUBJ = "call `get_teacher`(?,?);";
     public static final String GET_TEACHER_INFO = "select * from `teachers` where `id` = ?";
     public static final String GET_SUBJECT = "select * from `subjects` where `Id` = ?";
+    public static final String GET_SUMESTERS = "SELECT    `sumestr`FROM    `group_teacher_subject`WHERE (`teacher_ID` =?    AND `group_ID` =?    AND `subject_ID` =?);";
     public static final String GET_MARK = "CALL `get_mark`(?,?);";
     public static final String GET_GROUP_BY_CURATOR = "select `id`, `name`, `educYear`,`degree` from `groups` where `curatorId` = ?";
     public static final String GET_TEACHER_GROUPS = "CALL `get_teacher_groups`(?);";

@@ -151,12 +151,24 @@ public class SecGroupsController {
             @RequestParam("gr_id") Integer grId,
             @RequestParam("teac_id") Integer teacId,
             @RequestParam("subj_id") Integer subjectId,
-            @RequestParam("sum") Integer[] sum,
+            @RequestParam("sum") List<Integer> sum,
             ModelMap model) throws UpdateException {
 
 
         if (!tgsDao.updTgs(id, teacId, grId, subjectId))
             throw new UpdateException();
+
+        List<Integer> sumList = tgsDao.getSumesters(teacId,grId,subjectId);
+        if(sumList!=null && !sumList.isEmpty()){
+            for(Integer i:sum){
+                if(!sumList.contains(i))
+                    tgsDao.addTgs(teacId,grId,subjectId,i);
+            }
+            for(Integer i:sumList){
+                if(!sum.contains(i))
+                    tgsDao.delTgs(teacId,grId,subjectId,i);
+            }
+        }
         model.put("message", SUCCESS);
 
 

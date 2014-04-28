@@ -30,13 +30,13 @@
                     <td><select name="teac_id" required="required" >
                         <option value="" selected></option>
                         <c:forEach items="${teac_list}" var="teac">
-                            <option value="${teac.getId()}" <c:if test="${teac.getId() == tuple.value.getY().getId()}">selected</c:if>>${teac}</option>
+                            <option  value="${teac.getId()}" <c:if test="${teac.getId() == tuple.value.getY().getId()}">selected</c:if>>${teac}</option>
                         </c:forEach>
                     </select></td>
                     <td>
                         <c:forEach var="i" begin="1" end="8">
 
-                            <input <c:if test="${tuple.value.getZ().contains(i)}">checked </c:if> type="checkbox" name="sum" id="sum${i}" value="${i}">
+                            <input <c:if test="${tuple.value.getZ().contains(i)}">checked </c:if>  required="required"  type="checkbox" name="sum" id="sum${i}" value="${i}">
                         <label for="sum${i}"> <%=Number.arabic2roman((Integer)pageContext.getAttribute("i"))%> </label>
                         </c:forEach>
                     </td>
@@ -66,7 +66,7 @@
                     <td>
                         <c:forEach var="i" begin="1" end="8">
 
-                            <input  type="checkbox" name="sum" id="sum${i}" value="${i}">
+                            <input required="required"  type="checkbox" name="sum" id="sum${i}" value="${i}">
                             <label for="sum${i}"> <%=Number.arabic2roman((Integer)pageContext.getAttribute("i"))%> </label>
                         </c:forEach>
                     </td>

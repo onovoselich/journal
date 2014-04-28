@@ -10,10 +10,7 @@ import ua.softserve.logic.Triple;
 import ua.softserve.logic.Tuple;
 
 import javax.sql.DataSource;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 
 import static ua.softserve.db.SqlQueries.*;
 
@@ -84,7 +81,6 @@ public class TgsDao {
         return result;
     }
 
-
     public boolean addTgs(Integer teacId, Integer grId, Integer subjectId,Integer sum) {
         JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
 
@@ -96,13 +92,40 @@ public class TgsDao {
 
     public boolean updTgs(Integer id, Integer teacId, Integer grId, Integer subjectId) {
         JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
+        try{
+                Map<String,Object> old = jdbcTemplate.queryForMap(GET_TGS_BY_ID, id);
+        System.out.println(old);
 
-        if (jdbcTemplate.update(UPDATE_TGS,teacId,grId,subjectId,id)==0)
+                List<Integer> idLst = jdbcTemplate.queryForList(GET_TGS_IDS, Integer.class, new Object[]{old.get("teacher_ID"),old.get("group_ID"),old.get("subject_ID")});
+                System.out.println(idLst);
+                for(Integer i:idLst)
+                    jdbcTemplate.update(UPDATE_TGS,teacId,grId,subjectId,i);
+        }catch (Exception e){
             return false;
+        }
 
 
         return true;
 
+    }
+
+    public List<Integer> getSumesters(int teacId,int groupId, int subjId){
+
+        JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
+        List<Integer> result = jdbcTemplate.queryForList(GET_SUMESTERS,Integer.class,new Object[]{teacId,groupId,subjId});
+        if (result.isEmpty())
+            return null;
+        return result;
+    }
+
+    public boolean delTgs(int teacId,int grId,int subjId,int sum){
+        JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
+
+        if (jdbcTemplate.update(DELETE_TGS,teacId,grId,subjId,sum)==0)
+            return false;
+
+
+        return true;
     }
 
 }

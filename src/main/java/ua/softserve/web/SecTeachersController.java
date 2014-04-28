@@ -127,6 +127,7 @@ public class SecTeachersController {
             throw new RuntimeException("На цій спеціальності немає такого предмета");
         if (!tgsDao.updTgs(id, teacId, grId, subjectId))
             throw new UpdateException();
+
         model.put("message", SUCCESS);
 
 
