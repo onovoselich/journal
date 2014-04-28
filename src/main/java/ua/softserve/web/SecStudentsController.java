@@ -68,7 +68,7 @@ public class SecStudentsController implements ServletContextAware {
 
         model.put("spec_list",specDao.getAllSpecs());
         model.put("groups_list", groupDao.getAllGroups());
-        model.put("students_list", studentDao.getGroupStudents(groupId));
+        model.put("students_list", studentDao.getGroupStudentsInfo(groupId));
 
         return STUDENTS_PAGE;
     }

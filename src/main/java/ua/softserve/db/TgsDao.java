@@ -81,6 +81,15 @@ public class TgsDao {
         return result;
     }
 
+    public Integer getTeacherGroupSubject(int teacId, int grId, int subjId,int sum){
+        JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
+        List<Integer> result =  jdbcTemplate.queryForList(GET_TEACHER_SUBJECT_GROUP_ID, new Object[]{teacId, grId, subjId,sum},Integer.class);
+        if(result.isEmpty())
+            return null;
+        else
+            return (result.get(0));
+    }
+
     public boolean addTgs(Integer teacId, Integer grId, Integer subjectId,Integer sum) {
         JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
 
@@ -94,10 +103,10 @@ public class TgsDao {
         JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
         try{
                 Map<String,Object> old = jdbcTemplate.queryForMap(GET_TGS_BY_ID, id);
-        System.out.println(old);
+
 
                 List<Integer> idLst = jdbcTemplate.queryForList(GET_TGS_IDS, Integer.class, new Object[]{old.get("teacher_ID"),old.get("group_ID"),old.get("subject_ID")});
-                System.out.println(idLst);
+
                 for(Integer i:idLst)
                     jdbcTemplate.update(UPDATE_TGS,teacId,grId,subjectId,i);
         }catch (Exception e){

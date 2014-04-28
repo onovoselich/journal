@@ -116,7 +116,7 @@ public class StudentDao {
 
     public Object getSpecStudents(Integer specId) {
         JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
-        List<Student> result = jdbcTemplate.query(GET_SPEC_STUDENTS,new Object[]{specId},Student.studentRm);
+        List<Student> result = jdbcTemplate.query(GET_SPEC_STUDENTS,new Object[]{specId},Student.studentInfoRm);
 
         if(result.isEmpty()){
             return null;

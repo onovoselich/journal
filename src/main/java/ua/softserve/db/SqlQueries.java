@@ -24,19 +24,19 @@ public interface SqlQueries {
     public static final String GET_GROUP_SUBJECTS = "CALL `get_group_subjects`(?);";
     public static final String GET_GROUP_SUBJECTS_SUM = "CALL `get_group_subjects_sum`(?,?);";
     public static final String GET_GROUP_STUDENTS = "SELECT `id`,`name`,`surname`,`patronimic`,`gradebook` FROM `students` WHERE `groupId` = ?;";
-    public static final String GET_SPEC_STUDENTS = "SELECT    `students`.`Id`    ,`students`.`Surname`    , `students`.`Name`    , `students`.`Patronimic`    , `students`.`Gradebook`FROM    `kep_v2`.`students`    INNER JOIN `kep_v2`.`groups`         ON (`students`.`GroupId` = `groups`.`Id`)WHERE (`groups`.`Degree` =?);";
+    public static final String GET_SPEC_STUDENTS = "SELECT    * FROM    `students`    INNER JOIN `groups`         ON (`students`.`GroupId` = `groups`.`Id`)WHERE (`groups`.`Degree` =?);";
 
     public static final String GET_GROUP_STUDENTS_INFO = "SELECT * FROM `students` WHERE `groupId` = ?;";
     public static final String GET_TEACHER_BY_SUBJ = "call `get_teacher`(?,?);";
     public static final String GET_TEACHER_INFO = "select * from `teachers` where `id` = ?";
     public static final String GET_SUBJECT = "select * from `subjects` where `Id` = ?";
     public static final String GET_SUMESTERS = "SELECT    `sumestr`FROM    `group_teacher_subject`WHERE (`teacher_ID` =?    AND `group_ID` =?    AND `subject_ID` =?);";
-    public static final String GET_MARK = "CALL `get_mark`(?,?);";
+    public static final String GET_MARK = "CALL `get_mark`(?,?,?);";
     public static final String GET_GROUP_BY_CURATOR = "select `id`, `name`, `educYear`,`degree` from `groups` where `curatorId` = ?";
     public static final String GET_TEACHER_GROUPS = "CALL `get_teacher_groups`(?);";
     public static final String GET_TEACHER_GROUP_SUBJECTS = "CALL `get_teacher_group_subjects`(?,?)";
     public static final String GET_TEACHER_SUBJECTS = "CALL `get_teacher_subjects`(?)";
-    public static final String GET_TEACHER_SUBJECT_GROUP_ID = "SELECT `id`FROM `group_teacher_subject` WHERE (`teacher_ID` =? AND `group_ID` =? AND `subject_ID` =?);";
+    public static final String GET_TEACHER_SUBJECT_GROUP_ID = "SELECT `id`FROM `group_teacher_subject` WHERE (`teacher_ID` =? AND `group_ID` =? AND `subject_ID` =? AND `sumestr`=?);";
     public static final String GET_ALL_TEACHERS = "select * from `teachers`";
     public static final String GET_ALL_SUBJECTS = "select * from `subjects`";
     public static final String GET_SPEC_SUBJECTS = "select * from `subjects` where `specId` = ?";

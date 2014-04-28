@@ -47,6 +47,8 @@ public class TeacherController {
     @Autowired
     MarkDao markDao;
 
+    @Autowired
+    TgsDao tgsDao;
 
     @RequestMapping({"/", ""})
     public String main(@RequestParam(value = "stud_id", required = false) Integer studId,
@@ -62,6 +64,7 @@ public class TeacherController {
         model.put("grp_students", studentDao.getGroupStudents(grp.getId()));
         if (studId != null)
             model.put("student", studentDao.getStudentInfo(studId));
+
         model.put("group_list", groupDao.getTeacherGroups(teac.getId()));
         model.put("subject_list", subjectDao.getTeacherSubjects(teac.getId()));
 
@@ -71,11 +74,14 @@ public class TeacherController {
     @RequestMapping(value = "/vidomist", method = RequestMethod.GET)
     public String view(@RequestParam("group_id") Integer groupId,
                        @RequestParam("subject_id") Integer subjectId,
+                       @RequestParam(required=false) Integer sum,
                        ModelMap model) {
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         Teacher teac = teacherDao.getTeacherInfo(auth.getName());
-        Integer tgsId = teacherDao.getTeacherGroupSubject(teac.getId(), groupId, subjectId);
+        if (sum==null)
+            sum = groupDao.getGroup(groupId).getSumestr();
+        Integer tgsId = tgsDao.getTeacherGroupSubject(teac.getId(), groupId, subjectId,sum);
         if (tgsId == null)
             throw new RuntimeException("Ви не викладаєте цей предмет у цієї групи!");
 
@@ -83,10 +89,11 @@ public class TeacherController {
         List<Student> studList = studentDao.getGroupStudents(groupId);
         if (studList != null)
             for (Student st : studList) {
-                studMarkList.put(st, markDao.getMark(st.getId(), subjectId));
+    /**/            studMarkList.put(st, markDao.getMark(st.getId(), subjectId,sum));
             }
 
 
+        model.put("sum_lst",tgsDao.getSumesters(teac.getId(),groupId,subjectId));
         model.put("group", groupDao.getGroup(groupId));
         model.put("subject", subjectDao.getSubject(subjectId));
         model.put("teac_subj_grp_id", tgsId);
@@ -101,8 +108,6 @@ public class TeacherController {
                           @RequestParam("teac_subj_grp_id") Integer tsgId,
                           @RequestParam("group_id") Integer groupId,
                           @RequestParam("subject_id") Integer subjectId,
-                          HttpServletResponse response,
-                          HttpServletRequest request,
                           ModelMap model) throws IOException {
 
 

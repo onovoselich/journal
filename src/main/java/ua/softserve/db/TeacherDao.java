@@ -43,14 +43,7 @@ public class TeacherDao {
             return (result.get(0));
     }
 
-    public Integer getTeacherGroupSubject(int teacId, int grId, int subjId){
-        JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
-        List<Integer> result =  jdbcTemplate.queryForList(GET_TEACHER_SUBJECT_GROUP_ID, new Object[]{teacId, grId, subjId},Integer.class);
-        if(result.isEmpty())
-            return null;
-        else
-            return (result.get(0));
-    }
+
 
     public List<Teacher> getAllTeachers(){
         JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);

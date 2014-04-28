@@ -18,9 +18,9 @@ public class MarkDao {
     DataSource dataSource;
 
 
-    public Mark getMark(int studId, int subjId) {
+    public Mark getMark(int studId, int subjId , int sum) {
         JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
-        List<Mark> result = jdbcTemplate.query(GET_MARK,new Object[]{studId, subjId},Mark.markRm);
+        List<Mark> result = jdbcTemplate.query(GET_MARK,new Object[]{studId, subjId, sum},Mark.markRm);
         if(result.isEmpty()){
             return null;
         }

@@ -12,10 +12,12 @@
 
     <div class="tabs"><ul>
 
-            <%for(int i=1; i<=8;i++){%>
-        <li><a href="/student/<%=i%>sumestr"><%=Number.arabic2roman(i)%></a></li>
+        <c:forEach var="i" items="${sum_lst}">
 
-            <%;}%>
+            <li><a href="/teacher/vidomist?group_id=${group.getId()}&subject_id=${subject.getId()}&sum=${i}"><%=Number.arabic2roman((Integer)pageContext.getAttribute("i"))%></a></li>
+
+        </c:forEach>
+                </ul></div>
     <div class="table">
 <table >
     <tbody>

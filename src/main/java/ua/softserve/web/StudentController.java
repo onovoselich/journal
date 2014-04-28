@@ -89,7 +89,7 @@ public class StudentController {
         for (int i = 0; i < subjectsId.length; i++) {
             Subject subj = subjectDao.getSubject(Integer.parseInt(subjectsId[i]));
             subj.setTeacher(teacherDao.getTeacher(subj.getId(), stud.getGroupId()));
-            Mark mark = markDao.getMark(stud.getId(), subj.getId());
+            Mark mark = markDao.getMark(stud.getId(), subj.getId(),sum);
             markList.get(subj.getControlForm()).put(subj, mark);
         }
 

@@ -120,13 +120,26 @@ public class SecTeachersController {
                          @RequestParam("gr_id") Integer grId,
                          @RequestParam("teac_id") Integer teacId,
                          @RequestParam("subj_id") Integer subjectId,
-                         @RequestParam Integer[] sum) throws UpdateException {
+                         @RequestParam List<Integer> sum) throws UpdateException {
 
 
         if (groupDao.getGroup(grId).getSpec().getId()!=subjectDao.getSubject(subjectId).getSpetiality().getId())
-            throw new RuntimeException("На цій спеціальності немає такого предмета");
+            throw new RuntimeException("Оберіть предмет з категорії відповідної спеціальності");
         if (!tgsDao.updTgs(id, teacId, grId, subjectId))
             throw new UpdateException();
+
+        List<Integer> sumList = tgsDao.getSumesters(teacId,grId,subjectId);
+        if(sumList!=null && !sumList.isEmpty()){
+            for(Integer i:sum){
+                if(!sumList.contains(i))
+                    tgsDao.addTgs(teacId,grId,subjectId,i);
+            }
+            for(Integer i:sumList){
+                if(!sum.contains(i))
+                    tgsDao.delTgs(teacId,grId,subjectId,i);
+            }
+        }
+
 
         model.put("message", SUCCESS);
 
