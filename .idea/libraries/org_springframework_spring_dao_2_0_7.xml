@@ -1,0 +1,19 @@
+<component name="libraryTable">
+  <library name="org.springframework:spring-dao:2.0.7" type="repository">
+    <properties maven-id="org.springframework:spring-dao:2.0.7" />
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/spring-dao-2.0.7.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/aopalliance-1.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/commons-logging-1.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/log4j-1.2.12.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/logkit-1.0.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/avalon-framework-4.1.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/servlet-api-2.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/spring-beans-2.0.7.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/spring-core-2.0.7.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/spring-context-2.0.7.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

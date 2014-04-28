@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-ear" name="unnamed">
+    <output-path>$PROJECT_DIR$/out/artifacts/unnamed</output-path>
+    <root id="root">
+      <element id="library" level="application" name="com.jpattern:jporm-jdbctemplate:5.3.0" />
+      <element id="library" level="application" name="servlet-api-2.5" />
+    </root>
+  </artifact>
+</component>
