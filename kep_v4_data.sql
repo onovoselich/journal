@@ -18,7 +18,7 @@ USE `kep_v4`;
 
 /*Data for the table `group_teacher_subject` */
 
-insert  into `group_teacher_subject`(`id`,`teacher_ID`,`group_ID`,`subject_ID`,`sumestr`,`Years`) values (20,10,8,16,1,'2000-2000'),(21,10,8,15,1,'2000-2000'),(22,13,8,13,1,'2000-2000'),(23,11,9,9,1,'2000-2000'),(24,10,9,15,1,'2000-2000'),(25,13,9,17,1,'2000-2000'),(26,12,10,9,1,'2000-2000'),(27,11,10,12,1,'2000-2000'),(28,12,10,11,1,'2000-2000'),(29,12,11,13,1,'2000-2000'),(30,11,11,9,1,'2000-2000'),(31,13,11,17,1,'2000-2000'),(32,10,8,11,1,'2000-2000'),(33,12,8,9,1,'2000-2000');
+insert  into `group_teacher_subject`(`id`,`teacher_ID`,`group_ID`,`subject_ID`,`sumestr`,`Years`) values (21,10,8,15,1,'2000-2000'),(22,13,8,13,1,'2000-2000'),(23,11,9,9,1,'2000-2000'),(24,11,9,15,1,'2000-2000'),(25,11,9,17,1,'2000-2000'),(26,12,10,21,1,'2000-2000'),(27,11,10,22,1,'2000-2000'),(28,12,10,26,1,'2000-2000'),(29,12,11,27,1,'2000-2000'),(30,11,11,25,1,'2000-2000'),(31,13,11,20,1,'2000-2000'),(32,10,8,11,1,'2000-2000'),(33,12,8,9,1,'2000-2000'),(34,10,8,17,1,NULL),(37,10,11,22,3,NULL),(38,10,11,22,4,NULL),(41,10,8,17,3,NULL),(42,10,8,17,8,NULL),(43,11,8,9,1,NULL),(44,11,8,11,4,NULL),(45,11,8,11,1,NULL),(46,11,8,11,2,NULL),(47,11,8,11,3,NULL),(48,13,8,16,7,NULL),(49,13,8,16,8,NULL),(50,11,11,25,3,NULL),(51,11,11,25,8,NULL),(52,11,9,15,2,NULL),(53,11,9,12,3,NULL),(54,11,9,12,4,NULL),(55,11,9,16,5,NULL),(56,11,9,15,5,NULL),(57,11,9,11,8,NULL),(58,11,9,10,8,NULL),(59,10,9,14,5,NULL),(60,10,9,14,6,NULL),(61,10,9,14,7,NULL),(62,11,9,15,8,NULL),(63,11,9,17,3,NULL),(64,11,9,17,8,NULL),(65,11,9,16,8,NULL),(66,11,9,9,2,NULL),(67,11,9,9,3,NULL),(68,11,9,9,4,NULL),(69,11,9,9,5,NULL),(70,11,9,9,6,NULL),(71,11,9,9,7,NULL),(72,11,9,9,8,NULL),(73,10,9,14,1,NULL),(74,11,9,10,1,NULL),(75,11,9,11,1,NULL),(76,11,9,16,1,NULL),(77,11,9,12,1,NULL);
 
 /*Data for the table `groups` */
 
@@ -26,7 +26,7 @@ insert  into `groups`(`Id`,`Name`,`Degree`,`StartDate`,`FinishDate`,`CuratorId`,
 
 /*Data for the table `marks` */
 
-insert  into `marks`(`Id`,`Mark`,`StudentId`,`Retake`,`TeacherSubjectGroupId`,`Date`) values (46,10,14,NULL,26,NULL),(47,5,15,NULL,26,NULL),(51,6,9,NULL,20,NULL),(52,12,9,NULL,21,NULL),(53,8,9,NULL,22,NULL),(55,6,13,NULL,23,NULL),(56,9,9,NULL,23,NULL),(62,8,17,NULL,30,'2014-03-11'),(68,2,10,NULL,23,NULL);
+insert  into `marks`(`Id`,`Mark`,`StudentId`,`Retake`,`TeacherSubjectGroupId`,`Date`) values (46,10,14,NULL,26,NULL),(47,5,15,NULL,26,NULL),(52,12,9,NULL,21,NULL),(53,8,9,NULL,22,NULL),(56,9,9,NULL,23,NULL),(62,8,17,NULL,30,'2014-03-11'),(68,2,10,NULL,23,NULL),(70,6,12,NULL,23,NULL),(71,10,12,NULL,52,NULL),(72,8,10,NULL,62,NULL),(73,12,11,NULL,65,NULL),(74,10,12,NULL,65,NULL),(75,12,10,NULL,65,NULL),(76,12,11,NULL,69,NULL),(77,1,12,NULL,57,NULL),(79,11,11,NULL,64,NULL),(81,10,9,NULL,25,NULL),(82,11,9,NULL,63,NULL),(83,12,9,NULL,64,NULL);
 
 /*Data for the table `spec` */
 
@@ -34,7 +34,7 @@ insert  into `spec`(`id`,`Degree`,`Name`,`Viddil`,`ZavViddil`) values (3,6.02041
 
 /*Data for the table `students` */
 
-insert  into `students`(`Id`,`GroupId`,`Name`,`Surname`,`Patronimic`,`BDate`,`login`,`Gradebook`,`EducForm`,`EducType`,`Gender`,`Address`,`Phone`) values (9,8,'Олег','Новосад','Ігорович','1994-10-11','olololeg','2344503','денна','державне','ч','ГОА','757013'),(10,9,'Олег','Протас','Ігорович','2014-03-11','prot','2400345','денна','державне','ч','вадллдавв','30403'),(11,9,'Ірина','Кулікова','Володимирівна',NULL,'blondunka','45443','денна','державне','ж','аіплдлів','4523'),(12,9,'Тарас','Пашко','Іванович',NULL,NULL,'4352','денна','платне','ч','апак','45546432'),(13,9,'Христина','Піцьків','Олегівна',NULL,'aa','35245','денна','державне','ж','відлаові','342654262'),(14,10,'Олег','Цюцьмаць','Ігорович',NULL,NULL,'4е623','','','','',''),(15,10,'Назар','Чорній','Олександрович',NULL,NULL,'42к554','','','','',''),(16,11,'Станіслав','Адаменко','Валерійович',NULL,NULL,'кку434','','','','',''),(17,11,'Петро','Скрипник','Ігорович',NULL,NULL,'валп54','','','','','');
+insert  into `students`(`Id`,`GroupId`,`Name`,`Surname`,`Patronimic`,`BDate`,`login`,`Gradebook`,`EducForm`,`EducType`,`Gender`,`Address`,`Phone`) values (9,9,'Олег','Новосад','Ігорович','1994-10-11','olololeg','2344503','денна','державне','ч','ГОА','757013'),(10,9,'Олег','Протас','Ігорович','2014-03-11','prot','2400345','денна','державне','ч','вадллдавв','30403'),(11,9,'Ірина','Кулікова','Володимирівна',NULL,'blondunka','45443','денна','державне','ж','аіплдлів','4523'),(12,9,'Тарас','Пашко','Іванович',NULL,NULL,'4352','денна','платне','ч','апак','45546432'),(13,9,'Христина','Піцьків','Олегівна',NULL,'aa','35245','денна','державне','ж','відлаові','342654262'),(14,10,'Олег','Цюцьмаць','Ігорович',NULL,NULL,'4е623','','','','',''),(15,10,'Назар','Чорній','Олександрович',NULL,NULL,'42к554','','','','',''),(16,11,'Станіслав','Адаменко','Валерійович',NULL,NULL,'кку434','','','','',''),(17,11,'Петро','Скрипник','Ігорович',NULL,NULL,'валп54','','','','','');
 
 /*Data for the table `subjects` */
 
@@ -46,7 +46,7 @@ insert  into `teachers`(`Id`,`Name`,`Surname`,`Patronimic`,`Login`,`Spec`,`Dyplo
 
 /*Data for the table `users` */
 
-insert  into `users`(`Login`,`Password`,`Category`) values ('aa','4124bc0a9335c27f086f24ba207a4912','ROLE_STUDENT'),('admin','202cb962ac59075b964b07152d234b70','ROLE_ADMIN'),('admin1','202cb962ac59075b964b07152d234b70','ROLE_ADMIN'),('blondunka','202cb962ac59075b964b07152d234b70','ROLE_STUDENT'),('dldl','69fa3c66131dc47127f52a671459646f','ROLE_TEACHER'),('kuk','698d51a19d8a121ce581499d7b701668','ROLE_TEACHER'),('lev','202cb962ac59075b964b07152d234b70','ROLE_TEACHER'),('olololeg','202cb962ac59075b964b07152d234b70','ROLE_STUDENT'),('prot','202cb962ac59075b964b07152d234b70','ROLE_STUDENT'),('sem','e5bb23797bfea314a3db43d07dbd6a74','ROLE_TEACHER');
+insert  into `users`(`Login`,`Password`,`Category`) values ('aa','202cb962ac59075b964b07152d234b70','ROLE_STUDENT'),('admin','202cb962ac59075b964b07152d234b70','ROLE_ADMIN'),('admin1','202cb962ac59075b964b07152d234b70','ROLE_ADMIN'),('blondunka','202cb962ac59075b964b07152d234b70','ROLE_STUDENT'),('dldl','202cb962ac59075b964b07152d234b70','ROLE_TEACHER'),('kuk','202cb962ac59075b964b07152d234b70','ROLE_TEACHER'),('lev','202cb962ac59075b964b07152d234b70','ROLE_TEACHER'),('olololeg','202cb962ac59075b964b07152d234b70','ROLE_STUDENT'),('prot','202cb962ac59075b964b07152d234b70','ROLE_STUDENT'),('sem','202cb962ac59075b964b07152d234b70','ROLE_TEACHER');
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

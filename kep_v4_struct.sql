@@ -2,8 +2,7 @@
 SQLyog Ultimate v10.42 
 MySQL - 5.5.33 : Database - kep_v4
 *********************************************************************
-*/
-
+*/
 
 /*!40101 SET NAMES utf8 */;
 
@@ -34,7 +33,7 @@ CREATE TABLE `group_teacher_subject` (
   KEY `fk_gts_subject` (`subject_ID`),
   CONSTRAINT `fk_gts_subject` FOREIGN KEY (`subject_ID`) REFERENCES `subjects` (`Id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_gts_teacher` FOREIGN KEY (`teacher_ID`) REFERENCES `teachers` (`Id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=78 DEFAULT CHARSET=utf8;
 
 /*Table structure for table `groups` */
 
@@ -69,9 +68,9 @@ CREATE TABLE `marks` (
   PRIMARY KEY (`Id`),
   KEY `MarksStudents_idx` (`StudentId`),
   KEY `TeacherSubjectGroupId` (`TeacherSubjectGroupId`),
-  CONSTRAINT `MarksStudents` FOREIGN KEY (`StudentId`) REFERENCES `students` (`Id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `marks_ibfk_1` FOREIGN KEY (`TeacherSubjectGroupId`) REFERENCES `group_teacher_subject` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=69 DEFAULT CHARSET=utf8;
+  CONSTRAINT `marks_ibfk_1` FOREIGN KEY (`TeacherSubjectGroupId`) REFERENCES `group_teacher_subject` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `MarksStudents` FOREIGN KEY (`StudentId`) REFERENCES `students` (`Id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=84 DEFAULT CHARSET=utf8;
 
 /*Table structure for table `spec` */
 
@@ -180,13 +179,33 @@ WHERE (`groups`.`Id` =grId);
     END */$$
 DELIMITER ;
 
+/* Procedure structure for procedure `get_group_subjects_sum` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `get_group_subjects_sum` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `get_group_subjects_sum`(IN grId INT, in sumestr int)
+BEGIN
+SELECT
+    `subjects`.*
+FROM
+    `kep_v4`.`group_teacher_subject`
+    INNER JOIN `kep_v4`.`subjects` 
+        ON (`group_teacher_subject`.`subject_ID` = `subjects`.`Id`)
+    INNER JOIN `kep_v4`.`groups` 
+        ON (`group_teacher_subject`.`group_ID` = `groups`.`Id`)
+WHERE (`groups`.`Id` =grId)and(`group_teacher_subject`.`sumestr`  = sumestr );
+    END */$$
+DELIMITER ;
+
 /* Procedure structure for procedure `get_mark` */
 
 /*!50003 DROP PROCEDURE IF EXISTS  `get_mark` */;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `get_mark`(in studId int, in subjId int)
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `get_mark`(in studId int, in subjId int, in sumestr int)
 BEGIN
 SELECT
     `marks`.`Id`
@@ -197,7 +216,7 @@ FROM
     INNER JOIN `kep_v4`.`group_teacher_subject` 
         ON (`marks`.`TeacherSubjectGroupId` = `group_teacher_subject`.`id`)
 WHERE (`marks`.`StudentId` =studId
-    AND `group_teacher_subject`.`subject_ID` =subjId);
+    AND `group_teacher_subject`.`subject_ID` =subjId and `group_teacher_subject`.`sumestr`=sumestr);
     END */$$
 DELIMITER ;
 
@@ -240,7 +259,8 @@ FROM
     `kep_v4`.`group_teacher_subject`
     INNER JOIN `kep_v4`.`groups` 
         ON (`group_teacher_subject`.`group_ID` = `groups`.`Id`)
-WHERE (`group_teacher_subject`.`teacher_ID` =teacId);
+WHERE (`group_teacher_subject`.`teacher_ID` =teacId)
+group by `groups`.`Id`;
     END */$$
 DELIMITER ;
 
