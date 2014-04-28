@@ -12,7 +12,7 @@
         <table>
             <tr>
                 <th>Предмет</th>
-                <th>Викладач</th
+                <th>Викладач</th>
                 <th>Симестр</th>
             </tr>
             <c:forEach var="tuple" items="${tgs_list}">
@@ -34,10 +34,11 @@
                         </c:forEach>
                     </select></td>
                     <td>
-                        <%for(int i=1; i<=8;i++){%>
-                            <input type="checkbox" name="sum" id="sum<%=i%>" value="<%=i%>">
-                        <label for="sum<%=i%>"> <%=Number.arabic2roman(i)%> </label>
-                        <%;}%>
+                        <c:forEach var="i" begin="1" end="8">
+
+                            <input <c:if test="${tuple.value.getZ().contains(i)}">checked </c:if> type="checkbox" name="sum" id="sum${i}" value="${i}">
+                        <label for="sum${i}"> <%=Number.arabic2roman((Integer)pageContext.getAttribute("i"))%> </label>
+                        </c:forEach>
                     </td>
                     <td>
                         <input type="submit"  value="upd"/>
@@ -62,6 +63,13 @@
                             <option value="${teac.getId()}" >${teac}</option>
                         </c:forEach>
                     </select></td>
+                    <td>
+                        <c:forEach var="i" begin="1" end="8">
+
+                            <input  type="checkbox" name="sum" id="sum${i}" value="${i}">
+                            <label for="sum${i}"> <%=Number.arabic2roman((Integer)pageContext.getAttribute("i"))%> </label>
+                        </c:forEach>
+                    </td>
                     <td>
                         <input type="submit" value="add"/>
                         <input type="reset" value="cancel"/>

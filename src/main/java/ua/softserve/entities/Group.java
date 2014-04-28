@@ -1,11 +1,13 @@
 package ua.softserve.entities;
 
 import org.springframework.jdbc.core.simple.ParameterizedRowMapper;
+import ua.softserve.logic.Triple;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by troll on 19.12.13.
@@ -120,4 +122,11 @@ public class Group {
             sum-=1;
         return sum;
     }
+
+    public static class Tgs extends Triple<Subject,Teacher,List<Integer>> {
+        public Tgs(Subject subject, Teacher teacher, List<Integer> integers) {
+            super(subject, teacher, integers);
+        }
+    }
 }
+

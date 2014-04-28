@@ -151,6 +151,7 @@ public class SecGroupsController {
             @RequestParam("gr_id") Integer grId,
             @RequestParam("teac_id") Integer teacId,
             @RequestParam("subj_id") Integer subjectId,
+            @RequestParam("sum") Integer[] sum,
             ModelMap model) throws UpdateException {
 
 
@@ -170,10 +171,12 @@ public class SecGroupsController {
             @RequestParam("gr_id") Integer grId,
             @RequestParam("teac_id") Integer teacId,
             @RequestParam("subj_id") Integer subjectId,
+            @RequestParam("sum")Integer[] sum,
             ModelMap model) throws UpdateException {
 
-        if (!tgsDao.addTgs(teacId, grId, subjectId))
-            throw new UpdateException();
+        for(Integer i:sum)
+            if (!tgsDao.addTgs(teacId, grId, subjectId, i))
+                throw new UpdateException();
         model.put("message", SUCCESS);
 
 

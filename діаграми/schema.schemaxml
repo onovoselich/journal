@@ -1,29 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <schemadesigner version="6.5">
 <source>
-<database charset="utf8" collation="utf8_general_ci">kep_v2</database>
+<database charset="utf8" collation="utf8_general_ci">kep_v4</database>
 </source>
 <canvas zoom="100">
 <tables>
 <table name="group_teacher_subject" view="colnames">
 <left>227</left>
 <top>221</top>
-<width>110</width>
-<height>141</height>
+<width>124</width>
+<height>208</height>
 <sql_create_table>CREATE TABLE `group_teacher_subject` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `teacher_ID` int(11) NOT NULL,
   `group_ID` int(11) NOT NULL,
   `subject_ID` int(11) NOT NULL,
   `sumestr` int(11) DEFAULT NULL,
+  `Years` varchar(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_gts_teacher` (`teacher_ID`),
   KEY `fk_gts_group` (`group_ID`),
   KEY `fk_gts_subject` (`subject_ID`),
-  CONSTRAINT `fk_gts_group` FOREIGN KEY (`group_ID`) REFERENCES `groups` (`Id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_gts_subject` FOREIGN KEY (`subject_ID`) REFERENCES `subjects` (`Id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_gts_teacher` FOREIGN KEY (`teacher_ID`) REFERENCES `teachers` (`Id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8</sql_create_table>
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8</sql_create_table>
 </table>
 <table name="groups" view="colnames">
 <left>368</left>
@@ -43,7 +43,7 @@
   KEY `groups_ibfk_4` (`Degree`),
   CONSTRAINT `groups_ibfk_3` FOREIGN KEY (`CuratorId`) REFERENCES `teachers` (`Id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `groups_ibfk_4` FOREIGN KEY (`Degree`) REFERENCES `spec` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8</sql_create_table>
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8</sql_create_table>
 </table>
 <table name="marks" view="colnames">
 <left>21</left>
@@ -62,7 +62,7 @@
   KEY `TeacherSubjectGroupId` (`TeacherSubjectGroupId`),
   CONSTRAINT `MarksStudents` FOREIGN KEY (`StudentId`) REFERENCES `students` (`Id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `marks_ibfk_1` FOREIGN KEY (`TeacherSubjectGroupId`) REFERENCES `group_teacher_subject` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=utf8</sql_create_table>
+) ENGINE=InnoDB AUTO_INCREMENT=71 DEFAULT CHARSET=utf8</sql_create_table>
 </table>
 <table name="students" view="colnames">
 <left>494</left>
@@ -88,7 +88,7 @@
   KEY `login` (`login`),
   CONSTRAINT `students_ibfk_1` FOREIGN KEY (`login`) REFERENCES `users` (`Login`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `StudGroup` FOREIGN KEY (`GroupId`) REFERENCES `groups` (`Id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8</sql_create_table>
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8</sql_create_table>
 </table>
 <table name="subjects" view="colnames">
 <left>22</left>
@@ -97,16 +97,15 @@
 <height>226</height>
 <sql_create_table>CREATE TABLE `subjects` (
   `Id` int(11) NOT NULL AUTO_INCREMENT,
-  `Name` varchar(45) NOT NULL,
+  `Name` varchar(100) NOT NULL,
+  `specId` int(11) DEFAULT NULL,
   `ECTSCredits` double DEFAULT NULL,
   `Hours` int(11) DEFAULT NULL,
-  `Lections` int(11) DEFAULT NULL,
-  `Pract` int(11) DEFAULT NULL,
-  `Labor` int(11) DEFAULT NULL,
-  `Consult` int(11) DEFAULT NULL,
   `ControlForm` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`Id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8</sql_create_table>
+  PRIMARY KEY (`Id`),
+  KEY `specId` (`specId`),
+  CONSTRAINT `subjects_ibfk_1` FOREIGN KEY (`specId`) REFERENCES `spec` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8</sql_create_table>
 </table>
 <table name="teachers" view="colnames">
 <left>682</left>
@@ -126,7 +125,7 @@
   PRIMARY KEY (`Id`),
   KEY `Login` (`Login`),
   CONSTRAINT `teachers_ibfk_1` FOREIGN KEY (`Login`) REFERENCES `users` (`Login`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8</sql_create_table>
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8</sql_create_table>
 </table>
 <table name="users" view="colnames">
 <left>728</left>
@@ -155,7 +154,7 @@
   KEY `ZavViddil` (`ZavViddil`),
   KEY `id` (`id`),
   CONSTRAINT `spec_ibfk_1` FOREIGN KEY (`ZavViddil`) REFERENCES `teachers` (`Id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8</sql_create_table>
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8</sql_create_table>
 </table>
 </tables>
 </canvas>

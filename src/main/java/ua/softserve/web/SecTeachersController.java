@@ -119,7 +119,8 @@ public class SecTeachersController {
                          @RequestParam(value = "id", required = false) Integer id,
                          @RequestParam("gr_id") Integer grId,
                          @RequestParam("teac_id") Integer teacId,
-                         @RequestParam("subj_id") Integer subjectId) throws UpdateException {
+                         @RequestParam("subj_id") Integer subjectId,
+                         @RequestParam Integer[] sum) throws UpdateException {
 
 
         if (groupDao.getGroup(grId).getSpec().getId()!=subjectDao.getSubject(subjectId).getSpetiality().getId())
@@ -138,10 +139,11 @@ public class SecTeachersController {
                          @RequestParam(value = "id", required = false) Integer id,
                          @RequestParam("gr_id") Integer grId,
                          @RequestParam("teac_id") Integer teacId,
-                         @RequestParam("subj_id") Integer subjectId) throws UpdateException {
+                         @RequestParam("subj_id") Integer subjectId,
+                         @RequestParam Integer[] sum) throws UpdateException {
 
-
-        if (!tgsDao.addTgs(teacId, grId, subjectId))
+    for(Integer i:sum)
+        if (!tgsDao.addTgs(teacId, grId, subjectId,i))
             throw new UpdateException();
         model.put("message", SUCCESS);
 

@@ -19,9 +19,6 @@ public class ApplicationController {
     @RequestMapping(method = RequestMethod.GET)
     public String main(ModelMap model) {
 
-        int[] a = {1,2,3,4,5,6,7,8,9,10};
-        for(int i:a)
-            System.out.println(ua.softserve.logic.Number.arabic2roman(i)+"--");
         return MAIN_PAGE;
     }
 

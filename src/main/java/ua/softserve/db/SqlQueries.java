@@ -9,7 +9,7 @@ public interface SqlQueries {
     public static final String DELETE_USER = "DELETE FROM `users` WHERE `login` = ?";
 
     public static final String UPDATE_TGS = "UPDATE `group_teacher_subject` SET `teacher_ID`=?,`group_ID`=?,`subject_ID`=?  WHERE `group_teacher_subject`.`Id` = ?;";
-    public static final String INSERT_TGS = "INSERT INTO `group_teacher_subject` ( `teacher_ID`,`group_ID`,`subject_ID`)  values (?,?,?);";
+    public static final String INSERT_TGS = "INSERT INTO `group_teacher_subject` ( `teacher_ID`,`group_ID`,`subject_ID`,`sumestr`)  values (?,?,?,?);";
 
 
     public static final String MARK_INSERT = "call insert_mark(?,?,?,?)";
@@ -40,8 +40,8 @@ public interface SqlQueries {
     public static final String GET_ALL_GROUPS = "select * from `groups`";
     public static final String GET_ALL_STUDENTS = "select * from `students`";
     public static final String GET_GROUP_BY_ID = "select `id`,`name`,`educYear`,`degree` from `groups` where `groups`.`id` = ?";
-    public static final String GET_TGS_FOR_TEACHER = "SELECT `id`,`group_ID`,`subject_ID` FROM `group_teacher_subject` WHERE `group_teacher_subject`.`teacher_ID` = ?";
-    public static final String GET_TGS_FOR_GROUP = "SELECT `id`, `teacher_ID`,`subject_ID` FROM `group_teacher_subject` WHERE `group_teacher_subject`.`group_ID` = ?";
+    public static final String GET_TGS_FOR_TEACHER = "SELECT `id`,`group_ID`,`subject_ID`, `sumestr` FROM `group_teacher_subject` WHERE `group_teacher_subject`.`teacher_ID` = ?";
+    public static final String GET_TGS_FOR_GROUP = "SELECT `id`, `teacher_ID`,`subject_ID`, `sumestr` FROM `group_teacher_subject` WHERE `group_teacher_subject`.`group_ID` = ?";
 
     public static final String GET_ALL_USERS = "select `login` from `users`";
     public static final String GET_SPEC_GROUPS = "select * from `groups` where `Degree` = ?";

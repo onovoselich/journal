@@ -1,9 +1,11 @@
 package ua.softserve.entities;
 
 import org.springframework.jdbc.core.simple.ParameterizedRowMapper;
+import ua.softserve.logic.Triple;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 /**
  * Created by troll on 02.01.14.
@@ -141,4 +143,12 @@ public class Teacher {
     public String getFullName(){
         return getSurname()+" "+getName()+" "+getPatronimic();
     }
+
+    public static class Tgs extends Triple<Group,Subject,List<Integer>> {
+
+        public Tgs(Group group, Subject subject, List<Integer> integers) {
+            super(group, subject, integers);
+        }
+    }
+
 }

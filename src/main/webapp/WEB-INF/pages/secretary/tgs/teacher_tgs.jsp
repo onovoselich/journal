@@ -4,6 +4,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<%@ page import="ua.softserve.logic.Number" %>
 
 <div class="header-of-main">ГРУПИ ТА ПРЕДМЕТИ ВИКЛАДАЧА ${teacher}</div>
 <div class="main-part">
@@ -12,6 +13,7 @@
             <tr>
                 <th>Група</th>
                 <th>Предмет</th>
+                <th>Симестр</th>
             </tr>
 
                 <c:forEach var="tuple" items="${tgs_list}">
@@ -36,7 +38,13 @@
                                     </optgroup>
                                 </c:forEach>
                             </select></td>
+                            <td>
+                                <c:forEach var="i" begin="1" end="8">
 
+                                    <input <c:if test="${tuple.value.getZ().contains(i)}">checked </c:if> type="checkbox" name="sum" id="sum${i}" value="${i}">
+                                    <label for="sum${i}"> <%=Number.arabic2roman((Integer)pageContext.getAttribute("i"))%> </label>
+                                </c:forEach>
+                            </td>
                             <td>
                                 <input type="submit"  value="upd"/>
                                 <input type="reset" value="cancel"/>
@@ -63,7 +71,13 @@
                             </optgroup>
                         </c:forEach>
                     </select></td>
+                    <td>
+                        <c:forEach var="i" begin="1" end="8">
 
+                            <input  type="checkbox" name="sum" id="sum${i}" value="${i}">
+                            <label for="sum${i}"> <%=Number.arabic2roman((Integer)pageContext.getAttribute("i"))%> </label>
+                        </c:forEach>
+                    </td>
                     <td>
                         <input type="submit"  value="add"/>
                         <input type="reset" value="cancel"/>

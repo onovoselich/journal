@@ -4,18 +4,16 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
+<%@ page import="ua.softserve.logic.Number" %>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/student-vid.css">
 <div class="header-of-main">відомість успішності за ${sum}-й симестр</div>
 <div class="main-part">
     <div class="tabs"><ul>
-        <li><a href="/student/vidomist?sum=1">I</a></li>
-        <li><a href="/student/vidomist?sum=2">II</a></li>
-        <li><a href="/student/vidomist?sum=3">III</a></li>
-        <li><a href="/student/vidomist?sum=4">IV</a></li>
-        <li><a href="/student/vidomist?sum=5">V</a></li>
-        <li><a href="/student/vidomist?sum=6">VI</a></li>
-        <li><a href="/student/vidomist?sum=7">VII</a></li>
-        <li><a href="/student/vidomist?sum=8">VIII</a> </li>
+
+        <%for(int i=1; i<=8;i++){%>
+        <li><a href="/student/vidomist?sum=<%=i%>"><%=Number.arabic2roman(i)%></a></li>
+
+        <%;}%>
     </ul>
     </div>
     <div class="tabs"><ul><li>  <a href="/student/vidomist?sum=${sum}">Всі предмети</a></li>
