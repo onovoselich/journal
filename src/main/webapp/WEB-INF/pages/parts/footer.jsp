@@ -10,7 +10,7 @@
     &copy НОВОСАД ОЛЕГ ІГОРОВИЧ ПІ-10-01
     <ul>
         <li><a href="/">Home |</a></li>
-        <li><a href="https://github.com/onovoselich/journal.git">Source code |</a></li>
+        <li><a href="https://github.com/onovoselich/journal.git" target="_blank">Source code |</a></li>
       <%--  <li><a href="#">Contact Us |</a></li>
         <li><a href="#">Advertise |</a></li>--%>
     </ul>
