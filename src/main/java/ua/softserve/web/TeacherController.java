@@ -89,7 +89,7 @@ public class TeacherController {
         List<Student> studList = studentDao.getGroupStudents(groupId);
         if (studList != null)
             for (Student st : studList) {
-    /**/            studMarkList.put(st, markDao.getMark(st.getId(), subjectId,sum));
+               studMarkList.put(st, markDao.getMark(st.getId(), subjectId,sum));
             }
 
 
@@ -108,6 +108,7 @@ public class TeacherController {
                           @RequestParam("teac_subj_grp_id") Integer tsgId,
                           @RequestParam("group_id") Integer groupId,
                           @RequestParam("subject_id") Integer subjectId,
+                          HttpServletRequest request,
                           ModelMap model) throws IOException {
 
 
@@ -116,9 +117,8 @@ public class TeacherController {
 
         model.put("message", DELETED_SUCCESS);
 
-        model.put("group_id", groupId);
-        model.put("subject_id", subjectId);
-        return "redirect:/teacher/vidomist";
+
+        return "redirect:"+request.getHeader("referer");
 
 
     }
@@ -128,12 +128,10 @@ public class TeacherController {
                           @RequestParam("teac_subj_grp_id") Integer tsgId,
                           @RequestParam("mark") Integer mark,
                           @RequestParam("date") String date,
-                          @RequestParam("group_id") Integer groupId,
-                          @RequestParam("subject_id") Integer subjectId,
+                          HttpServletRequest request,
                           ModelMap model) throws UpdateException, IOException {
-
+        String referrer = request.getHeader("referer");
         if (date.equals("")) date = null;
-
 
         if (mark == null || mark > 12 || mark < 1)
             throw new IOException("Введіть значення від 1 до 12!");
@@ -142,9 +140,7 @@ public class TeacherController {
         model.put("message", SUCCESS);
 
 
-        model.put("group_id", groupId);
-        model.put("subject_id", subjectId);
-        return "redirect:/teacher/vidomist";
+        return "redirect:"+request.getHeader("referer");
 
 
     }

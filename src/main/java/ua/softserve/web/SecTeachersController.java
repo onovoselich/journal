@@ -12,6 +12,7 @@ import ua.softserve.entities.Subject;
 import ua.softserve.entities.Teacher;
 import ua.softserve.exceptions.UpdateException;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -24,7 +25,7 @@ import static ua.softserve.web.Messages.SUCCESS;
  * Created by troll on 03.03.14.
  */
 @Controller
-@RequestMapping({"/secretary/teachers", "/secretary/" + ROLE_TEACHER})
+@RequestMapping("/secretary/teachers")
 public class SecTeachersController {
     private static final String TEACHERS_PAGE = "secTeachersPage";
     private static final String ADD_USER_PAGE = "addUserPage";
@@ -53,25 +54,27 @@ public class SecTeachersController {
 
     @RequestMapping("alter_teacher")
     public String alterTeacher(ModelMap model,
-                               @ModelAttribute Teacher teac) throws UpdateException {
+                               @ModelAttribute Teacher teac,
+                               HttpServletRequest request) throws UpdateException {
 
         if (!teacherDao.updTeacher(teac))
             throw new UpdateException();
         model.put("message", SUCCESS);
 
-        return "redirect: ";
+        return "redirect:"+request.getHeader("referer");
     }
 
     @RequestMapping("add_teacher")
     public String addTeacher(ModelMap model,
-                             @ModelAttribute Teacher teac) throws UpdateException {
+                             @ModelAttribute Teacher teac,
+                             HttpServletRequest request) throws UpdateException {
 
         if (!teacherDao.newTeacher(teac))
             throw new UpdateException();
         model.put("message", SUCCESS);
 
+        return "redirect:"+request.getHeader("referer");
 
-        return "redirect: ";
     }
 
 
@@ -80,7 +83,6 @@ public class SecTeachersController {
                        @RequestParam(value = "login") String login) {
 
         model.put("login", login);
-        model.put("role", UserDao.ROLE_TEACHER);
         return UPDATE_USER_PAGE;
     }
 
@@ -116,11 +118,12 @@ public class SecTeachersController {
 
     @RequestMapping("upd_tgs")
     public String updTgs(ModelMap model,
-                         @RequestParam(value = "id", required = false) Integer id,
+                         @RequestParam("id") Integer id,
                          @RequestParam("gr_id") Integer grId,
                          @RequestParam("teac_id") Integer teacId,
                          @RequestParam("subj_id") Integer subjectId,
-                         @RequestParam List<Integer> sum) throws UpdateException {
+                         @RequestParam List<Integer> sum,
+                         HttpServletRequest request) throws UpdateException {
 
 
         if (groupDao.getGroup(grId).getSpec().getId()!=subjectDao.getSubject(subjectId).getSpetiality().getId())
@@ -144,17 +147,16 @@ public class SecTeachersController {
         model.put("message", SUCCESS);
 
 
-        model.put("id", teacId);
-        return "redirect: appointments";
+        return "redirect:"+request.getHeader("referer");
     }
 
     @RequestMapping("add_tgs")
     public String addTgs(ModelMap model,
-                         @RequestParam(value = "id", required = false) Integer id,
                          @RequestParam("gr_id") Integer grId,
                          @RequestParam("teac_id") Integer teacId,
                          @RequestParam("subj_id") Integer subjectId,
-                         @RequestParam Integer[] sum) throws UpdateException {
+                         @RequestParam Integer[] sum,
+                         HttpServletRequest request) throws UpdateException {
 
     for(Integer i:sum)
         if (!tgsDao.addTgs(teacId, grId, subjectId,i))
@@ -162,8 +164,8 @@ public class SecTeachersController {
         model.put("message", SUCCESS);
 
 
-        model.put("id", teacId);
-        return "redirect: appointments";
+
+        return "redirect:"+request.getHeader("referer");
     }
 
 }

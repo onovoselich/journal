@@ -12,6 +12,7 @@ import ua.softserve.entities.Student;
 import ua.softserve.exceptions.UpdateException;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
 
@@ -22,7 +23,7 @@ import static ua.softserve.web.Messages.SUCCESS;
  * Created by troll on 03.03.14.
  */
 @Controller
-@RequestMapping({"/secretary/students", "/secretary/" + ROLE_STUDENT})
+@RequestMapping("/secretary/students")
 public class SecStudentsController implements ServletContextAware {
     private static final String STUDENTS_PAGE = "secStudsPage";
     private static final String ADD_USER_PAGE = "addUserPage";
@@ -74,7 +75,8 @@ public class SecStudentsController implements ServletContextAware {
     }
     @RequestMapping(value = "add_student", method = RequestMethod.POST)
     public String addStudent(ModelMap model,
-                             @ModelAttribute Student stud) throws UpdateException, IOException {
+                             @ModelAttribute Student stud,
+                             HttpServletRequest request) throws UpdateException, IOException {
 
         if (stud.getbDate().equals("")) stud.setbDate(null);
         for(Student st:studentDao.getAllStudents())
@@ -87,14 +89,14 @@ public class SecStudentsController implements ServletContextAware {
         model.put("message", SUCCESS);
 
 
-        model.put("group_id", stud.getGroupId());
-        return "redirect: ";
+        return "redirect:"+request.getHeader("referer");
     }
 
     @RequestMapping(value = "alter_student", method = RequestMethod.POST)
     public String alterStudent(ModelMap model,
                                @ModelAttribute Student stud,
-                               @RequestParam(value = "image", required = false) MultipartFile image) throws UpdateException, IOException {
+                               @RequestParam(value = "image", required = false) MultipartFile image,
+                               HttpServletRequest request) throws UpdateException, IOException {
 
         if (stud.getbDate().equals("")) stud.setbDate(null);
 
@@ -111,8 +113,7 @@ public class SecStudentsController implements ServletContextAware {
             saveImage(stud.getId() + ".jpg", image);
 
         }
-        model.put("group_id", stud.getGroupId());
-        return "redirect: ";
+        return "redirect:"+request.getHeader("referer");
 
     }
 
@@ -122,7 +123,6 @@ public class SecStudentsController implements ServletContextAware {
                        @RequestParam(value = "login") String login) {
 
         model.put("login", login);
-        model.put("role", UserDao.ROLE_STUDENT);
         return UPDATE_USER_PAGE;
     }
 

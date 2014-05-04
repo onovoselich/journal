@@ -11,7 +11,7 @@ import java.sql.SQLException;
 public class Spetiality  implements Comparable<Spetiality> {
 
         private int id;
-        private float degree;
+        private Float degree;
         private String specName;
         private String viddil;
         private Teacher zavViddil;
@@ -50,7 +50,7 @@ public class Spetiality  implements Comparable<Spetiality> {
             return degree;
         }
 
-        public void setDegree(float degree) {
+        public void setDegree(Float degree) {
             this.degree = degree;
         }
 

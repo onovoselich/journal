@@ -13,6 +13,7 @@ import ua.softserve.entities.Spetiality;
 import ua.softserve.entities.Teacher;
 import ua.softserve.exceptions.UpdateException;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 import static ua.softserve.web.Messages.SUCCESS;
@@ -69,7 +70,8 @@ public class SecGroupsController {
     @RequestMapping(value = "add_spec", method = RequestMethod.POST)
     public String addSpec(ModelMap model,
                           @ModelAttribute Spetiality spec,
-                          @RequestParam(value = "zavViddilId") Integer zavViddilId) throws UpdateException {
+                          @RequestParam(value = "zavViddilId") Integer zavViddilId,
+                          HttpServletRequest request) throws UpdateException {
 
         spec.setZavViddil(new Teacher(zavViddilId));
         if (!specDao.addSpec(spec))
@@ -77,20 +79,21 @@ public class SecGroupsController {
         model.put("message", SUCCESS);
 
 
-        return "redirect: ";
+        return "redirect:"+request.getHeader("referer");
     }
 
     @RequestMapping(value = "alter_spec", method = RequestMethod.POST)
     public String alterSpec(ModelMap model,
                             @ModelAttribute Spetiality spec,
-                            @RequestParam(value = "zavViddilId") Integer zavViddilId) throws UpdateException {
+                            @RequestParam(value = "zavViddilId") Integer zavViddilId,
+                            HttpServletRequest request) throws UpdateException {
         spec.setZavViddil(new Teacher(zavViddilId));
         if (!specDao.alterSpec(spec))
             throw new UpdateException();
         model.put("message", SUCCESS);
 
 
-        return "redirect: ";
+        return "redirect:"+request.getHeader("referer");
     }
 
     @RequestMapping(value = "alter_group", method = RequestMethod.POST)
@@ -98,7 +101,9 @@ public class SecGroupsController {
             @RequestParam("degree_id") Integer degId
             , @RequestParam("curator_id") Integer curId,
             ModelMap model,
-            @ModelAttribute Group group) throws UpdateException {
+            @ModelAttribute Group group,
+            HttpServletRequest request) throws UpdateException {
+
         if (group.getStartDate().equals("")) group.setStartDate(null);
         if (group.getFinishDate().equals("")) group.setFinishDate(null);
         group.setSpec(new Spetiality(degId));
@@ -108,7 +113,7 @@ public class SecGroupsController {
         model.put("message", SUCCESS);
 
 
-        return "redirect: ";
+        return "redirect:"+request.getHeader("referer");
     }
 
     @RequestMapping(value = "add_group", method = RequestMethod.POST)
@@ -116,7 +121,8 @@ public class SecGroupsController {
             @RequestParam("degree_id") Integer degId
             , @RequestParam("curator_id") Integer curId,
             ModelMap model,
-            @ModelAttribute Group group) throws UpdateException {
+            @ModelAttribute Group group,
+            HttpServletRequest request) throws UpdateException {
         if (group.getStartDate().equals("")) group.setStartDate(null);
         if (group.getFinishDate().equals("")) group.setFinishDate(null);
         group.setSpec(new Spetiality(degId));
@@ -126,7 +132,7 @@ public class SecGroupsController {
         model.put("message", SUCCESS);
 
 
-        return "redirect: ";
+        return "redirect:"+request.getHeader("referer");
     }
 
 
@@ -152,7 +158,8 @@ public class SecGroupsController {
             @RequestParam("teac_id") Integer teacId,
             @RequestParam("subj_id") Integer subjectId,
             @RequestParam("sum") List<Integer> sum,
-            ModelMap model) throws UpdateException {
+            ModelMap model,
+            HttpServletRequest request) throws UpdateException {
 
 
         if (!tgsDao.updTgs(id, teacId, grId, subjectId))
@@ -172,8 +179,7 @@ public class SecGroupsController {
         model.put("message", SUCCESS);
 
 
-        model.put("id", grId);
-        return "redirect: appointments";
+        return "redirect:"+request.getHeader("referer");
     }
 
     @RequestMapping("add_tgs")
@@ -184,7 +190,8 @@ public class SecGroupsController {
             @RequestParam("teac_id") Integer teacId,
             @RequestParam("subj_id") Integer subjectId,
             @RequestParam("sum")Integer[] sum,
-            ModelMap model) throws UpdateException {
+            ModelMap model,
+            HttpServletRequest request) throws UpdateException {
 
         for(Integer i:sum)
             if (!tgsDao.addTgs(teacId, grId, subjectId, i))
@@ -192,7 +199,6 @@ public class SecGroupsController {
         model.put("message", SUCCESS);
 
 
-        model.put("id", grId);
-        return "redirect: appointments";
+        return "redirect:"+request.getHeader("referer");
     }
 }

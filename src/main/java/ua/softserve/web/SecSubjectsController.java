@@ -10,6 +10,7 @@ import ua.softserve.entities.Spetiality;
 import ua.softserve.entities.Subject;
 import ua.softserve.exceptions.UpdateException;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,20 +55,22 @@ public class SecSubjectsController {
     @RequestMapping(value = "alter_subject", method = RequestMethod.POST)
     public String alterSubject(ModelMap model,
                                @RequestParam Integer specId,
-                               @ModelAttribute Subject subj) throws UpdateException {
+                               @ModelAttribute Subject subj,
+                               HttpServletRequest request) throws UpdateException {
         subj.setSpetiality(new Spetiality(specId));
         if (!subjectDao.updSubject(subj))
             throw new UpdateException();
         model.put("message", SUCCESS);
 
 
-        return "redirect: ";
+        return "redirect:"+request.getHeader("referer");
     }
 
     @RequestMapping(value = "add_subject", method = RequestMethod.POST)
     public String addSubject(ModelMap model,
                              @RequestParam Integer specId,
-                             @ModelAttribute Subject subj) throws UpdateException {
+                             @ModelAttribute Subject subj,
+                             HttpServletRequest request) throws UpdateException {
 
         subj.setSpetiality(new Spetiality(specId));
 
@@ -76,6 +79,6 @@ public class SecSubjectsController {
         model.put("message", SUCCESS);
 
 
-        return "redirect: ";
+        return "redirect:"+request.getHeader("referer");
     }
 }

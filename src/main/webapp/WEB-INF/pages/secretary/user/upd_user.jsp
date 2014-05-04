@@ -20,8 +20,8 @@
 <img class="lock" alt="lock" src="${pageContext.request.contextPath}/resources/img/locked.png"/>
 <div class="form">
     <form novalidate="novalidate" action="/secretary/users/upd_user" method="post">
-        <input type="hidden" name="role" value="${role}">
         <input type="hidden" name="id" value="${id}">
+        <input type="hidden" name="referer" value="<%=request.getHeader("referer")%>">
         <input class="email" type="email" name = "login"  readonly value="${login}" placeholder="Username"/>
         <input class="password" required="required"  type="text" name = "password" placeholder="Password"/>
         <input type="submit"  value="ok" name="btn-login"/>

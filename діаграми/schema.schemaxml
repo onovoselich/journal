@@ -6,8 +6,8 @@
 <canvas zoom="100">
 <tables>
 <table name="group_teacher_subject" view="colnames">
-<left>227</left>
-<top>221</top>
+<left>275</left>
+<top>106</top>
 <width>124</width>
 <height>208</height>
 <sql_create_table>CREATE TABLE `group_teacher_subject` (
@@ -23,7 +23,7 @@
   KEY `fk_gts_subject` (`subject_ID`),
   CONSTRAINT `fk_gts_subject` FOREIGN KEY (`subject_ID`) REFERENCES `subjects` (`Id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_gts_teacher` FOREIGN KEY (`teacher_ID`) REFERENCES `teachers` (`Id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8</sql_create_table>
+) ENGINE=InnoDB AUTO_INCREMENT=81 DEFAULT CHARSET=utf8</sql_create_table>
 </table>
 <table name="groups" view="colnames">
 <left>368</left>
@@ -60,9 +60,9 @@
   PRIMARY KEY (`Id`),
   KEY `MarksStudents_idx` (`StudentId`),
   KEY `TeacherSubjectGroupId` (`TeacherSubjectGroupId`),
-  CONSTRAINT `MarksStudents` FOREIGN KEY (`StudentId`) REFERENCES `students` (`Id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `marks_ibfk_1` FOREIGN KEY (`TeacherSubjectGroupId`) REFERENCES `group_teacher_subject` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=71 DEFAULT CHARSET=utf8</sql_create_table>
+  CONSTRAINT `marks_ibfk_1` FOREIGN KEY (`TeacherSubjectGroupId`) REFERENCES `group_teacher_subject` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `MarksStudents` FOREIGN KEY (`StudentId`) REFERENCES `students` (`Id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=87 DEFAULT CHARSET=utf8</sql_create_table>
 </table>
 <table name="students" view="colnames">
 <left>494</left>

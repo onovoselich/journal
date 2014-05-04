@@ -12,6 +12,7 @@ import ua.softserve.db.UserDao;
 import ua.softserve.exceptions.UpdateException;
 import ua.softserve.logic.MD5;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
 import static ua.softserve.web.Messages.SUCCESS;
@@ -30,11 +31,12 @@ public class SecUsersController {
 
 
     @RequestMapping(value = "add_user", method = RequestMethod.POST)
-    public ModelAndView newUser(ModelMap model,
+    public String newUser(ModelMap model,
                                 @RequestParam("login") String login,
                                 @RequestParam("password") String password,
                                 @RequestParam("id") Integer teacId,
-                                @RequestParam("role") String role) throws UpdateException, IOException {
+                                @RequestParam("role") String role,
+                                @RequestParam("referer") String referer) throws UpdateException, IOException {
 
         for (String testLogin : userDao.getAllUsers()) {
             if (login.equals(testLogin))
@@ -46,15 +48,15 @@ public class SecUsersController {
         model.put("message", SUCCESS);
 
 
-        return new ModelAndView("redirect:/secretary/" + role);
+        return "redirect:"+referer;
 
     }
 
     @RequestMapping(value = "upd_user", method = RequestMethod.POST)
-    public ModelAndView updUser(ModelMap model,
+    public String updUser(ModelMap model,
                                 @RequestParam("login") String login,
                                 @RequestParam("password") String password,
-                                @RequestParam("role") String role
+                                @RequestParam("referer") String referer
 
     ) throws UpdateException {
 
@@ -63,7 +65,7 @@ public class SecUsersController {
         model.put("message", SUCCESS);
 
 
-        return new ModelAndView("redirect:/secretary/" + role);
+        return "redirect:"+referer;
 
     }
 
