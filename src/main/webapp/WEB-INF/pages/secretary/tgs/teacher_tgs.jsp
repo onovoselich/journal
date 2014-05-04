@@ -41,8 +41,8 @@
                             <td>
                                 <c:forEach var="i" begin="1" end="8">
 
-                                    <input <c:if test="${tuple.value.getZ().contains(i)}">checked </c:if>  required="required"  type="checkbox" name="sum" id="sum${i}" value="${i}">
-                                    <label for="sum${i}"> <%=Number.arabic2roman((Integer)pageContext.getAttribute("i"))%> </label>
+                                    <input <c:if test="${tuple.value.getZ().contains(i)}">checked </c:if>  required="required"  type="checkbox" name="sum" id="sum${i}_${tuple.key}" value="${i}">
+                                    <label for="sum${i}_${tuple.key}"> <%=Number.arabic2roman((Integer)pageContext.getAttribute("i"))%> </label>
                                 </c:forEach>
                             </td>
                             <td>
@@ -74,8 +74,8 @@
                     <td>
                         <c:forEach var="i" begin="1" end="8">
 
-                            <input  type="checkbox"  required="required"  name="sum" id="sum${i}" value="${i}">
-                            <label for="sum${i}"> <%=Number.arabic2roman((Integer)pageContext.getAttribute("i"))%> </label>
+                            <input  type="checkbox"  required="required"  name="sum" id="sum${i}_a" value="${i}">
+                            <label for="sum${i}_a"> <%=Number.arabic2roman((Integer)pageContext.getAttribute("i"))%> </label>
                         </c:forEach>
                     </td>
                     <td>
