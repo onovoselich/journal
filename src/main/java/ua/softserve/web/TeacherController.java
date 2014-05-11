@@ -1,5 +1,6 @@
 package ua.softserve.web;
 
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -8,15 +9,15 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import sun.org.mozilla.javascript.internal.json.JsonParser;
 import ua.softserve.db.*;
-import ua.softserve.entities.Group;
-import ua.softserve.entities.Mark;
-import ua.softserve.entities.Student;
-import ua.softserve.entities.Teacher;
+import ua.softserve.entities.*;
 import ua.softserve.exceptions.UpdateException;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.xml.transform.sax.SAXSource;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -51,14 +52,20 @@ public class TeacherController {
 
     @RequestMapping({"/", ""})
     public String main(@RequestParam(value = "stud_id", required = false) Integer studId,
-                       @RequestParam(value = "group_id", required = false) Integer grId,
-                       @RequestParam(value="subj_id", required = false) Integer subjId,
                        ModelMap model) {
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         Teacher teac = teacherDao.getTeacherInfo(auth.getName());
         Group grp = groupDao.getGroupByCurator(teac.getId());
 
+        Map<Group,  List<Subject>>  groupListMap = new TreeMap<Group, List<Subject>>();
+        List<Group> groups = groupDao.getTeacherGroups(teac.getId());
+        for(Group g : groups)
+            groupListMap.put(g,subjectDao.getTeacherGroupSubjects(teac.getId(),g.getId()));
+
+
+        model.put("group_map",groupListMap);
+        model.put("group_json",new JSONObject(groupListMap));
 
         model.put("teacher", teac);
         model.put("my_group", grp);
@@ -67,14 +74,8 @@ public class TeacherController {
             model.put("student", studentDao.getStudentInfo(studId));
 
 
-        if(subjId == null)
             model.put("group_list", groupDao.getTeacherGroups(teac.getId()));
-        else
-            model.put("group_list", groupDao.getTeacherSubjectGroups(teac.getId(), subjId));
-        if(grId == null)
             model.put("subject_list", subjectDao.getTeacherSubjects(teac.getId()));
-        else
-            model.put("subject_list", subjectDao.getTeacherGroupSubjects(teac.getId(), grId));
 
 
         return TEACHER_PAGE;

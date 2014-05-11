@@ -11,7 +11,7 @@
     <meta name="viewport" content="width=device-width">
 <%--    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/jquery.ui.datepicker.css">
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/jquery.ui.theme.css">
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/jquery.ui.core.css">--%>
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/jquery.ui.core.css">
     <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery.core.js"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/datepicker.js"></script>--%>
 

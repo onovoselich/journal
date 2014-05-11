@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * Created by troll on 19.12.13.
  */
-public class Group {
+public class Group implements Comparable<Group> {
     public static ParameterizedRowMapper<Group> groupRm = new ParameterizedRowMapper() {
         @Override
         public Group mapRow(ResultSet resultSet, int i) throws SQLException {
@@ -121,6 +121,11 @@ public class Group {
         if(Calendar.getInstance().get(Calendar.MONTH)<Calendar.MARCH)
             sum-=1;
         return sum;
+    }
+
+    @Override
+    public int compareTo(Group o) {
+        return name.compareTo(o.getName());
     }
 
     public static class Tgs extends Triple<Subject,Teacher,List<Integer>> {
