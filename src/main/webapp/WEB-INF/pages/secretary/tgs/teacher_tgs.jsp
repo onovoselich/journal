@@ -6,6 +6,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <%@ page import="ua.softserve.logic.Number" %>
 
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery-2.1.1.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/chbx_required.js"></script>
 <div class="header-of-main">ГРУПИ ТА ПРЕДМЕТИ ВИКЛАДАЧА ${teacher}</div>
 <div class="main-part">
     <div class="table">
@@ -41,7 +43,7 @@
                             <td>
                                 <c:forEach var="i" begin="1" end="8">
 
-                                    <input <c:if test="${tuple.value.getZ().contains(i)}">checked </c:if>  required="required"  type="checkbox" name="sum" id="sum${i}_${tuple.key}" value="${i}">
+                                    <input <c:if test="${tuple.value.getZ().contains(i)}">checked </c:if>   type="checkbox" name="sum" id="sum${i}_${tuple.key}" value="${i}">
                                     <label for="sum${i}_${tuple.key}"> <%=Number.arabic2roman((Integer)pageContext.getAttribute("i"))%> </label>
                                 </c:forEach>
                             </td>
@@ -74,7 +76,7 @@
                     <td>
                         <c:forEach var="i" begin="1" end="8">
 
-                            <input  type="checkbox"  required="required"  name="sum" id="sum${i}_a" value="${i}">
+                            <input  type="checkbox"  name="sum" id="sum${i}_a" value="${i}">
                             <label for="sum${i}_a"> <%=Number.arabic2roman((Integer)pageContext.getAttribute("i"))%> </label>
                         </c:forEach>
                     </td>

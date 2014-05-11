@@ -114,4 +114,14 @@ public class GroupDao {
             return true;
         else return false;
     }
+
+    public List<Group> getTeacherSubjectGroups(Integer teacId, Integer subjId) {
+        JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
+        List<Group> result = jdbcTemplate.query(GET_TEACHER_SUBJECT_GROUPS,new Object[]{teacId, subjId},Group.groupRm);
+        if(result.isEmpty())
+            return null;
+        for(Group gr: result)
+            gr.setSpec(specDao.getSpetiality(gr.getSpec().getId()));
+        return result;
+    }
 }

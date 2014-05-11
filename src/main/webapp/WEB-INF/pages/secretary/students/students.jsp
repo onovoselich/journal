@@ -5,8 +5,20 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
 
-
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery-2.1.1.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery.core.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/tr_sliding.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/datepicker.js"></script>
+<script>
+    $(document).ready(function() {
+        $( ".data" ).datepicker();
+    });
+</script>
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/jquery.ui.core.css">
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/students.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/jquery.ui.datepicker.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/jquery.ui.theme.css">
+
 <div class="header-of-main">Студенти</div>
 <div class="main-part">
     <div class="tabs"><ul>
@@ -64,7 +76,7 @@
                                 <a href="/secretary/students/add_user?id=${student.getId()}">register</a>
                             </c:if></td>
                         <td>
-                            <img class="str-down" onclick="down(event)" alt="down"
+                            <img class="str-down"  alt="down"
                                  src="${pageContext.request.contextPath}/resources/img/str-down.png"/>
                         </td>
                         <td rowspan="2">
@@ -172,7 +184,7 @@
                     <td><input name="gradebook" required="required"  type="text" size="8" value="${student.getGradebook()}"/></td>
                     <td></td>
                     <td>
-                        <img class="str-down" onclick="down(event)" alt="down"
+                        <img class="str-down"  alt="down"
                              src="${pageContext.request.contextPath}/resources/img/str-down.png"/>
                     </td>
                     <td rowspan="2">

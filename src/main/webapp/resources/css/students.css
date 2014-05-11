@@ -222,7 +222,7 @@ table {
 .list-span span{
     display: block;
     margin-left: 10px;
-    margin-bottom: 14px;
+    margin-bottom: 21px;
 }
 .none div{
     display: inline-block;
@@ -271,5 +271,12 @@ table img {
     border: 1px solid #000;
     border-bottom: none;
     border-right: none;
+}
+
+.up{
+	-moz-transform: scaleY(-1);
+-o-transform: scaleY(-1);
+-webkit-transform: scaleY(-1);
+transform: scaleY(-1);
 }
 

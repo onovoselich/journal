@@ -4,6 +4,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery-2.1.1.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/number_validation.js"></script>
 
 <div class="header-of-main">Предмети</div>
 <div class="main-part">
@@ -36,8 +38,8 @@
                     <option value="${sp.getId()}" <c:if test="${sp.getId() == subj.getSpetiality().getId()}">selected</c:if>>${sp}</option>
                 </c:forEach></select>
                 </td>
-                <td><input type="text" required="required"  name="ects"size="6"  onkeypress="return isNumberPointKey(event)"  value="${subj.getEcts()}"/></td>
-                <td><input type="text" required="required"  name="hours" size="5"  onkeypress="return isNumberKey(event)"  value="${subj.getHours()}"/></td>
+                <td><input type="text" required="required"  name="ects"size="6"  class="float"  value="${subj.getEcts()}"/></td>
+                <td><input type="text" required="required"  name="hours" size="5"  class="integer"  value="${subj.getHours()}"/></td>
                 <td><select name="controlForm" required="required" >
                     <option value=""  selected></option>
                     <option value="Іспит" <c:if test="${subj.getControlForm().equals('Іспит')}">selected</c:if>>Іспит</option>
@@ -65,8 +67,8 @@
                         <option value="${sp.getId()}" >${sp}</option>
                     </c:forEach></select>
                 </td>
-                <td><input type="text" name="ects" required="required"  size="6"  onkeypress="return isNumberPointKey(event)"  value=""/></td>
-                <td><input type="text" name="hours" required="required"  size="5" onkeypress="return isNumberKey(event)"  value=""/></td>
+                <td><input type="text" name="ects" required="required"  size="6"  class="float"  value=""/></td>
+                <td><input type="text" name="hours" required="required"  size="5" class="integer"  value=""/></td>
                 <td><select name="controlForm" required="required" >
                     <option value=""  selected></option>
                     <option value="Іспит">Іспит</option>

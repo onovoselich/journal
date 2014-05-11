@@ -5,10 +5,19 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <%@ page import="ua.softserve.logic.Number" %>
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/jquery.ui.datepicker.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/jquery.ui.theme.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/jquery.ui.core.css">
+
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery.core.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/datepicker.js"></script>
+<script>
+    $(document).ready(function() {
+        $( ".data" ).datepicker();
+    });
+</script>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/students.css">
-<c:if test="${not empty message}">
-    <span class="message">MESSAGE: ${message}</span>
-</c:if>
+
 <div class="header-of-main">Відомість успішності групи ${group} з дисципліни ${subject}</div>
 <div class="main-part">
 

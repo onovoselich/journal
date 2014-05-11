@@ -3,6 +3,17 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/jquery.ui.datepicker.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/jquery.ui.theme.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/jquery.ui.core.css">
+
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery.core.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/datepicker.js"></script>
+<script>
+    $(document).ready(function() {
+        $( ".data" ).datepicker();
+    });
+</script>
 <div class="header-of-main">ГРУПИ</div>
 <div class="main-part">
     <a href="/secretary/groups">all groups</a> <br>

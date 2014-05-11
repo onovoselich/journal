@@ -16,7 +16,6 @@ import ua.softserve.entities.Teacher;
 import ua.softserve.exceptions.UpdateException;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
@@ -52,6 +51,8 @@ public class TeacherController {
 
     @RequestMapping({"/", ""})
     public String main(@RequestParam(value = "stud_id", required = false) Integer studId,
+                       @RequestParam(value = "group_id", required = false) Integer grId,
+                       @RequestParam(value="subj_id", required = false) Integer subjId,
                        ModelMap model) {
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -65,8 +66,16 @@ public class TeacherController {
         if (studId != null)
             model.put("student", studentDao.getStudentInfo(studId));
 
-        model.put("group_list", groupDao.getTeacherGroups(teac.getId()));
-        model.put("subject_list", subjectDao.getTeacherSubjects(teac.getId()));
+
+        if(subjId == null)
+            model.put("group_list", groupDao.getTeacherGroups(teac.getId()));
+        else
+            model.put("group_list", groupDao.getTeacherSubjectGroups(teac.getId(), subjId));
+        if(grId == null)
+            model.put("subject_list", subjectDao.getTeacherSubjects(teac.getId()));
+        else
+            model.put("subject_list", subjectDao.getTeacherGroupSubjects(teac.getId(), grId));
+
 
         return TEACHER_PAGE;
     }
@@ -79,9 +88,15 @@ public class TeacherController {
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         Teacher teac = teacherDao.getTeacherInfo(auth.getName());
-        if (sum==null)
+        if (sum==null){
             sum = groupDao.getGroup(groupId).getSumestr();
+
+            List<Integer> sumLst = tgsDao.getSumesters(teac.getId(),groupId,subjectId);
+            while(!sumLst.contains(sum))
+                sum--;
+        }
         Integer tgsId = tgsDao.getTeacherGroupSubject(teac.getId(), groupId, subjectId,sum);
+
         if (tgsId == null)
             throw new RuntimeException("Ви не викладаєте цей предмет у цієї групи!");
 
@@ -106,8 +121,6 @@ public class TeacherController {
     @RequestMapping(value = "/delMark", method = RequestMethod.POST)
     public String delMark(@RequestParam("student_id") Integer studId,
                           @RequestParam("teac_subj_grp_id") Integer tsgId,
-                          @RequestParam("group_id") Integer groupId,
-                          @RequestParam("subject_id") Integer subjectId,
                           HttpServletRequest request,
                           ModelMap model) throws IOException {
 
@@ -125,21 +138,19 @@ public class TeacherController {
 
     @RequestMapping(value = "/updMark", method = RequestMethod.POST)
     public String updMark(@RequestParam("student_id") Integer studId,
-                          @RequestParam("teac_subj_grp_id") Integer tsgId,
+                          @RequestParam("teac_subj_grp_id") Integer tgsId,
                           @RequestParam("mark") Integer mark,
                           @RequestParam("date") String date,
                           HttpServletRequest request,
                           ModelMap model) throws UpdateException, IOException {
-        String referrer = request.getHeader("referer");
         if (date.equals("")) date = null;
 
         if (mark == null || mark > 12 || mark < 1)
             throw new IOException("Введіть значення від 1 до 12!");
-        if (!markDao.insert(mark, date, studId, tsgId))
+        if (!markDao.insert(mark, date, studId, tgsId))
             throw new UpdateException();
+
         model.put("message", SUCCESS);
-
-
         return "redirect:"+request.getHeader("referer");
 
 

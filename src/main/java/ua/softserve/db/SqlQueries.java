@@ -30,10 +30,11 @@ public interface SqlQueries {
     public static final String GET_TEACHER_BY_SUBJ = "call `get_teacher`(?,?);";
     public static final String GET_TEACHER_INFO = "select * from `teachers` where `id` = ?";
     public static final String GET_SUBJECT = "select * from `subjects` where `Id` = ?";
-    public static final String GET_SUMESTERS = "SELECT    `sumestr`FROM    `group_teacher_subject`WHERE (`teacher_ID` =?    AND `group_ID` =?    AND `subject_ID` =?);";
+    public static final String GET_SUMESTERS = "SELECT    `sumestr` FROM    `group_teacher_subject`WHERE (`teacher_ID` =?    AND `group_ID` =?    AND `subject_ID` =?) ORDER BY `sumestr` ;";
     public static final String GET_MARK = "CALL `get_mark`(?,?,?);";
     public static final String GET_GROUP_BY_CURATOR = "select `id`, `name`, `educYear`,`degree` from `groups` where `curatorId` = ?";
     public static final String GET_TEACHER_GROUPS = "CALL `get_teacher_groups`(?);";
+    public static final String GET_TEACHER_SUBJECT_GROUPS = "CALL `get_teacher_subject_groups`(?,?);";
     public static final String GET_TEACHER_GROUP_SUBJECTS = "CALL `get_teacher_group_subjects`(?,?)";
     public static final String GET_TEACHER_SUBJECTS = "CALL `get_teacher_subjects`(?)";
     public static final String GET_TEACHER_SUBJECT_GROUP_ID = "SELECT `id`FROM `group_teacher_subject` WHERE (`teacher_ID` =? AND `group_ID` =? AND `subject_ID` =? AND `sumestr`=?);";
