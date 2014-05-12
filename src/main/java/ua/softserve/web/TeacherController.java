@@ -8,6 +8,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 import sun.org.mozilla.javascript.internal.json.JsonParser;
 import ua.softserve.db.*;
 import ua.softserve.entities.*;
@@ -162,6 +163,19 @@ public class TeacherController {
                            @RequestParam("stud_id") Integer studId) {
         model.put("student", studentDao.getStudentInfo(studId));
         return STUD_INFO_PAGE;
+    }
+
+    @RequestMapping("somePdf")
+    public ModelAndView somePdf(ModelMap model)throws Exception{
+        //dummy data
+        Map<String,String> revenueData = new HashMap<String,String>();
+        revenueData.put("1/20/2010", "$100,000");
+        revenueData.put("1/21/2010", "$200,000");
+        revenueData.put("1/22/2010", "$300,000");
+        revenueData.put("1/23/2010", "$400,000");
+        revenueData.put("1/24/2010", "$500,000");
+
+        return new ModelAndView("PdfRevenueSummary","revenueData",revenueData);
     }
 
 

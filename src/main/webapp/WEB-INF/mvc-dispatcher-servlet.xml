@@ -24,6 +24,7 @@
     </property>
 </bean>-->
 
+
     <bean class="org.springframework.web.servlet.view.tiles2.TilesConfigurer">
         <property name="definitions">
             <list>
@@ -36,6 +37,13 @@
     <bean  class="org.springframework.web.servlet.view.tiles2.TilesViewResolver">
         <property name="requestContextAttribute" value="requestContext"/>
         <property name="viewClass" value="org.springframework.web.servlet.view.tiles2.TilesView"/>
+    </bean>
+
+    <!--Pdf files-->
+    <bean class="org.springframework.web.servlet.view.XmlViewResolver">
+        <property name="location">
+            <value>/WEB-INF/spring-pdf-views.xml</value>
+        </property>
     </bean>
 
 
