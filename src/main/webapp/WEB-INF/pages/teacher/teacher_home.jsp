@@ -11,11 +11,8 @@
 
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery-2.1.1.js"></script>
 <script>
-    function jstlObgectToJs(obj){
-        console.log(obj);
 
-    }
-    var gr_sub = [
+    var gr_sub_test = [
         {"gr_id":1, "gr_name":"GH-01-1", "subj_list":[
             {"subj_id":1, "subj_name":"OOP"}
             ,{"subj_id":2, "subj_name":"Math"}//,
@@ -25,10 +22,11 @@
         }/*,
         {},{}*/];
 
+var gr_sub = new Array();
 $(document).ready(function(){
-    var json = "<c:out value="${group_json}"/>";
+    gr_sub = JSON.parse('<c:out value="${group_json}"/>'.replace(/&#034;/g,"\""));
 
-    jstlObgectToJs(JSON.parse( json));
+
 
     for(var i in gr_sub){
         var li =  $('<li></li>').html(

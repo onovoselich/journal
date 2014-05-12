@@ -1,6 +1,5 @@
 package ua.softserve.web;
 
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -13,6 +12,7 @@ import sun.org.mozilla.javascript.internal.json.JsonParser;
 import ua.softserve.db.*;
 import ua.softserve.entities.*;
 import ua.softserve.exceptions.UpdateException;
+import ua.softserve.logic.JSONObject;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.xml.transform.sax.SAXSource;
@@ -65,7 +65,7 @@ public class TeacherController {
 
 
         model.put("group_map",groupListMap);
-        model.put("group_json",new JSONObject(groupListMap));
+        model.put("group_json",JSONObject.groupListToJson(groupListMap));
 
         model.put("teacher", teac);
         model.put("my_group", grp);
