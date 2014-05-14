@@ -4,6 +4,7 @@ import org.springframework.jdbc.core.simple.ParameterizedRowMapper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -18,9 +19,9 @@ public class Mark {
         }
     };
 
-    private int id;
-    private int mark;
-    private int retake;
+    private Integer id;
+    private Integer mark;
+    private Integer retake;
     private Date date;
 
     public Mark() {
@@ -40,7 +41,7 @@ public class Mark {
         this.id = id;
     }
 
-    public int getMark() {
+    public Integer getMark() {
         return mark;
     }
 
@@ -67,5 +68,21 @@ public class Mark {
     @Override
     public  String toString(){
         return Integer.toString(getMark());
+    }
+
+    public String getFormatDate() {
+        return new SimpleDateFormat("yyyy-MM-dd").format(this.getDate());
+    }
+
+    public String get100BaseMark() {
+        return null;
+    }
+
+    public String getNationalScaleMark() {
+        return null;
+    }
+
+    public String getEctsMark() {
+        return null;
     }
 }

@@ -3,8 +3,11 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 
-    <bean id="PdfRevenueSummary"
-          class="ua.softserve.web.pdf.PdfRevenueReportView">
 
+    <bean id="teacherVid.pdf"
+          class="ua.softserve.web.view.pdf.TeacherPdfVid">
+    </bean>
+    <bean id="teacherVid.xls"
+          class="ua.softserve.web.view.excel.TeacherExcelVid">
     </bean>
 </beans>

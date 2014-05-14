@@ -19,7 +19,7 @@
 </script>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/students.css">
 
-<div class="header-of-main">Відомість успішності групи ${group} з дисципліни ${subject}</div>
+<div class="header-of-main"> ${group} - ${subject} (${cur_sum}й сим.)</div>
 <div class="main-part">
 
     <div class="tabs"><ul>
@@ -30,6 +30,15 @@
 
         </c:forEach>
                 </ul></div>
+
+    <div class="outfiles">
+        <ul>
+            <li><a href="/teacher/vidomist.xls?group_id=${group.getId()}&subject_id=${subject.getId()}&sum=${cur_sum}"><img alt="XLS" src="${pageContext.request.contextPath}/resources/img/xls.png"/></a></li>
+            <li><a href="/teacher/vidomist.pdf?group_id=${group.getId()}&subject_id=${subject.getId()}&sum=${cur_sum}"><img alt="PDF" src="${pageContext.request.contextPath}/resources/img/pdf.png"/></a></li>
+        </ul>
+
+    </div>
+
     <div class="table">
 <table >
     <tbody>

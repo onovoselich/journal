@@ -65,7 +65,6 @@ public class TeacherController {
             groupListMap.put(g,subjectDao.getTeacherGroupSubjects(teac.getId(),g.getId()));
 
 
-        model.put("group_map",groupListMap);
         model.put("group_json",JSONObject.groupListToJson(groupListMap));
 
         model.put("teacher", teac);
@@ -74,18 +73,19 @@ public class TeacherController {
         if (studId != null)
             model.put("student", studentDao.getStudentInfo(studId));
 
-
+/*
             model.put("group_list", groupDao.getTeacherGroups(teac.getId()));
-            model.put("subject_list", subjectDao.getTeacherSubjects(teac.getId()));
+            model.put("subject_list", subjectDao.getTeacherSubjects(teac.getId()));*/
 
 
         return TEACHER_PAGE;
     }
 
-    @RequestMapping(value = "/vidomist", method = RequestMethod.GET)
-    public String view(@RequestParam("group_id") Integer groupId,
+    @RequestMapping({ "/vidomist","/vidomist.pdf","/vidomist.xls"})
+    public ModelAndView view(@RequestParam("group_id") Integer groupId,
                        @RequestParam("subject_id") Integer subjectId,
                        @RequestParam(required=false) Integer sum,
+                       HttpServletRequest request,
                        ModelMap model) {
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -109,7 +109,7 @@ public class TeacherController {
                studMarkList.put(st, markDao.getMark(st.getId(), subjectId,sum));
             }
 
-
+        model.put("cur_sum",sum);
         model.put("sum_lst",tgsDao.getSumesters(teac.getId(),groupId,subjectId));
         model.put("group", groupDao.getGroup(groupId));
         model.put("subject", subjectDao.getSubject(subjectId));
@@ -117,7 +117,7 @@ public class TeacherController {
         model.put("stud_mark_list", studMarkList);
 
 
-        return TEACHER_VID_PAGE;
+            return new ModelAndView(getViewName(request,TEACHER_VID_PAGE),model);
     }
 
     @RequestMapping(value = "/delMark", method = RequestMethod.POST)
@@ -165,18 +165,15 @@ public class TeacherController {
         return STUD_INFO_PAGE;
     }
 
-    @RequestMapping("somePdf")
-    public ModelAndView somePdf(ModelMap model)throws Exception{
-        //dummy data
-        Map<String,String> revenueData = new HashMap<String,String>();
-        revenueData.put("1/20/2010", "$100,000");
-        revenueData.put("1/21/2010", "$200,000");
-        revenueData.put("1/22/2010", "$300,000");
-        revenueData.put("1/23/2010", "$400,000");
-        revenueData.put("1/24/2010", "$500,000");
 
-        return new ModelAndView("PdfRevenueSummary","revenueData",revenueData);
+
+    private String getViewName(HttpServletRequest request, String viewName){
+        String requestUri = request.getRequestURI();
+        if(requestUri.indexOf(".") != -1){
+            String extension =
+                    requestUri.substring(requestUri.lastIndexOf("."));
+            return viewName+extension;
+        }else
+        return viewName;
     }
-
-
 }

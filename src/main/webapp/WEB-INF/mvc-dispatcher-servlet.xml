@@ -42,7 +42,7 @@
     <!--Pdf files-->
     <bean class="org.springframework.web.servlet.view.XmlViewResolver">
         <property name="location">
-            <value>/WEB-INF/spring-pdf-views.xml</value>
+            <value>/WEB-INF/spring-xls-pdf-views.xml</value>
         </property>
     </bean>
 
