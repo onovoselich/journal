@@ -2,7 +2,7 @@
 var namedChbxs = new Object();
 
 $(function(){
-    var chbxs = $(':checkbox[required]');
+    var chbxs = $(':checkbox');
     chbxs.each(function(){
         var name = $(this).attr('id').substr(5);
         namedChbxs[name] = (namedChbxs[name] || $()).add(this);
