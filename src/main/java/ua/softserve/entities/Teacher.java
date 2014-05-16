@@ -132,9 +132,9 @@ public class Teacher {
 
     @Override
     public  String toString(){
-        if(surname.equals("") || surname == null)
+        if(("").equals(surname) || surname == null)
             return "No name";
-        if(name.equals("") || surname.equals( "") || name == null || surname == null)
+        if(("").equals(name )|| ("").equals(surname) || name == null || surname == null)
             return getSurname();
         return getSurname()+" "+getName().charAt(0)+". "+getPatronimic().charAt(0)+".";
 
