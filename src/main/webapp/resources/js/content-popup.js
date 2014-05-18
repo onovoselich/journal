@@ -1,4 +1,6 @@
 $(document).ready(function(){
+      bv
+
     $(".popup").click(function(e){
         e.preventDefault();
         switch($(this).text()){
@@ -7,5 +9,6 @@ $(document).ready(function(){
         }
         $(this).parent().next().slideToggle(1000,"swing");
 
+        document.cookie=this.id+"hidden=true;  path=/";
     });
 });
