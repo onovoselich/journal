@@ -52,7 +52,7 @@ public class TeacherController {
     TgsDao tgsDao;
 
     @RequestMapping({"/", ""})
-    public String main(@RequestParam(value = "stud_id", required = false) Integer studId,
+    public String main(
                        ModelMap model) {
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -70,8 +70,7 @@ public class TeacherController {
         model.put("teacher", teac);
         model.put("my_group", grp);
         model.put("grp_students", studentDao.getGroupStudents(grp.getId()));
-        if (studId != null)
-            model.put("student", studentDao.getStudentInfo(studId));
+
 
 /*
             model.put("group_list", groupDao.getTeacherGroups(teac.getId()));

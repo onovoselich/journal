@@ -35,7 +35,7 @@ public class StudentDao {
 
     public List<Student> getGroupStudents(int grId){
         JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
-        List<Student> result = jdbcTemplate.query(GET_GROUP_STUDENTS,new Object[]{grId},Student.studentRm);
+        List<Student> result = jdbcTemplate.query(GET_GROUP_STUDENTS,new Object[]{grId},Student.studentInfoRm);
 
         if(result.isEmpty()){
             return null;
