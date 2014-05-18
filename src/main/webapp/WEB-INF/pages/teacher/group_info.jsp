@@ -6,30 +6,10 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery-2.1.1.js"></script>
-<script>
-    $(document).ready(function(){
-        $(".list-student a").click(function(e){
-            e.preventDefault();
-            $(".student-card-left").hide();
-            $("#d"+this.id.substr(1)).show();
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/studinfo-display.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/content-popup.js"></script>
 
-
-        });
-
-        $(".student-card-left a").click(function(e){
-            e.preventDefault();
-            $(this).parent().parent().hide();
-
-        });
-
-        $(".student-card-left").hide();
-
-
-    });
-
-</script>
-
-<div class="header-of-main">Це ваша група: ${my_group} (${my_group.getEducYear()} курс)</div>
+<div class="header-of-main">Це ваша група: ${my_group} (${my_group.getEducYear()} курс)<a href="#" class="popup">↑</a></div>
 <div class="main-part">
 
     <div class="list-student">

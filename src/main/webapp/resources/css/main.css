@@ -54,5 +54,11 @@ body {
     position: relative;
 }
 
+.popup{
+    float: right;
+    text-decoration: none;
+    color: #ff0000;
+    margin-right: 15px;
+}
 
 
