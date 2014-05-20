@@ -33,7 +33,7 @@ CREATE TABLE `group_teacher_subject` (
   KEY `fk_gts_subject` (`subject_ID`),
   CONSTRAINT `fk_gts_subject` FOREIGN KEY (`subject_ID`) REFERENCES `subjects` (`Id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_gts_teacher` FOREIGN KEY (`teacher_ID`) REFERENCES `teachers` (`Id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=78 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=98 DEFAULT CHARSET=utf8;
 
 /*Table structure for table `groups` */
 
@@ -52,7 +52,7 @@ CREATE TABLE `groups` (
   KEY `groups_ibfk_4` (`Degree`),
   CONSTRAINT `groups_ibfk_3` FOREIGN KEY (`CuratorId`) REFERENCES `teachers` (`Id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `groups_ibfk_4` FOREIGN KEY (`Degree`) REFERENCES `spec` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
 
 /*Table structure for table `marks` */
 
@@ -68,9 +68,9 @@ CREATE TABLE `marks` (
   PRIMARY KEY (`Id`),
   KEY `MarksStudents_idx` (`StudentId`),
   KEY `TeacherSubjectGroupId` (`TeacherSubjectGroupId`),
-  CONSTRAINT `marks_ibfk_1` FOREIGN KEY (`TeacherSubjectGroupId`) REFERENCES `group_teacher_subject` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `MarksStudents` FOREIGN KEY (`StudentId`) REFERENCES `students` (`Id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=84 DEFAULT CHARSET=utf8;
+  CONSTRAINT `MarksStudents` FOREIGN KEY (`StudentId`) REFERENCES `students` (`Id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `marks_ibfk_1` FOREIGN KEY (`TeacherSubjectGroupId`) REFERENCES `group_teacher_subject` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=107 DEFAULT CHARSET=utf8;
 
 /*Table structure for table `spec` */
 
@@ -86,7 +86,7 @@ CREATE TABLE `spec` (
   KEY `ZavViddil` (`ZavViddil`),
   KEY `id` (`id`),
   CONSTRAINT `spec_ibfk_1` FOREIGN KEY (`ZavViddil`) REFERENCES `teachers` (`Id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 /*Table structure for table `students` */
 
@@ -127,7 +127,7 @@ CREATE TABLE `subjects` (
   PRIMARY KEY (`Id`),
   KEY `specId` (`specId`),
   CONSTRAINT `subjects_ibfk_1` FOREIGN KEY (`specId`) REFERENCES `spec` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8;
 
 /*Table structure for table `teachers` */
 
@@ -146,7 +146,7 @@ CREATE TABLE `teachers` (
   PRIMARY KEY (`Id`),
   KEY `Login` (`Login`),
   CONSTRAINT `teachers_ibfk_1` FOREIGN KEY (`Login`) REFERENCES `users` (`Login`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
 
 /*Table structure for table `users` */
 
@@ -260,7 +260,8 @@ FROM
     INNER JOIN `kep_v4`.`groups` 
         ON (`group_teacher_subject`.`group_ID` = `groups`.`Id`)
 WHERE (`group_teacher_subject`.`teacher_ID` =teacId)
-group by `groups`.`Id`;
+group by `groups`.`Id`
+order by `groups`.`Name`;
     END */$$
 DELIMITER ;
 
@@ -301,6 +302,29 @@ FROM
     INNER JOIN `kep_v4`.`subjects` 
         ON (`group_teacher_subject`.`subject_ID` = `subjects`.`Id`)
 WHERE (`teachers`.`Id` =teacId);
+    END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `get_teacher_subject_groups` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `get_teacher_subject_groups` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `get_teacher_subject_groups`( IN teacId INT, IN subjId INT)
+BEGIN
+SELECT 
+    `groups`.`Id`
+    , `groups`.`Name`
+    , `groups`.`EducYear`
+    ,`groups`.`degree`
+FROM
+    `kep_v4`.`group_teacher_subject`
+    INNER JOIN `kep_v4`.`groups` 
+        ON (`group_teacher_subject`.`group_ID` = `groups`.`Id`)
+WHERE (`group_teacher_subject`.`teacher_ID` =teacId and `group_teacher_subject`.`subject_ID` =subjId)
+GROUP BY `groups`.`Id`
+ORDER BY `groups`.`Name`;
     END */$$
 DELIMITER ;
 
