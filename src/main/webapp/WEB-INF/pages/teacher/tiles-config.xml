@@ -27,7 +27,7 @@
 
 </definition>
 
-<!--<definition name="studInfo" extends="template">
+<definition name="studInfo" extends="template">
     <put-attribute name="body">
         <definition template="/WEB-INF/pages/teacher/stud_info.jsp">
             <put-attribute name="student_card" value="/WEB-INF/pages/student/student_card.jsp"/>
@@ -35,6 +35,6 @@
 
     </put-attribute>
 
-</definition>-->
+</definition>
 
 </tiles-definitions>
