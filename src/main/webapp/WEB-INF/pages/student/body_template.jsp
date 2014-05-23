@@ -8,7 +8,7 @@
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/student-page.css">
 <div>
 
-    <div class="header-of-main student-card student-card-header">Картка студента<a href="#" class="popup">↑</a></div>
+    <div class="header-of-main student-card student-card-header">Картка студента<a href="#" id="studentinfopopup" class="popup">↑</a></div>
     <div class="main-part student-card-main">
         <tiles:insertAttribute name="stud_card"/>
     </div>
