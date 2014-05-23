@@ -8,6 +8,7 @@
 
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery-2.1.1.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/chbx_required.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/scroll-after-post.js"></script>
 <div class="header-of-main">ПРЕДМЕТИ ГРУПИ ${group}</div>
 <div class="main-part">
 <div class="table">

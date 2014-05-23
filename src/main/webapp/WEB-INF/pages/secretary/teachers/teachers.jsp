@@ -5,6 +5,10 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
+
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery-2.1.1.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/scroll-after-post.js"></script>
+
 <div class="header-of-main">Викладачі</div>
 <div class="main-part">
     <div class="table">

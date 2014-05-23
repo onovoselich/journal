@@ -7,6 +7,7 @@
 <%@ page import="ua.softserve.logic.Number" %>
 
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery-2.1.1.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/scroll-after-post.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/chbx_required.js"></script>
 <div class="header-of-main">ГРУПИ ТА ПРЕДМЕТИ ВИКЛАДАЧА ${teacher}</div>
 <div class="main-part">

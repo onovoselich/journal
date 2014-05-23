@@ -11,15 +11,17 @@
 
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery-2.1.1.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery.core.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/scroll-after-post.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/datepicker.js"></script>
 <script>
     $(document).ready(function() {
         $( ".data" ).datepicker();
     });
 </script>
+
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/students.css">
 
-<div class="header-of-main"> ${group} - ${subject} (${cur_sum}й сим.)</div>
+<div class="header-of-main"> ${group} - ${subject} (${cur_sum}й сим.) ${subject.getControlForm()}</div>
 <div class="main-part">
 
     <div class="tabs"><ul>

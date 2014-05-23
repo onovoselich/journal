@@ -9,6 +9,7 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery.core.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/tr_sliding.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/datepicker.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/scroll-after-post.js"></script>
 <script>
     $(document).ready(function() {
         $( ".data" ).datepicker();
