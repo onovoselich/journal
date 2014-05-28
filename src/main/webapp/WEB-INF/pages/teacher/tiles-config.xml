@@ -9,6 +9,7 @@
                        value="group_info"/>
         <put-attribute name="content"
                        value="/WEB-INF/pages/teacher/teacher_home.jsp"/>
+        <put-attribute name="vid_menu" value="/WEB-INF/pages/teacher/vid_menu.jsp"/>
     </definition>
 
 <definition name="teacherPage" extends="template">
@@ -20,7 +21,9 @@
                 template="/WEB-INF/pages/teacher/group_info.jsp">
     <put-attribute name="student_card" value="/WEB-INF/pages/student/student_card.jsp"/>
 </definition>
-
+<!--<definition name="vid_menu"
+            template=>
+</definition>-->
 <definition name="teacherVid"
                 extends="template">
     <put-attribute name="body" value="/WEB-INF/pages/teacher/teacher_vid.jsp"/>

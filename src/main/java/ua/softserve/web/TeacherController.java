@@ -9,16 +9,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-import sun.org.mozilla.javascript.internal.json.JsonParser;
 import ua.softserve.db.*;
 import ua.softserve.entities.*;
 import ua.softserve.exceptions.UpdateException;
 import ua.softserve.logic.JSONObject;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.xml.transform.sax.SAXSource;
 import java.io.IOException;
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -59,6 +57,32 @@ public class TeacherController {
         Teacher teac = teacherDao.getTeacherInfo(auth.getName());
         Group grp = groupDao.getGroupByCurator(teac.getId());
 
+        List<Integer>spList = groupDao.getSpecsByZavvidd(teac.getId());
+        Map<Group,List<Subject>> gsl = new TreeMap<Group, List<Subject>>();
+        if(spList!=null || !spList.isEmpty()){
+
+            model.put("i_am_zavvidd",1);
+            List<Group>grLst = new ArrayList<Group>();
+            for(Integer i:spList){
+                grLst.addAll(groupDao.getSpecGrops(i));
+            }
+            for(Group g : grLst)
+                gsl.put(g,subjectDao.getGroupSubjects(g.getId()));
+
+        }
+
+        if (grp != null){
+
+            model.put("i_am_curator",1);
+            model.put("my_group", grp);
+            model.put("grp_students", studentDao.getGroupStudents(grp.getId()));
+            model.put("group_list",groupDao.getTeacherGroups(teac.getId()));
+
+
+            gsl.put(grp,subjectDao.getGroupSubjects(grp.getId()));
+        }
+
+        model.put("group_list_for_vid",JSONObject.groupListToJson(gsl));
         Map<Group,  List<Subject>>  groupListMap = new TreeMap<Group, List<Subject>>();
         List<Group> groups = groupDao.getTeacherGroups(teac.getId());
         for(Group g : groups)
@@ -68,8 +92,6 @@ public class TeacherController {
         model.put("group_json",JSONObject.groupListToJson(groupListMap));
 
         model.put("teacher", teac);
-        model.put("my_group", grp);
-        model.put("grp_students", studentDao.getGroupStudents(grp.getId()));
 
 
 /*
@@ -81,9 +103,10 @@ public class TeacherController {
     }
 
     @RequestMapping({ "/vidomist","/vidomist.pdf","/vidomist.xls"})
-    public ModelAndView view(@RequestParam("group_id") Integer groupId,
+    public ModelAndView vid(@RequestParam("group_id") Integer groupId,
                        @RequestParam("subject_id") Integer subjectId,
                        @RequestParam(required=false) Integer sum,
+                       @RequestParam(required = false)String format,
                        HttpServletRequest request,
                        ModelMap model) {
 
@@ -92,14 +115,14 @@ public class TeacherController {
         if (sum==null){
             sum = groupDao.getGroup(groupId).getSumestr();
 
-            List<Integer> sumLst = tgsDao.getSumesters(teac.getId(),groupId,subjectId);
+            List<Integer> sumLst = tgsDao.getSumesters(groupId,subjectId);
             while(!sumLst.contains(sum))
                 sum--;
         }
         Integer tgsId = tgsDao.getTeacherGroupSubject(teac.getId(), groupId, subjectId,sum);
 
         if (tgsId == null)
-            throw new RuntimeException("Ви не викладаєте цей предмет у цієї групи!");
+            throw new RuntimeException("Ви не викладаєте цей предмет у цієї групи або неправильний симестр!");
 
         Map<Student, Mark> studMarkList = new TreeMap<Student, Mark>();
         List<Student> studList = studentDao.getGroupStudents(groupId);
@@ -115,7 +138,9 @@ public class TeacherController {
         model.put("teac_subj_grp_id", tgsId);
         model.put("stud_mark_list", studMarkList);
 
-
+        if(format!=null)
+            return new ModelAndView(TEACHER_VID_PAGE+format,model);
+        else
             return new ModelAndView(getViewName(request,TEACHER_VID_PAGE),model);
     }
 

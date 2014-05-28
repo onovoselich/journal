@@ -5,9 +5,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
-<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery-2.1.1.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/studinfo-display.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/content-popup.js"></script>
 
 <div class="header-of-main">Це ваша група: ${my_group} (${my_group.getEducYear()} курс)<a href="#" id="teachergrouppopup" class="popup">↑</a></div>
 <div class="main-part">

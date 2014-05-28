@@ -19,6 +19,13 @@ public class GroupDao {
     @Autowired
     SpecDao specDao ;
 
+    public List<Integer> getSpecsByZavvidd(Integer zavvId){
+        JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
+        List<Integer> result = jdbcTemplate.queryForList(GET_ZAVVID_SPECS, Integer.class, new Object[]{zavvId});
+        if(result.isEmpty())
+            return null;
+        return result;
+    }
 
     public Group getGroup(Integer grId){
         JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);

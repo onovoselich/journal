@@ -3,7 +3,6 @@ package ua.softserve.logic;
 import ua.softserve.entities.Group;
 import ua.softserve.entities.Subject;
 
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -19,6 +18,7 @@ public class JSONObject {
             res.append("{");
             res.append("\"gr_id\":"+entry.getKey().getId()
                     +", \"gr_name\":\""+entry.getKey().getName()+"\", \"subj_list\":[");
+            if(entry.getValue()!=null)
             for(Subject subj : entry.getValue()){
                 if("}".equals(res.substring(res.length()-1))) res.append(",");
                 res.append("{");

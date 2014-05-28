@@ -5,12 +5,12 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import ua.softserve.entities.Group;
 import ua.softserve.entities.Subject;
 import ua.softserve.entities.Teacher;
-import ua.softserve.entities.Group.Tgs;
-import ua.softserve.logic.Triple;
-import ua.softserve.logic.Tuple;
 
 import javax.sql.DataSource;
-import java.util.*;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 import static ua.softserve.db.SqlQueries.*;
 
@@ -137,4 +137,11 @@ public class TgsDao {
         return true;
     }
 
+    public List<Integer> getSumesters(Integer groupId, Integer subjId) {
+        JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
+        List<Integer> result = jdbcTemplate.queryForList(GET_SUMESTERS_NO_TEAC,Integer.class,new Object[]{groupId,subjId});
+        if (result.isEmpty())
+            return null;
+        return result;
+    }
 }
