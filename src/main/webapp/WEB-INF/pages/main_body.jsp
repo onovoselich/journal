@@ -32,8 +32,8 @@
             olololeg [123];<br />
 
             <b>Викладачі:</b><br />
-            login1 [123];<br />
-            login2 [123];<br />
+            lev [123];<br />
+            dldl [123];<br />
 
             <b>Адміністратор:</b><br />
             admin [123];<br />
