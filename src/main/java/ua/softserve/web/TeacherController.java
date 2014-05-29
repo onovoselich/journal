@@ -104,6 +104,7 @@ public class TeacherController {
                        @RequestParam("subject_id") Integer subjectId,
                        @RequestParam(required=false) Integer sum,
                        @RequestParam(required = false)String format,
+                       @RequestParam(required = false)String message,
                        HttpServletRequest request,
                        ModelMap model) {
 
@@ -139,6 +140,7 @@ public class TeacherController {
         model.put("subject", subjectDao.getSubject(subjectId));
         model.put("teac_subj_grp_id", tgsLstSum);
         model.put("stud_mark_list", markLstSum);
+        model.put("message",message);
 
         if(format!=null)
             return new ModelAndView(TEACHER_VID_PAGE+format,model);

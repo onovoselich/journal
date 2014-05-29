@@ -33,7 +33,7 @@
     <div class="main-content">
 
         <c:if test="${not empty message}">
-            <span class="message">MESSAGE: <%=response.getHeader("message")%></span>
+            <span class="message">MESSAGE: ${message}</span>
         </c:if>
         <tiles:insertAttribute name="body"/>
     </div>
