@@ -5,7 +5,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -14,7 +13,10 @@ import ua.softserve.entities.Mark;
 import ua.softserve.entities.Student;
 import ua.softserve.entities.Subject;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * Created by troll on 13.01.14.
@@ -35,6 +37,8 @@ public class StudentController {
     private MarkDao markDao;
     @Autowired
     private GroupDao groupDao;
+    @Autowired
+    private TgsDao tgsDao;
 
     @RequestMapping({"/", ""})
     public String main(ModelMap model) {
@@ -47,22 +51,18 @@ public class StudentController {
         }catch(Exception e){
             sum = 1;
         }
-        return "redirect:student/"+sum+"sumestr";
-    }
 
-    @RequestMapping("{sum}sumestr")
-    public String studRoom(@PathVariable Integer sum,
-                           ModelMap model){
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        Student student = studentDao.getStudentInfo(auth.getName());
         model.put("sum",sum);
         model.put("student", student);
-        model.put("subjectList", subjectDao.getGroupSubjects(student.getGroupId(),sum));
+        Map<Integer,List<Subject>> subjLstBySum = new TreeMap<Integer, List<Subject>>();
+        for (Integer i=1;i<=8;i++)
+            subjLstBySum.put(i,subjectDao.getGroupSubjects(student.getGroupId(),i));
+        model.put("subjectList",subjLstBySum );
         return STUDENT_PAGE;
     }
 
-    @RequestMapping(value = "/vidomist", method = RequestMethod.GET)
-    public String view(@RequestParam(value = "subj", required = false) String[] subjectsId,
+    @RequestMapping(value = "/vidomist", method = RequestMethod.POST)
+    public String view(@RequestParam(value = "subj", required = false) String[] subjectsIdLst,
                        @RequestParam(value = "sum") Integer sum,
                        ModelMap model) {
 
@@ -70,12 +70,40 @@ public class StudentController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
         Student stud = studentDao.getStudentInfo(auth.getName());
-        Map<String, Map<Subject, Mark>> markList = new HashMap<String, Map<Subject, Mark>>();
-        markList.put(Subject.EXAM, new TreeMap<Subject, Mark>());
-        markList.put(Subject.ZALIK, new TreeMap<Subject, Mark>());
-        markList.put(Subject.DUF_ZALIK, new TreeMap<Subject, Mark>());
+        Map<Integer,Map<String, Map<Subject, Mark>>> markListSum = new HashMap<Integer, Map<String, Map<Subject, Mark>>>();
 
-        if (subjectsId == null) {
+        String[] subjectsId = new String[0];
+        for(int i=1;i<=8;i++){
+            Map<String, Map<Subject, Mark>> markList = new HashMap<String, Map<Subject, Mark>>();
+
+            markList.put(Subject.EXAM, new TreeMap<Subject, Mark>());
+            markList.put(Subject.ZALIK, new TreeMap<Subject, Mark>());
+            markList.put(Subject.DUF_ZALIK, new TreeMap<Subject, Mark>());
+
+            if(sum == i && subjectsIdLst!=null){
+                subjectsId = subjectsIdLst;
+
+            }else{
+            List<Subject> grlst = subjectDao.getGroupSubjects(stud.getGroupId(),i);
+            if (grlst != null){
+
+                subjectsId = new String[grlst.size()];
+                for (int j = 0; j < grlst.size(); j++) {
+                subjectsId[j] = new String(Integer.toString(grlst.get(j).getId()));
+            }
+            }
+            }
+            for (int j = 0; j < subjectsId.length; j++) {
+                Subject subj = subjectDao.getSubject(Integer.parseInt(subjectsId[j]));
+                    subj.setTeacher(teacherDao.getTeacher(subj.getId(), stud.getGroupId()));
+                Mark mark = markDao.getMark(stud.getId(), subj.getId(),i);
+                markList.get(subj.getControlForm()).put(subj, mark);
+            }
+            markListSum.put(i,markList);
+        }
+
+
+/*        if (subjectsId == null) {
             List<Subject> grlst = subjectDao.getGroupSubjects(stud.getGroupId(),sum);
         if (grlst==null)
             throw new RuntimeException("Немає даних по предметам");
@@ -91,11 +119,11 @@ public class StudentController {
             subj.setTeacher(teacherDao.getTeacher(subj.getId(), stud.getGroupId()));
             Mark mark = markDao.getMark(stud.getId(), subj.getId(),sum);
             markList.get(subj.getControlForm()).put(subj, mark);
-        }
+        }*/
 
         model.put("sum",sum);
         model.put("student", stud);
-        model.put("marks", markList);
+        model.put("marks", markListSum);
 
         return STUDENT_VID_PAGE;
     }

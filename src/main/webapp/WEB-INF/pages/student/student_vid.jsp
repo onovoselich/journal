@@ -4,41 +4,50 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/tabs.js"></script>
+<script>
+    var sum = parseInt('<c:out value="${sum}"/>');
+</script>
+
 <%@ page import="ua.softserve.logic.Number" %>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/student-vid.css">
-<div class="header-of-main">відомість успішності за ${sum}-й симестр</div>
+<div class="header-of-main">відомість успішності</div>
 <div class="main-part">
     <div class="tabs"><ul>
 
         <%for(int i=1; i<=8;i++){%>
-        <li><a href="/student/vidomist?sum=<%=i%>"><%=Number.arabic2roman(i)%></a></li>
+        <li><a id="tab_<%=i%>"  href="#"><%=Number.arabic2roman(i)%></a></li>
 
         <%;}%>
     </ul>
-    </div>
+<%--<c:if test="${toshow != null}">
+
     <div class="tabs"><ul><li>  <a href="/student/vidomist?sum=${sum}">Всі предмети</a></li>
     </ul></div>
- <div class="table">
+</c:if>--%>
+
+<c:forEach var="i" items="${marks}">
+ <div id="content_${i.key}" class="table tabcontent">
 <table>
 
 
     <tr><td></td>
-        <c:if test='${!marks.get("Іспит").isEmpty()}'>
-        <th colspan=${marks.get("Іспит").size()}>
+        <c:if test='${!i.value.get("Іспит").isEmpty()}'>
+        <th colspan=${i.value.get("Іспит").size()}>
             Іспити
         </th></c:if>
-        <c:if test='${!marks.get("Залік").isEmpty()}'>
-        <th colspan=${marks.get("Залік").size()}>
+        <c:if test='${!i.value.get("Залік").isEmpty()}'>
+        <th colspan=${i.value.get("Залік").size()}>
             Заліки
         </th></c:if>
-        <c:if test='${!marks.get("Д/З").isEmpty()}'>
-        <th colspan=${marks.get("Д/З").size()}>
+        <c:if test='${!i.value.get("Д/З").isEmpty()}'>
+        <th colspan=${i.value.get("Д/З").size()}>
             Д\З
         </th></c:if>
 
     </tr>
     <tr><th>Предмет</th>
-    <c:forEach var = "columnName" items = "${marks}">
+    <c:forEach var = "columnName" items = "${i.value}">
 
 
             <c:forEach var = "cc" items = "${columnName.value}">
@@ -51,7 +60,7 @@
     </tr>
     <tr></tr>
     <tr><th>Оцінка</th>
-        <c:forEach var = "columnName" items = "${marks}">
+        <c:forEach var = "columnName" items = "${i.value}">
 
             <c:forEach var = "cc" items = "${columnName.value}">
                 <td>
@@ -62,7 +71,7 @@
         </c:forEach>
     </tr>
     <tr><th>Викладач</th>
-        <c:forEach var = "columnName" items = "${marks}">
+        <c:forEach var = "columnName" items = "${i.value}">
 
             <c:forEach var = "cc" items = "${columnName.value}">
                 <td><div>
@@ -74,5 +83,6 @@
     </tr>
     </table>
 </div>
+   </c:forEach>
 
 </div>

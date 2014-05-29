@@ -29,10 +29,15 @@ body {
     font-weight: bold;
 
 }
+
 .tabs a:hover, .tabs a:active{
 
     background-color: #31315F;
 }
+.tabs a.current, .tabs a.current:hover, .tabs a.current:active{
+
+     background-color: deepskyblue;
+ }
 .outfiles{
     position: absolute;
     top: 0px;
