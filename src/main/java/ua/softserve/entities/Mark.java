@@ -71,7 +71,10 @@ public class Mark {
     }
 
     public String getFormatDate() {
-        return new SimpleDateFormat("yyyy-MM-dd").format(this.getDate());
+        if(date!= null)
+            return new SimpleDateFormat("yyyy-MM-dd").format(date);
+        else
+            return "";
     }
 
     public String get100BaseMark() {

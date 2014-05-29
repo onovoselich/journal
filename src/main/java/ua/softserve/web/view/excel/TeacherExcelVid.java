@@ -1,6 +1,9 @@
 package ua.softserve.web.view.excel;
 
-import org.apache.poi.hssf.usermodel.*;
+import org.apache.poi.hssf.usermodel.HSSFCellStyle;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.Font;
@@ -32,7 +35,7 @@ public class TeacherExcelVid extends AbstractExcelView  implements Vidomist_H5_0
         Integer sum =(Integer)model.get("cur_sum");
         Subject subj = (Subject)model.get("subject");
         Group grp = (Group)model.get("group");
-        Map<Student,Mark> studMarkList = (Map<Student,Mark>)model.get("stud_mark_list");
+        Map<Student,Mark> studMarkList = ((Map<Integer,Map<Student,Mark>>)model.get("stud_mark_list")).get(sum);
 
         HSSFSheet sheet = createSheet(hssfWorkbook,grp,subj,sum);
 

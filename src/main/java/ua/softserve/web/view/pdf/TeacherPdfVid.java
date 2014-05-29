@@ -1,13 +1,8 @@
 package ua.softserve.web.view.pdf;
 
 import com.lowagie.text.*;
-import com.lowagie.text.Font;
 import com.lowagie.text.pdf.BaseFont;
 import com.lowagie.text.pdf.PdfWriter;
-
-import com.sun.deploy.net.protocol.about.AboutURLConnection;
-import org.springframework.core.io.DefaultResourceLoader;
-import org.springframework.core.io.Resource;
 import org.springframework.web.servlet.view.document.AbstractPdfView;
 import ua.softserve.entities.Group;
 import ua.softserve.entities.Mark;
@@ -18,8 +13,6 @@ import ua.softserve.web.view.Vidomist_H5_03;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
 import java.util.Calendar;
 import java.util.Map;
 
@@ -37,7 +30,7 @@ public class TeacherPdfVid extends AbstractPdfView implements Vidomist_H5_03{
         Integer sum =(Integer)model.get("cur_sum");
         Subject subj = (Subject)model.get("subject");
         Group grp = (Group)model.get("group");
-        Map<Student,Mark> studMarkList = (Map<Student,Mark>)model.get("stud_mark_list");
+        Map<Student,Mark> studMarkList = ((Map<Integer,Map<Student,Mark>>)model.get("stud_mark_list")).get(sum);
 
 
 
