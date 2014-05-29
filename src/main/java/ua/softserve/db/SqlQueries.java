@@ -26,6 +26,9 @@ public interface SqlQueries {
     public static final String GET_GROUP_STUDENTS = "SELECT * FROM `students` WHERE `groupId` = ?;";
     public static final String GET_SPEC_STUDENTS = "SELECT    * FROM    `students`    INNER JOIN `groups`         ON (`students`.`GroupId` = `groups`.`Id`)WHERE (`groups`.`Degree` =?);";
     public static final String GET_ZAVVID_SPECS = "SELECT `id` FROM `spec` WHERE `ZavViddil` = ?";
+    public static final String GET_GROUP_ID = "SELECT `group_ID` FROM `group_teacher_subject` WHERE `id` = ?";
+    public static final String GET_SUBJECT_ID = "SELECT `subject_ID` FROM `group_teacher_subject` WHERE `id` = ?";
+    public static final String GET_SUM = "SELECT `sumestr` FROM `group_teacher_subject` WHERE `id` = ?";
 
     public static final String GET_GROUP_STUDENTS_INFO = "SELECT * FROM `students` WHERE `groupId` = ?;";
     public static final String GET_TEACHER_BY_SUBJ = "call `get_teacher`(?,?);";

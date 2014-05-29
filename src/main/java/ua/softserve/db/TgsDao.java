@@ -144,4 +144,26 @@ public class TgsDao {
             return null;
         return result;
     }
-}
+    public Integer getGroupId(Integer tgsId){
+        JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
+        List<Integer> result = jdbcTemplate.queryForList(GET_GROUP_ID,Integer.class,new Object[]{tgsId});
+        if (result.isEmpty())
+            return null;
+        return result.get(0);
+    }
+    public Integer getSubjectId(Integer tgsId){
+        JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
+        List<Integer> result = jdbcTemplate.queryForList(GET_SUBJECT_ID,Integer.class,new Object[]{tgsId});
+        if (result.isEmpty())
+            return null;
+        return result.get(0);
+    }
+
+public Integer getSum(Integer tgsId){
+        JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
+        List<Integer> result = jdbcTemplate.queryForList(GET_SUM,Integer.class,new Object[]{tgsId});
+        if (result.isEmpty())
+        return null;
+        return result.get(0);
+        }
+        }

@@ -4,13 +4,14 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
+<%@ page import="ua.softserve.logic.Number" %>
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/student-vid.css">
+
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/tabs.js"></script>
 <script>
     var sum = parseInt('<c:out value="${sum}"/>');
 </script>
 
-<%@ page import="ua.softserve.logic.Number" %>
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/student-vid.css">
 <div class="header-of-main">відомість успішності</div>
 <div class="main-part">
     <div class="tabs"><ul>

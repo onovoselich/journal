@@ -13,35 +13,39 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery.core.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/scroll-after-post.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/datepicker.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/tabs.js"></script>
 <script>
+    var sum = parseInt('<c:out value="${cur_sum}"/>');
     $(document).ready(function() {
         $( ".data" ).datepicker();
     });
 </script>
 
+
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/students.css">
 
-<div class="header-of-main"> ${group} - ${subject} (${cur_sum}й сим.) ${subject.getControlForm()}</div>
+<div class="header-of-main"> ${group} - ${subject} (${subject.getControlForm()})</div>
 <div class="main-part">
 
     <div class="tabs"><ul>
 
         <c:forEach var="i" items="${sum_lst}">
 
-            <li><a href="/teacher/vidomist?group_id=${group.getId()}&subject_id=${subject.getId()}&sum=${i}"><%=Number.arabic2roman((Integer)pageContext.getAttribute("i"))%></a></li>
+            <li><a id="tab_${i}" href="#"><%=Number.arabic2roman((Integer)pageContext.getAttribute("i"))%></a></li>
 
         </c:forEach>
                 </ul></div>
 
+    <c:forEach var="i" items="${sum_lst}">
+    <div class="table tabcontent" id="content_${i}">
     <div class="outfiles">
         <ul>
-            <li><a href="/teacher/vidomist.xls?group_id=${group.getId()}&subject_id=${subject.getId()}&sum=${cur_sum}"><img alt="XLS" src="${pageContext.request.contextPath}/resources/img/xls.png"/></a></li>
-            <li><a href="/teacher/vidomist.pdf?group_id=${group.getId()}&subject_id=${subject.getId()}&sum=${cur_sum}"><img alt="PDF" src="${pageContext.request.contextPath}/resources/img/pdf.png"/></a></li>
+            <li><a href="/teacher/vidomist.xls?group_id=${group.getId()}&subject_id=${subject.getId()}&sum=${i}"><img alt="XLS" src="${pageContext.request.contextPath}/resources/img/xls.png"/></a></li>
+            <li><a href="/teacher/vidomist.pdf?group_id=${group.getId()}&subject_id=${subject.getId()}&sum=${i}"><img alt="PDF" src="${pageContext.request.contextPath}/resources/img/pdf.png"/></a></li>
         </ul>
 
     </div>
 
-    <div class="table">
 <table >
     <tbody>
     <tr>
@@ -63,11 +67,11 @@
 
     </tr>
 <%int i = 0;%>
-        <c:forEach items="${stud_mark_list}" var="row">
+        <c:forEach items="${stud_mark_list.get(i)}" var="row">
             <tr>
             <form method="post">
                 <input type="hidden" name="student_id" value="${row.key.getId()}">
-                <input type="hidden" name="teac_subj_grp_id" value="${teac_subj_grp_id}">
+                <input type="hidden" name="teac_subj_grp_id" value="${teac_subj_grp_id.get(i)}">
                 <input type="hidden" name="group_id" value="${group.getId()}">
                 <input type="hidden" name="subject_id" value="${subject.getId()}">
                 <td>
@@ -81,8 +85,8 @@
                 </td><td>
                 <select name="mark">
                     <option value="" selected></option>
-            <c:forEach var="i" begin="1" end="12">
-                        <option value="${i}" <c:if test="${row.value.getMark() == i}">selected</c:if>>${i}</option>
+            <c:forEach var="j" begin="1" end="12">
+                        <option value="${j}" <c:if test="${row.value.getMark() == j}">selected</c:if>>${j}</option>
                    </c:forEach>
                 </select>
 
@@ -107,5 +111,6 @@
     </table>
 
     </div>
+</c:forEach>
 
 </div>

@@ -16,10 +16,7 @@ import ua.softserve.logic.JSONObject;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 
 import static ua.softserve.web.Messages.DELETED_SUCCESS;
 import static ua.softserve.web.Messages.SUCCESS;
@@ -112,31 +109,36 @@ public class TeacherController {
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         Teacher teac = teacherDao.getTeacherInfo(auth.getName());
+        List<Integer> sumLst;
+        sumLst = tgsDao.getSumesters(groupId,subjectId);
         if (sum==null){
             sum = groupDao.getGroup(groupId).getSumestr();
 
-            List<Integer> sumLst = tgsDao.getSumesters(groupId,subjectId);
             while(!sumLst.contains(sum))
                 sum--;
         }
-        Integer tgsId = tgsDao.getTeacherGroupSubject(teac.getId(), groupId, subjectId,sum);
+        Map<Integer, Integer> tgsLstSum = new HashMap<Integer, Integer>();
+        Map<Integer, Map<Student, Mark>> markLstSum = new HashMap<Integer, Map<Student, Mark>>();
+        for(Integer i : sumLst){
+            Integer tgsId = tgsDao.getTeacherGroupSubject(teac.getId(), groupId, subjectId,i);
 
-        if (tgsId == null)
-            throw new RuntimeException("Ви не викладаєте цей предмет у цієї групи або неправильний симестр!");
-
-        Map<Student, Mark> studMarkList = new TreeMap<Student, Mark>();
-        List<Student> studList = studentDao.getGroupStudents(groupId);
-        if (studList != null)
-            for (Student st : studList) {
-               studMarkList.put(st, markDao.getMark(st.getId(), subjectId,sum));
+            if (tgsId != null){
+                tgsLstSum.put(i,tgsId);
+                Map<Student, Mark> studMarkList = new TreeMap<Student, Mark>();
+                List<Student> studList = studentDao.getGroupStudents(groupId);
+                if (studList != null)
+                    for (Student st : studList) {
+                       studMarkList.put(st, markDao.getMark(st.getId(), subjectId,i));
+                    }
+                markLstSum.put(i,studMarkList);
             }
-
+        }
         model.put("cur_sum",sum);
-        model.put("sum_lst",tgsDao.getSumesters(teac.getId(),groupId,subjectId));
+        model.put("sum_lst",sumLst);
         model.put("group", groupDao.getGroup(groupId));
         model.put("subject", subjectDao.getSubject(subjectId));
-        model.put("teac_subj_grp_id", tgsId);
-        model.put("stud_mark_list", studMarkList);
+        model.put("teac_subj_grp_id", tgsLstSum);
+        model.put("stud_mark_list", markLstSum);
 
         if(format!=null)
             return new ModelAndView(TEACHER_VID_PAGE+format,model);
@@ -155,9 +157,12 @@ public class TeacherController {
             throw new IOException("Невдалося видалити оцінку!");
 
         model.put("message", DELETED_SUCCESS);
+        model.put("group_id",tgsDao.getGroupId(tsgId));
+        model.put("subject_id",tgsDao.getSubjectId(tsgId));
+        model.put("sum",tgsDao.getSum(tsgId));
 
 
-        return "redirect:"+request.getHeader("referer");
+        return "redirect:/teacher/vidomist";
 
 
     }
@@ -177,7 +182,12 @@ public class TeacherController {
             throw new UpdateException();
 
         model.put("message", SUCCESS);
-        return "redirect:"+request.getHeader("referer");
+        model.put("group_id",tgsDao.getGroupId(tgsId));
+        model.put("subject_id",tgsDao.getSubjectId(tgsId));
+        model.put("sum",tgsDao.getSum(tgsId));
+
+
+        return "redirect:/teacher/vidomist";
 
 
     }
