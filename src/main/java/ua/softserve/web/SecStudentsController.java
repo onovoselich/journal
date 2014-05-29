@@ -4,7 +4,10 @@ import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.ServletContextAware;
 import org.springframework.web.multipart.MultipartFile;
 import ua.softserve.db.*;
@@ -16,7 +19,6 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
 
-import static ua.softserve.db.UserDao.ROLE_STUDENT;
 import static ua.softserve.web.Messages.SUCCESS;
 
 /**
@@ -51,7 +53,7 @@ public class SecStudentsController implements ServletContextAware {
 
         return STUDENTS_PAGE;
     }
-    @RequestMapping("spec{specId}")
+ /*   @RequestMapping("spec{specId}")
     public String studentsSpecView(ModelMap model
             ,@PathVariable Integer specId
     ) {
@@ -72,7 +74,7 @@ public class SecStudentsController implements ServletContextAware {
         model.put("students_list", studentDao.getGroupStudentsInfo(groupId));
 
         return STUDENTS_PAGE;
-    }
+    }*/
     @RequestMapping(value = "add_student", method = RequestMethod.POST)
     public String addStudent(ModelMap model,
                              @ModelAttribute Student stud,
