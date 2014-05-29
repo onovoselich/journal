@@ -7,13 +7,17 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery-2.1.1.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/number_validation.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/scroll-after-post.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/tabs.js"></script>
+<script>
+    var sum = "all";
+</script>
 
 <div class="header-of-main">Предмети</div>
 <div class="main-part">
     <div class="tabs"><ul>
-        <li><a href="/secretary/subjects">all</a></li>
-        <c:forEach items="${tab_list}" var="sp"><li>
-            <a href="/secretary/subjects/spec${sp.getId()}" >${sp}</a>
+        <li><a id="tab_all" href="#">all</a></li>
+        <c:forEach items="${spec_list}" var="sp"><li>
+            <a id="tab_${sp.getId()}" href="#" >${sp}</a>
         </li></c:forEach></ul>
     </div>
     <div class="table">
@@ -28,8 +32,9 @@
 
         </tr>
         <c:forEach items="${subj_list}" var="subj">
+            <tr class="tabcontent content_${subj.getSpetiality().getId()}" >
         <form action="/secretary/subjects/alter_subject" method="post">
-            <tr>
+
                 <td><input type="text" size="3" name="id" value="${subj.getId()}" readonly/></td>
                 <td><input type="text" name="name" required="required"  size="50" value="${subj.getName()}"/></td>
                 <td><select name="specId" required="required" >
@@ -53,8 +58,9 @@
                     <input type="reset" value="cancel"/>
 
                 </td>
-            </tr>
+
             </form>
+            </tr>
         </c:forEach>
         <tr></tr>
         <form action="/secretary/subjects/add_subject" method="post">

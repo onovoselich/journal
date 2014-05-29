@@ -1,4 +1,5 @@
 $(document).ready(function(){
+
     showContent(sum);
     $(".tabs a").click(function(e){
         e.preventDefault();
@@ -9,11 +10,15 @@ $(document).ready(function(){
 });
 
 function showContent(sum){
-    $(".tabcontent").hide()/*.removeClass("current")*/;
+    if (sum=="all")
+        $(".tabcontent").show()
+    else{
+    $(".tabcontent").hide()
+
+        $("#content_"+sum).show();
+        $(".content_"+sum).show();
+    }
     $(".tabs a").removeClass("current")
-
     $("#tab_"+sum).addClass("current");
-    $("#content_"+sum).show();
-
 
 }

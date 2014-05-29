@@ -10,7 +10,10 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/tr_sliding.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/datepicker.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/scroll-after-post.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/tabs.js"></script>
 <script>
+    var sum = "all";
+
     $(document).ready(function() {
         $( ".data" ).datepicker();
     });
@@ -23,15 +26,15 @@
 <div class="header-of-main">Студенти</div>
 <div class="main-part">
     <div class="tabs"><ul>
-        <li><a href="/secretary/students">all</a></li>
-        <c:forEach items="${spec_list}" var="sp"><li>
-            <a href="/secretary/students/spec${sp.getId()}" >${sp}</a>
+        <li><a id="tab_all" href="/secretary/students">all</a></li>
+       <%-- <c:forEach items="${spec_list}" var="sp"><li>
+            <a id="tab_s${sp.getId()}" href="/secretary/students/spec" >${sp}</a>
         </li></c:forEach></ul>
     </div>
 
-    <div class="tabs"><ul>
+    <div class="tabs"><ul>--%>
         <c:forEach items="${groups_list}" var="gr"><li>
-            <a href="/secretary/students/group${gr.getId()}" >${gr}</a>
+            <a id="tab_g${gr.getId()}" href="/secretary/students/group" >${gr}</a>
         </li></c:forEach></ul>
     </div>
     <div class="table">
@@ -53,8 +56,9 @@
                  <th>Address</th>--%>
             </tr>
             <c:forEach var="student" items="${students_list}">
-                <form action="/secretary/students/alter_student" enctype="multipart/form-data" method="post">
-                    <tr>
+                <form  action="/secretary/students/alter_student" enctype="multipart/form-data" method="post">
+                    <tr class="tabcontent content_g${student.getGroupId()}">
+
                         <td><input name="id" size="3" type="text" readonly value="${student.getId()}"/></td>
                         <td><input name="name" required="required"  type="text" size="8" value="${student.getName()}"/></td>
                         <td><input name="patronimic" type="text" size="8" value="${student.getPatronimic()}"/></td>

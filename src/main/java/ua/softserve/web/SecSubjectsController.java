@@ -3,7 +3,10 @@ package ua.softserve.web;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import ua.softserve.db.SpecDao;
 import ua.softserve.db.SubjectDao;
 import ua.softserve.entities.Spetiality;
@@ -11,8 +14,6 @@ import ua.softserve.entities.Subject;
 import ua.softserve.exceptions.UpdateException;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.List;
 
 import static ua.softserve.web.Messages.SUCCESS;
 
@@ -32,12 +33,12 @@ public class SecSubjectsController {
     public String subjects(
             ModelMap model) {
 
-        model.put("tab_list",specDao.getAllSpecs());
+    //    model.put("tab_list",specDao.getAllSpecs());
         model.put("spec_list",specDao.getAllSpecs());
         model.put("subj_list", subjectDao.getAllSubjectsInfo());
         return SUBJECTS_PAGE;
     }
-    @RequestMapping("spec{specId}")
+/*    @RequestMapping("spec{specId}")
     public String specSubjects(
             ModelMap model,
             @PathVariable Integer specId) {
@@ -50,7 +51,7 @@ public class SecSubjectsController {
         return SUBJECTS_PAGE;
 
 
-    }
+    }*/
 
     @RequestMapping(value = "alter_subject", method = RequestMethod.POST)
     public String alterSubject(ModelMap model,
