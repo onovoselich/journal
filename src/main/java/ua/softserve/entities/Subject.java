@@ -4,6 +4,8 @@ import org.springframework.jdbc.core.simple.ParameterizedRowMapper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by troll on 19.12.13.
@@ -12,6 +14,7 @@ public class Subject implements Comparable {
     public static final String EXAM = "Іспит";
     public static final String ZALIK = "Залік";
     public static final String DUF_ZALIK = "Д/З";
+
 
     public static ParameterizedRowMapper<Subject> subjectRm = new ParameterizedRowMapper() {
         @Override
@@ -26,6 +29,8 @@ public class Subject implements Comparable {
             Subject subject = new Subject(resultSet);
             subject.setEcts(resultSet.getDouble("ECTSCredits"));
             subject.setHours(resultSet.getInt("Hours"));
+            subject.setSums(resultSet.getString("sums"));
+
             /*
             subject.setSumestr(resultSet.getInt("sumestr"));
             subject.setYears(resultSet.getString("Years"));*/
@@ -43,6 +48,27 @@ public class Subject implements Comparable {
     private String years;
     private Integer sumestr;*/
     private Spetiality spetiality;
+    private Map<Integer,Integer> sums;
+
+    public Map<Integer, Integer> getSums() {
+        return sums;
+    }
+
+    public void setSums(Map<Integer, Integer> sums) {
+        this.sums = sums;
+    }
+    public void setSums(String sumsStr) {
+        if (!"".equals(sumsStr)&& sumsStr!=null){
+            Map<Integer,Integer> sums = new HashMap<Integer, Integer>();
+            String[] pairs = sumsStr.split("[\\{\\} ,]+");
+            for(String s : pairs){
+                if(s.indexOf("=") >  0 ){
+                    sums.put(Integer.parseInt(s.substring(0,s.indexOf("="))),Integer.parseInt(s.substring(s.indexOf("=")+1)));
+                }
+            }
+            this.sums = sums;
+        }
+    }
 
     public Subject() {
     }
@@ -132,5 +158,12 @@ public class Subject implements Comparable {
     @Override
     public  String toString(){
         return getName();
+    }
+
+    public String getsSums() {
+        if(this.sums == null || this.sums.isEmpty())
+            return null;
+        else
+            return sums.toString();
     }
 }

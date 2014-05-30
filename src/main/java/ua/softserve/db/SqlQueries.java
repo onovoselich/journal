@@ -63,8 +63,8 @@ public interface SqlQueries {
     public static final String UPDATE_STUDENT = "UPDATE `students` SET `Name` = ?,`Surname`=?,`Patronimic`=?,`groupId`=?,`BDate`=?,`Gradebook`=?,`EducForm`=?,`EducType`=?,`Gender`=?,`Address`=?,`Phone`=?  WHERE `students`.`Id` = ?;";
     public static final String INSERT_STUDENT = "INSERT INTO `students` ( `Name`,`Surname`,`Patronimic`,`groupId`,`bdate`,`gradebook`,`EducForm`,`EducType`,`Gender`,`Address`,`Phone`)  values (?,?,?,?,?,?,?,?,?,?,?);";
 
-    public static final String UPDATE_SUBJECT = "UPDATE `subjects` SET `Name` = ?,`ECTSCredits`=?,`Hours`=?,`ControlForm`=?,`specId`=?  WHERE `subjects`.`Id` = ?;";
-    public static final String INSERT_SUBJECT = "INSERT INTO `subjects` ( `Name`,`ECTSCredits`,`Hours`,`ControlForm`,`specId`)  values (?,?,?,?,?);";
+    public static final String UPDATE_SUBJECT = "UPDATE `subjects` SET `Name` = ?,`ECTSCredits`=?,`Sums`=?,`ControlForm`=?,`specId`=?  WHERE `subjects`.`Id` = ?;";
+    public static final String INSERT_SUBJECT = "INSERT INTO `subjects` ( `Name`,`ECTSCredits`,`Sums`,`ControlForm`,`specId`)  values (?,?,?,?,?);";
 
     public static final String UPDATE_SPEC = "UPDATE `spec` SET `Degree` = ?,`Name`=?,`Viddil`=?,`ZavViddil`=?  WHERE `spec`.`Id` = ?;";
     public static final String INSERT_SPEC = "INSERT INTO `spec` ( `Degree`,`Name`,`Viddil`,`ZavViddil`)  values (?,?,?,?);";

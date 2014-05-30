@@ -99,9 +99,9 @@ public class SubjectDao {
     }
 
 
-    public boolean updSubject(int id, String name, double ects, int hours, String cform, int specId) {
+    public boolean updSubject(int id, String name, double ects, String sums, String cform, int specId) {
         JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
-        int result = jdbcTemplate.update(UPDATE_SUBJECT,name,ects,hours,cform,specId,id);
+        int result = jdbcTemplate.update(UPDATE_SUBJECT,name,ects,sums,cform,specId,id);
 
         if (result>0)
             return true;
@@ -109,12 +109,12 @@ public class SubjectDao {
     }
 
     public boolean updSubject(Subject subj) {
-        return updSubject(subj.getId(),subj.getName(),subj.getEcts(),subj.getHours(),subj.getControlForm(),subj.getSpetiality().getId());
+        return updSubject(subj.getId(),subj.getName(),subj.getEcts(),subj.getsSums(),subj.getControlForm(),subj.getSpetiality().getId());
     }
-    public boolean addSubject(String name, double ects, int hours, String cform, int specId) {
+    public boolean addSubject(String name, double ects, String sums, String cform, int specId) {
         JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
 
-        int result = jdbcTemplate.update(INSERT_SUBJECT,name,ects,hours,cform,specId);
+        int result = jdbcTemplate.update(INSERT_SUBJECT,name,ects,sums,cform,specId);
 
         if (result>0)
             return true;
@@ -122,7 +122,7 @@ public class SubjectDao {
     }
 
     public boolean addSubject(Subject subj) {
-        return addSubject(subj.getName(),subj.getEcts(),subj.getHours(),subj.getControlForm(),subj.getSpetiality().getId());
+        return addSubject(subj.getName(),subj.getEcts(),subj.getsSums(),subj.getControlForm(),subj.getSpetiality().getId());
     }
 
 }

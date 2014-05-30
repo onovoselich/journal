@@ -1,5 +1,5 @@
 .content-of-home-page{
-    width: 80%;
+    width: 90%;
     margin: 80px auto 20px; 
 
 
@@ -209,4 +209,11 @@ input[type='reset']{
 }
 input[type='reset']:hover{
     color: chartreuse;
+}
+.table table table, .table table table tr, .table table table td{
+    border: none;
+
+}
+.table table table{
+    margin: 5px 0px;
 }

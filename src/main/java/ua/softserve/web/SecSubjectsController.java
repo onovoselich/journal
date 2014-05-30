@@ -14,6 +14,9 @@ import ua.softserve.entities.Subject;
 import ua.softserve.exceptions.UpdateException;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import static ua.softserve.web.Messages.SUCCESS;
 
@@ -56,9 +59,18 @@ public class SecSubjectsController {
     @RequestMapping(value = "alter_subject", method = RequestMethod.POST)
     public String alterSubject(ModelMap model,
                                @RequestParam Integer specId,
+                               @RequestParam List<Integer> sum,
                                @ModelAttribute Subject subj,
                                HttpServletRequest request) throws UpdateException {
         subj.setSpetiality(new Spetiality(specId));
+
+        Map<Integer,Integer> sums = new HashMap<Integer, Integer>();
+        for(Integer s : sum){
+            sums.put(s, Integer.parseInt(request.getParameter("sum" + s)));
+        }
+
+        subj.setSums(sums);
+
         if (!subjectDao.updSubject(subj))
             throw new UpdateException();
         model.put("message", SUCCESS);
@@ -70,11 +82,18 @@ public class SecSubjectsController {
     @RequestMapping(value = "add_subject", method = RequestMethod.POST)
     public String addSubject(ModelMap model,
                              @RequestParam Integer specId,
+                             @RequestParam List<Integer> sum,
                              @ModelAttribute Subject subj,
+
                              HttpServletRequest request) throws UpdateException {
 
         subj.setSpetiality(new Spetiality(specId));
+        Map<Integer,Integer> sums = new HashMap<Integer, Integer>();
+        for(Integer s : sum){
+            sums.put(s, (Integer) model.get("sum" + s));
+        }
 
+        subj.setSums(sums);
         if (!subjectDao.addSubject(subj))
             throw new UpdateException();
         model.put("message", SUCCESS);
