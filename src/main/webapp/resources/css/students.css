@@ -223,10 +223,23 @@ table img {
     width: 100%;
     border: 1px solid #000;
 }
-
+.table table tr th.headerSortUp {
+    background-image: url("../img/small_asc.gif");
+    background-color: #ffdf24;
+}
+.table table tr th.headerSortDown {
+    background-image: url("../img/small-desc.gif");
+    background-color: #ffdf24;
+}
 .table table tr th{
     border: 1px solid #000;
     background: #ffbb19;
+    background-image: url("../img/small.gif");
+    cursor: pointer;
+    background-repeat: no-repeat;
+    background-position: center left;
+    padding-left: 20px;
+    margin-left: -1px;
 }
 .table table tr td{
     border: 1px solid #000;

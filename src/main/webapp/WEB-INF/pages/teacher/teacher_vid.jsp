@@ -14,11 +14,15 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/scroll-after-post.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/datepicker.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/tabs.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery.tablesorter.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/number_validation.js"></script>
 <script>
     var sum = parseInt('<c:out value="${cur_sum}"/>');
     $(document).ready(function() {
         $( ".data" ).datepicker();
+        $(".tablesorter").tablesorter( {sortList: [[0,0]]} );
     });
+
 </script>
 
 
@@ -46,8 +50,8 @@
 
     </div>
 
-<table >
-    <tbody>
+<table id="table${i}" class="tablesorter">
+    <thead>
     <tr>
         <th>
             № з/п
@@ -66,6 +70,8 @@
         </th>
 
     </tr>
+    </thead>
+    <tbody>
 <%int i = 0;%>
         <c:forEach items="${stud_mark_list.get(i)}" var="row">
             <tr>
@@ -83,12 +89,13 @@
                 <td>
                     ${row.key.getGradebook()}
                 </td><td>
-                <select name="mark">
+                <%--<select name="mark">
                     <option value="" selected></option>
             <c:forEach var="j" begin="1" end="12">
                         <option value="${j}" <c:if test="${row.value.getMark() == j}">selected</c:if>>${j}</option>
                    </c:forEach>
-                </select>
+                </select>--%>
+                <input class="integer" size="3" name="mark" type="number" max="12" min="1" value="${row.value.getMark()}">
 
                 </td>
                <td>
@@ -112,5 +119,6 @@
 
     </div>
 </c:forEach>
+    <br/><small>ПІДКАЗКА: Впорядкувати за кількома полями можна натиснувши Shift та обравши друге, третє, або навіть четверте поле!</small><br/>
 
 </div>
