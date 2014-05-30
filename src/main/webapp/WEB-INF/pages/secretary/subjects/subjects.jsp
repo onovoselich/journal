@@ -94,7 +94,25 @@
                     </c:forEach></select>
                 </td>
                 <td><input type="text" name="ects" required="required"  size="6"  class="float"  value=""/></td>
-                <td><input type="text" name="hours" required="required"  size="5" class="integer"  value=""/></td>
+                <td>
+                    <table ><tr>
+                        <c:forEach var="i" begin="1" end="8">
+                            <td >
+                                <input required="required"   type="checkbox" name="sum" id="sum${i}_a" value="${i}">
+                                <label  for="sum${i}_a"> <%=Number.arabic2roman((Integer)pageContext.getAttribute("i"))%> </label>
+                            </td>
+                        </c:forEach>
+                    </tr>
+                        <tr>
+                            <c:forEach var="i" begin="1" end="8">
+                                <td >
+                                    <input class="integer"  size="1" type="text" name="sum${i}"  value="">
+
+                                </td>
+                            </c:forEach>
+                        </tr></table>
+
+                </td>
                 <td><select name="controlForm" required="required" >
                     <option value=""  selected></option>
                     <option value="Іспит">Іспит</option>

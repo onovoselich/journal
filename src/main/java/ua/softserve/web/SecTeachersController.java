@@ -13,12 +13,11 @@ import ua.softserve.entities.Teacher;
 import ua.softserve.exceptions.UpdateException;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.TreeMap;
 
-import static ua.softserve.db.UserDao.ROLE_TEACHER;
 import static ua.softserve.web.Messages.SUCCESS;
 
 /**
@@ -122,12 +121,15 @@ public class SecTeachersController {
                          @RequestParam("gr_id") Integer grId,
                          @RequestParam("teac_id") Integer teacId,
                          @RequestParam("subj_id") Integer subjectId,
-                         @RequestParam List<Integer> sum,
+                    //     @RequestParam List<Integer> sum,
                          HttpServletRequest request) throws UpdateException {
 
 
         if (groupDao.getGroup(grId).getSpec().getId()!=subjectDao.getSubject(subjectId).getSpetiality().getId())
             throw new RuntimeException("Оберіть предмет з категорії відповідної спеціальності");
+
+        try{
+            Set<Integer> sum =  subjectDao.getSubject(subjectId).getSums().keySet();
         if (!tgsDao.updTgs(id, teacId, grId, subjectId))
             throw new UpdateException();
 
@@ -145,7 +147,9 @@ public class SecTeachersController {
 
 
         model.put("message", SUCCESS);
-
+        }catch (NullPointerException e){
+            throw new RuntimeException("Спочатку визначте симестри, у яких читатиметься цей предмет");
+        }
 
         return "redirect:"+request.getHeader("referer");
     }
@@ -155,15 +159,20 @@ public class SecTeachersController {
                          @RequestParam("gr_id") Integer grId,
                          @RequestParam("teac_id") Integer teacId,
                          @RequestParam("subj_id") Integer subjectId,
-                         @RequestParam Integer[] sum,
+                    //     @RequestParam Integer[] sum,
                          HttpServletRequest request) throws UpdateException {
 
+
+        try{
+            Set<Integer> sum =  subjectDao.getSubject(subjectId).getSums().keySet();
     for(Integer i:sum)
         if (!tgsDao.addTgs(teacId, grId, subjectId,i))
             throw new UpdateException();
         model.put("message", SUCCESS);
 
-
+        }catch (NullPointerException e){
+            throw new RuntimeException("Спочатку визначте симестри, у яких читатиметься цей предмет");
+        }
 
         return "redirect:"+request.getHeader("referer");
     }

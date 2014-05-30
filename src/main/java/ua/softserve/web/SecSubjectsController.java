@@ -66,7 +66,10 @@ public class SecSubjectsController {
 
         Map<Integer,Integer> sums = new HashMap<Integer, Integer>();
         for(Integer s : sum){
-            sums.put(s, Integer.parseInt(request.getParameter("sum" + s)));
+            String hours = request.getParameter("sum" + s);
+            if("".equals(hours) || hours== null)
+                throw new RuntimeException("Введіть години для "+s+"-го симастра");
+            sums.put(s, Integer.parseInt(hours));
         }
 
         subj.setSums(sums);
@@ -90,7 +93,10 @@ public class SecSubjectsController {
         subj.setSpetiality(new Spetiality(specId));
         Map<Integer,Integer> sums = new HashMap<Integer, Integer>();
         for(Integer s : sum){
-            sums.put(s, (Integer) model.get("sum" + s));
+            Integer i =  Integer.parseInt(request.getParameter("sum" + s));
+            if (i==null)
+                i = 0;
+            sums.put(s, i);
         }
 
         subj.setSums(sums);

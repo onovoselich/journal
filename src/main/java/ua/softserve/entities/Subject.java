@@ -29,7 +29,6 @@ public class Subject implements Comparable {
             Subject subject = new Subject(resultSet);
             subject.setEcts(resultSet.getDouble("ECTSCredits"));
             subject.setHours(resultSet.getInt("Hours"));
-            subject.setSums(resultSet.getString("sums"));
 
             /*
             subject.setSumestr(resultSet.getInt("sumestr"));
@@ -78,6 +77,7 @@ public class Subject implements Comparable {
         this.name = rs.getString("Name");
         this.setSpetiality(new Spetiality(rs.getInt("specId")));
         this.controlForm = rs.getString("ControlForm");
+        this.setSums(rs.getString("sums"));
     }
 
     public Spetiality getSpetiality() {

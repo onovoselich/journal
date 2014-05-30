@@ -15,6 +15,7 @@ import ua.softserve.exceptions.UpdateException;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Set;
 
 import static ua.softserve.web.Messages.SUCCESS;
 
@@ -157,13 +158,16 @@ public class SecGroupsController {
             @RequestParam("gr_id") Integer grId,
             @RequestParam("teac_id") Integer teacId,
             @RequestParam("subj_id") Integer subjectId,
-            @RequestParam("sum") List<Integer> sum,
+ //           @RequestParam("sum") List<Integer> sum,
             ModelMap model,
             HttpServletRequest request) throws UpdateException {
 
 
         if (!tgsDao.updTgs(id, teacId, grId, subjectId))
             throw new UpdateException();
+
+        try{
+            Set<Integer> sum =  subjectDao.getSubject(subjectId).getSums().keySet();
 
         List<Integer> sumList = tgsDao.getSumesters(teacId,grId,subjectId);
         if(sumList!=null && !sumList.isEmpty()){
@@ -177,7 +181,9 @@ public class SecGroupsController {
             }
         }
         model.put("message", SUCCESS);
-
+    }catch (NullPointerException e){
+        throw new RuntimeException("Спочатку визначте симестри, у яких читатиметься цей предмет");
+    }
 
         return "redirect:"+request.getHeader("referer");
     }
@@ -189,15 +195,19 @@ public class SecGroupsController {
             @RequestParam("gr_id") Integer grId,
             @RequestParam("teac_id") Integer teacId,
             @RequestParam("subj_id") Integer subjectId,
-            @RequestParam("sum")Integer[] sum,
+  //          @RequestParam("sum")Integer[] sum,
             ModelMap model,
             HttpServletRequest request) throws UpdateException {
 
+        try{
+            Set<Integer> sum =  subjectDao.getSubject(subjectId).getSums().keySet();
         for(Integer i:sum)
             if (!tgsDao.addTgs(teacId, grId, subjectId, i))
                 throw new UpdateException();
         model.put("message", SUCCESS);
-
+        }catch (NullPointerException e){
+            throw new RuntimeException("Спочатку визначте симестри, у яких читатиметься цей предмет");
+        }
 
         return "redirect:"+request.getHeader("referer");
     }
