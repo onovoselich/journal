@@ -136,8 +136,13 @@ public class TeacherController {
         }
         model.put("cur_sum",sum);
         model.put("sum_lst",sumLst);
-        model.put("group", groupDao.getGroup(groupId));
-        model.put("subject", subjectDao.getSubject(subjectId));
+        Group gr = groupDao.getGroup(groupId);
+        gr.getSpec().setZavViddil(teacherDao.getTeacherInfo(gr.getSpec().getZavViddil().getId()));
+        gr.setCurator(teacherDao.getTeacherInfo(gr.getCurator().getId()));
+        model.put("group",gr );
+        Subject subj = subjectDao.getSubject(subjectId);
+//        subj.setTeacher(teacherDao.getTeacherInfo(subj.getTeacher().getId()));
+        model.put("subject",subj );
         model.put("teac_subj_grp_id", tgsLstSum);
         model.put("stud_mark_list", markLstSum);
         model.put("message",message);

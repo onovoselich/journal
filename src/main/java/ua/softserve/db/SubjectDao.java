@@ -36,7 +36,7 @@ public class SubjectDao {
 
     public Subject getSubject(int subId){
         JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
-        List<Subject> result = jdbcTemplate.query(GET_SUBJECT, new Object[]{subId},Subject.subjectRm);
+        List<Subject> result = jdbcTemplate.query(GET_SUBJECT, new Object[]{subId},Subject.subjectInfoRm);
 
         if(result.isEmpty()){
              return null;

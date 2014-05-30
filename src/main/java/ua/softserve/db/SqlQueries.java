@@ -49,7 +49,7 @@ public interface SqlQueries {
     public static final String GET_ALL_SPECS = "select * from `spec`";
     public static final String GET_ALL_GROUPS = "select * from `groups`";
     public static final String GET_ALL_STUDENTS = "select * from `students`";
-    public static final String GET_GROUP_BY_ID = "select `id`,`name`,`educYear`,`degree` from `groups` where `groups`.`id` = ?";
+    public static final String GET_GROUP_BY_ID = "select * from `groups` where `groups`.`id` = ?";
     public static final String GET_TGS_FOR_TEACHER = "SELECT `id`,`group_ID`,`subject_ID`, `sumestr` FROM `group_teacher_subject` WHERE `group_teacher_subject`.`teacher_ID` = ?";
     public static final String GET_TGS_FOR_GROUP = "SELECT `id`, `teacher_ID`,`subject_ID`, `sumestr` FROM `group_teacher_subject` WHERE `group_teacher_subject`.`group_ID` = ?";
 

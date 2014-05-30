@@ -56,24 +56,22 @@ public class TeacherExcelVid extends AbstractExcelView  implements Vidomist_H5_0
         int rowNum = 3;
         int i = 1;
         for(Map.Entry<Student,Mark> entry : studMarkList.entrySet()){
-            rowNum = addRow(sheet,style,rowNum,entry,i++);
+            rowNum = addRow(sheet,style,rowNum,entry,i++,subj.getControlForm());
         }
 
     }
 
-    private int addRow(HSSFSheet sheet, HSSFCellStyle cellStyle, int rowNum, Map.Entry<Student, Mark> entry, int studNum) {
+    private int addRow(HSSFSheet sheet, HSSFCellStyle cellStyle, int rowNum, Map.Entry<Student, Mark> entry, int studNum, String controlForm) {
         HSSFRow row = sheet.createRow(rowNum++);
         row.createCell(0).setCellValue(studNum+".");
         row.createCell(1).setCellValue(entry.getKey().toString());
         row.createCell(2).setCellValue(entry.getKey().getGradebook());
         if(entry.getValue()!=null){
-            row.createCell(3).setCellValue(entry.getValue().getMark());
-            row.createCell(4).setCellValue(entry.getValue().getNationalScaleMark());
-            row.createCell(5).setCellValue(entry.getValue().get100BaseMark());
-            row.createCell(6).setCellValue(entry.getValue().getEctsMark());
-            row.createCell(7).setCellValue(entry.getValue().getFormatDate());
+            row.createCell(3).setCellValue(entry.getValue().getNationalScaleMark(controlForm));
+            row.createCell(4).setCellValue(entry.getValue().getMark());
+            row.createCell(5).setCellValue(entry.getValue().getFormatDate());
         }
-        row.createCell(8).setCellValue("");
+        row.createCell(6).setCellValue("");
 
         for(int i=0;i<3;i++){
             row.getCell(i).setCellStyle(cellStyle);
@@ -81,7 +79,7 @@ public class TeacherExcelVid extends AbstractExcelView  implements Vidomist_H5_0
         CellStyle cellStyleCenter = sheet.getWorkbook().createCellStyle();
         cellStyleCenter.cloneStyleFrom(cellStyle);
         cellStyleCenter.setAlignment(CellStyle.ALIGN_CENTER);
-        for(int i=3;i<9;i++){
+        for(int i=3;i<7;i++){
             if(row.getCell(i)==null)
                 row.createCell(i);
             row.getCell(i).setCellStyle(cellStyleCenter);
@@ -98,9 +96,9 @@ public class TeacherExcelVid extends AbstractExcelView  implements Vidomist_H5_0
         sheet.addMergedRegion(new CellRangeAddress(/*Row*/0, 1, /*Column*/0, 0));
         sheet.addMergedRegion(new CellRangeAddress(/*Row*/0, 1, /*Column*/1, 1));
         sheet.addMergedRegion(new CellRangeAddress(/*Row*/0, 1, /*Column*/2, 2));
-        sheet.addMergedRegion(new CellRangeAddress(/*Row*/0, 0, /*Column*/3, 6));
-        sheet.addMergedRegion(new CellRangeAddress(/*Row*/0, 1, /*Column*/7, 7));
-        sheet.addMergedRegion(new CellRangeAddress(/*Row*/0, 1, /*Column*/8, 8));
+        sheet.addMergedRegion(new CellRangeAddress(/*Row*/0, 0, /*Column*/3, 4));
+        sheet.addMergedRegion(new CellRangeAddress(/*Row*/0, 1, /*Column*/5, 5));
+        sheet.addMergedRegion(new CellRangeAddress(/*Row*/0, 1, /*Column*/6, 6));
 
         sheet.setColumnWidth(0,900);
         sheet.setColumnWidth(1, 6000);
@@ -109,8 +107,6 @@ public class TeacherExcelVid extends AbstractExcelView  implements Vidomist_H5_0
         sheet.setColumnWidth(4, 3500);
         sheet.setColumnWidth(5, 3500);
         sheet.setColumnWidth(6, 3500);
-        sheet.setColumnWidth(7, 3500);
-        sheet.setColumnWidth(8, 3500);
 
 
         Font font = workbook.createFont();
@@ -135,23 +131,21 @@ public class TeacherExcelVid extends AbstractExcelView  implements Vidomist_H5_0
 
         HSSFRow header1 = sheet.createRow(0);
 
-        header1.createCell(0).setCellValue(TABLE_HEADERS[0]);
-        header1.createCell(1).setCellValue(TABLE_HEADERS[1]);
-        header1.createCell(2).setCellValue(TABLE_HEADERS[2]);
-        header1.createCell(3).setCellValue(TABLE_HEADERS[3]);
+        header1.createCell(0).setCellValue(TABLE1_HEADERS[0]);
+        header1.createCell(1).setCellValue(TABLE1_HEADERS[1]);
+        header1.createCell(2).setCellValue(TABLE1_HEADERS[2]);
+        header1.createCell(3).setCellValue(TABLE1_HEADERS[3]);
 
-        header1.createCell(7).setCellValue(TABLE_HEADERS[4]);
-        header1.createCell(8).setCellValue(TABLE_HEADERS[5]);
+        header1.createCell(5).setCellValue(TABLE1_HEADERS[4]);
+        header1.createCell(6).setCellValue(TABLE1_HEADERS[5]);
 
         HSSFRow header2 = sheet.createRow(1);
-        header2.createCell( 3).setCellValue(TABLE_HEADERS[6]);
-        header2.createCell(4).setCellValue(TABLE_HEADERS[7]);
-        header2.createCell(5).setCellValue(TABLE_HEADERS[8]);
-        header2.createCell(6).setCellValue(TABLE_HEADERS[9]);
+        header2.createCell( 3).setCellValue(TABLE1_HEADERS[6]);
+        header2.createCell(4).setCellValue(TABLE1_HEADERS[7]);
 
 
         HSSFRow indexes = sheet.createRow(2);
-        for(int i=0;i<9;i++){
+        for(int i=0;i<7;i++){
             Cell c = indexes.createCell(i);
             c.setCellValue(i + 1);
             c.setCellStyle(style)  ;

@@ -29,7 +29,7 @@ public class GroupDao {
 
     public Group getGroup(Integer grId){
         JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
-        List<Group> result = jdbcTemplate.query(GET_GROUP_BY_ID,new Object[]{grId},Group.groupRm);
+        List<Group> result = jdbcTemplate.query(GET_GROUP_BY_ID,new Object[]{grId},Group.groupInfoRm);
 
         if (result.isEmpty())
             return null;
