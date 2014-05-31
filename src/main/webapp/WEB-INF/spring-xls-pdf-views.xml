@@ -10,4 +10,8 @@
     <bean id="teacherVid.xls"
           class="ua.softserve.web.view.excel.TeacherExcelVid">
     </bean>
+
+    <bean id="teacherZvedVid.xls"
+          class="ua.softserve.web.view.excel.TeacherExcelZvedVid">
+    </bean>
 </beans>

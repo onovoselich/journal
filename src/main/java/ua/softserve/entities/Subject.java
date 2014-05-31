@@ -14,6 +14,7 @@ public class Subject implements Comparable {
     public static final String EXAM = "Іспит";
     public static final String ZALIK = "Залік";
     public static final String DUF_ZALIK = "Д/З";
+    public static final String OTHER = "practcursdupl";
 
 
     public static ParameterizedRowMapper<Subject> subjectRm = new ParameterizedRowMapper() {

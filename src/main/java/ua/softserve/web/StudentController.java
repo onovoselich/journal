@@ -79,6 +79,7 @@ public class StudentController {
             markList.put(Subject.EXAM, new TreeMap<Subject, Mark>());
             markList.put(Subject.ZALIK, new TreeMap<Subject, Mark>());
             markList.put(Subject.DUF_ZALIK, new TreeMap<Subject, Mark>());
+            markList.put(Subject.OTHER, new TreeMap<Subject, Mark>());
 
             if(sum == i && subjectsIdLst!=null){
                 subjectsId = subjectsIdLst;

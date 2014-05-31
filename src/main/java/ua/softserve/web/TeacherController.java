@@ -31,6 +31,7 @@ public class TeacherController {
     private static final String TEACHER_PAGE = "teacherPage";
     private static final String TEACHER_VID_PAGE = "teacherVid";
     private static final String STUD_INFO_PAGE = "studInfo";
+    private static final String TEACHER_ZVED_VID_PAGE = "teacherZvedVid";
 
     @Autowired
     GroupDao groupDao;
@@ -151,6 +152,49 @@ public class TeacherController {
             return new ModelAndView(TEACHER_VID_PAGE+format,model);
         else
             return new ModelAndView(getViewName(request,TEACHER_VID_PAGE),model);
+    }
+
+    @RequestMapping({"zvvidomist","/zvvidomist.pdf","/zvvidomist.xls"})
+    public ModelAndView zvedVid(@RequestParam("group_id") Integer groupId,
+                            @RequestParam Integer sum,
+                            @RequestParam String format,
+                            HttpServletRequest request,
+                            ModelMap model) {
+
+        Map<Student,Map<String,Map<Subject,Mark>>> marksMap = new HashMap<Student, Map<String, Map<Subject, Mark>>>();
+        List<Student> studLst = studentDao.getGroupStudents(groupId);
+        if(studLst == null || studLst.isEmpty())
+            throw  new RuntimeException("У цй групі немає студентів");
+        List<Subject> subjLst = subjectDao.getGroupSubjects(groupId,sum);
+        if(subjLst == null || subjLst.isEmpty())
+            throw new RuntimeException("Не знайдено жодного предмета");
+        for(Subject subj : subjLst){
+            subj.setTeacher(teacherDao.getTeacher(subj.getId(), groupId));
+        }
+        System.out.println("sum="+sum);
+        System.out.println("subjLst:"+subjLst);
+        Map<String,Map<Subject,Mark>> studMarks = null;
+        for(Student stud : studLst){
+            studMarks = new HashMap<String, Map<Subject, Mark>>();
+
+            studMarks.put(Subject.EXAM, new TreeMap<Subject, Mark>());
+            studMarks.put(Subject.ZALIK, new TreeMap<Subject, Mark>());
+            studMarks.put(Subject.DUF_ZALIK, new TreeMap<Subject, Mark>());
+            studMarks.put(Subject.OTHER, new TreeMap<Subject, Mark>());
+
+            for(Subject subj : subjLst){
+                Mark mark = markDao.getMark(stud.getId(),subj.getId(),sum);
+                studMarks.get(subj.getControlForm()).put(subj,mark);
+            }
+
+
+            marksMap.put(stud,studMarks);
+        }
+        model.put("marks_map_ex",studMarks);
+        model.put("marks_map",marksMap);
+        model.put("group",groupDao.getGroup(groupId));
+        model.put("cur_sum",sum);
+       return new ModelAndView(TEACHER_ZVED_VID_PAGE+format,model);
     }
 
     @RequestMapping(value = "/delMark", method = RequestMethod.POST)

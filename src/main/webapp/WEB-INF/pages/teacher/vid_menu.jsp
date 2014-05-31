@@ -35,7 +35,7 @@ gr_sub_v = JSON.parse('<c:out value="${group_list_for_vid}"/>'.replace(/&#034;/g
     <br/>
 
     <input type="submit" formaction="teacher/vidomist" value="Звичайна відомість">
-    <input type="submit" value="Зведена відомість">
+    <input type="submit" formaction="teacher/zvvidomist" value="Зведена відомість">
     <input type="submit" value="Супер відомість">
 
     </form>
