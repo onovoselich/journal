@@ -161,7 +161,7 @@ public class TeacherController {
                             HttpServletRequest request,
                             ModelMap model) {
 
-        Map<Student,Map<String,Map<Subject,Mark>>> marksMap = new HashMap<Student, Map<String, Map<Subject, Mark>>>();
+        Map<Student,Map<String,Map<Subject,Mark>>> marksMap = new TreeMap<Student, Map<String, Map<Subject, Mark>>>();
         List<Student> studLst = studentDao.getGroupStudents(groupId);
         if(studLst == null || studLst.isEmpty())
             throw  new RuntimeException("У цй групі немає студентів");
@@ -175,7 +175,7 @@ public class TeacherController {
         System.out.println("subjLst:"+subjLst);
         Map<String,Map<Subject,Mark>> studMarks = null;
         for(Student stud : studLst){
-            studMarks = new HashMap<String, Map<Subject, Mark>>();
+            studMarks = new TreeMap<String, Map<Subject, Mark>>();
 
             studMarks.put(Subject.EXAM, new TreeMap<Subject, Mark>());
             studMarks.put(Subject.ZALIK, new TreeMap<Subject, Mark>());
@@ -190,7 +190,6 @@ public class TeacherController {
 
             marksMap.put(stud,studMarks);
         }
-        model.put("marks_map_ex",studMarks);
         model.put("marks_map",marksMap);
         model.put("group",groupDao.getGroup(groupId));
         model.put("cur_sum",sum);

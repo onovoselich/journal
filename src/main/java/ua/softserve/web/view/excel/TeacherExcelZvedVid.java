@@ -19,12 +19,21 @@ import ua.softserve.web.view.Vidomist_zved;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * Created by troll on 31.05.14.
  */
 public class TeacherExcelZvedVid extends AbstractExcelView implements Vidomist_zved {
+    private Integer allMarkSum = 0;
+    private Integer allMarkK = 0;
+
+    private Map<Subject, List<Integer>> subjMarksMap = new TreeMap<Subject, List<Integer>>();
+
+    private Integer colNum = 3;
 
     @Override
     protected void buildExcelDocument(Map<String, Object> model, HSSFWorkbook workbook, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -33,7 +42,12 @@ public class TeacherExcelZvedVid extends AbstractExcelView implements Vidomist_z
         Integer sum =(Integer)model.get("cur_sum");
         Group grp = (Group)model.get("group");
         Map<Student,Map<String,Map<Subject,Mark>>> marksMap =(Map<Student,Map<String,Map<Subject,Mark>>> )model.get("marks_map");
-        Map<String,Map<Subject,Mark>>  marksMapEx = (Map<String,Map<Subject,Mark>>)model.get("marks_map_ex");
+        Map<String,Map<Subject,Mark>>  marksMapEx = null;
+        for(Student s : marksMap.keySet()){
+            marksMapEx = marksMap.get(s);
+            if(marksMapEx != null)
+                break;
+        }
 
 
 
@@ -56,6 +70,195 @@ public class TeacherExcelZvedVid extends AbstractExcelView implements Vidomist_z
 
         HSSFSheet sheet = createSheet(workbook,grp,marksMapEx,sum,style);
 
+        int rowNum = 3;
+        int i = 1;
+        for(Student stud : marksMap.keySet()){
+            rowNum = addRow(sheet,style,rowNum,marksMap.get(stud),stud,i++);
+        }
+
+        createFooter(sheet,style,rowNum,marksMapEx);
+
+    }
+
+    private void createFooter(HSSFSheet sheet, CellStyle style, int rowNum,  Map<String, Map<Subject, Mark>> marksMapEx) {
+        HSSFRow footer1 = sheet.createRow(rowNum);
+        for(int j=0;j<colNum;j++)
+            createCell(footer1,j,"",style);
+        sheet.addMergedRegion(new CellRangeAddress(rowNum,rowNum,2,colNum-2));
+        CellStyle style3 = sheet.getWorkbook().createCellStyle();
+        style3.cloneStyleFrom(style);
+        style3.setAlignment(CellStyle.ALIGN_RIGHT);
+        createCell(footer1,2,AVG_GROUP_MARK,style3);
+
+        if(allMarkK>0){
+            float sa = (float)allMarkSum/allMarkK;
+            createCell(footer1,rowNum-1,Float.toString(sa),style);
+        }
+
+        HSSFRow footer2 = sheet.createRow(++rowNum);
+        for(int j=0;j<colNum;j++)
+            createCell(footer2,j,"",style);
+        createCell(footer2,1,SUCCESS,style3);
+        int i = 3;
+        try{
+            for(Subject subj:marksMapEx.get(Subject.EXAM).keySet()){
+                createCell(footer2,i++,Mark.success(subjMarksMap.get(subj)),style);
+
+            };
+        }catch (NullPointerException e){}
+        try{
+            for(Subject subj:marksMapEx.get(Subject.DUF_ZALIK).keySet()){
+                createCell(footer2,i++,Mark.success(subjMarksMap.get(subj)),style);
+            };
+        }catch (NullPointerException e){}
+        try{
+            for(Subject subj:marksMapEx.get(Subject.ZALIK).keySet()){
+                createCell(footer2,i++,"-",style);
+            };
+        }catch (NullPointerException e){}
+        try{
+            for(Subject subj:marksMapEx.get(Subject.OTHER).keySet()){
+                createCell(footer2,i++,Mark.success(subjMarksMap.get(subj)),style);
+            };
+        }catch (NullPointerException e){}
+
+        HSSFRow footer3 = sheet.createRow(++rowNum);
+        for(int j=0;j<colNum;j++)
+            createCell(footer3,j,"",style);
+        createCell(footer3,1,QUALITY,style3);
+        i = 3;
+        try{
+            for(Subject subj:marksMapEx.get(Subject.EXAM).keySet()){
+                createCell(footer3,i++,Mark.quality(subjMarksMap.get(subj)),style);
+
+            };
+        }catch (NullPointerException e){}
+        try{
+            for(Subject subj:marksMapEx.get(Subject.DUF_ZALIK).keySet()){
+                createCell(footer3,i++,Mark.quality(subjMarksMap.get(subj)),style);
+            };
+        }catch (NullPointerException e){}
+        try{
+            for(Subject subj:marksMapEx.get(Subject.ZALIK).keySet()){
+                createCell(footer3,i++,"-",style);
+            };
+        }catch (NullPointerException e){}
+        try{
+            for(Subject subj:marksMapEx.get(Subject.OTHER).keySet()){
+                createCell(footer3,i++,Mark.quality(subjMarksMap.get(subj)),style);
+            };
+        }catch (NullPointerException e){}
+
+
+        HSSFRow footer4 = sheet.createRow(++rowNum);
+        CellStyle style4 = sheet.getWorkbook().createCellStyle();
+        style4.cloneStyleFrom(style);
+        style4.setRotation((short) 90);
+        style4.setAlignment(CellStyle.ALIGN_LEFT);
+        for(int j=0;j<colNum;j++)
+            createCell(footer4,j,"",style);
+         i = 3;
+        try{
+            for(Subject subj:marksMapEx.get(Subject.EXAM).keySet()){
+                createCell(footer4,i++,subj.getTeacher().toString(),style4);
+
+            };
+        }catch (NullPointerException e){}
+        try{
+            for(Subject subj:marksMapEx.get(Subject.DUF_ZALIK).keySet()){
+                createCell(footer4,i++,subj.getTeacher().toString(),style4);
+            };
+        }catch (NullPointerException e){}
+        try{
+            for(Subject subj:marksMapEx.get(Subject.ZALIK).keySet()){
+                createCell(footer4,i++,subj.getTeacher().toString(),style4);
+            };
+        }catch (NullPointerException e){}
+        try{
+            for(Subject subj:marksMapEx.get(Subject.OTHER).keySet()){
+                createCell(footer4,i++,subj.getTeacher().toString(),style4);
+            };
+        }catch (NullPointerException e){}
+
+    }
+
+
+    private int addRow(HSSFSheet sheet, CellStyle style, int rowNum, Map<String,Map<Subject, Mark>> marksMap, Student stud, Integer studNum) {
+        HSSFRow row = sheet.createRow(rowNum++);
+
+        for(int j=0;j<colNum;j++)
+            createCell(row,j,"",style);
+        createCell(row,0,studNum.toString(),style);
+        CellStyle style2 = sheet.getWorkbook().createCellStyle();
+        style2.cloneStyleFrom(style);
+        style2.setAlignment(CellStyle.ALIGN_LEFT);
+        style2.setBorderBottom(CellStyle.BORDER_MEDIUM);
+        style2.setBorderLeft(CellStyle.BORDER_MEDIUM);
+        style2.setBorderRight(CellStyle.BORDER_MEDIUM);
+        style2.setBorderTop(CellStyle.BORDER_MEDIUM);
+        createCell(row,1,stud.getFullName(),style2);
+        createCell(row,2,stud.getEducForm(),style);
+        Integer i = 3;
+        Integer markSum=0, markK=0;
+        try{
+            for(Subject subj:marksMap.get(Subject.EXAM).keySet()){
+                Mark mark = marksMap.get(Subject.EXAM).get(subj);
+                if (mark!=null){
+                markSum+=mark.getMark();markK++;
+                createCell(row,i++,mark.getMark().toString(),style);
+                    subjMarksMap.get(subj).add(mark.getMark());
+                }else{
+                    createCell(row,i++,"",style);
+                }
+
+            };
+        }catch (NullPointerException e){}
+        try{
+            for(Subject subj:marksMap.get(Subject.DUF_ZALIK).keySet()){
+                Mark mark = marksMap.get(Subject.DUF_ZALIK).get(subj);
+                if (mark!=null){
+                markSum+=mark.getMark();markK++;
+                createCell(row,i++,mark.getMark().toString(),style);
+                subjMarksMap.get(subj).add(mark.getMark());
+                }else{
+                    createCell(row,i++,"",style);
+                }
+            };
+        }catch (NullPointerException e){}
+        try{
+            for(Subject subj:marksMap.get(Subject.ZALIK).keySet()){
+                Mark mark = marksMap.get(Subject.ZALIK).get(subj);
+
+                if (mark!=null){
+                createCell(row,i++,mark.getZalMark(),style);
+                }else{
+                    createCell(row,i++,"",style);
+                }
+            };
+        }catch (NullPointerException e){}
+        try{
+            for(Subject subj:marksMap.get(Subject.OTHER).keySet()){
+                Mark mark = marksMap.get(Subject.OTHER).get(subj);
+                if (mark!=null){
+                markSum+=mark.getMark();markK++;
+                createCell(row,i++,mark.getMark().toString(),style);
+                    subjMarksMap.get(subj).add(mark.getMark());
+                }else{
+                    createCell(row,i++,"",style);
+                }
+            };
+        }catch (NullPointerException e){}
+
+        if(markK>0){
+            float sa = (float)markSum/markK;
+            createCell(row,i,Float.toString(sa),style);
+        }
+
+
+        this.allMarkSum += markSum;
+        this.allMarkK += markK;
+
+        return rowNum;
     }
 
     private HSSFSheet createSheet(HSSFWorkbook workbook, Group grp, Map<String,Map<Subject,Mark>> marksMapEx, Integer sum, CellStyle style) {
@@ -159,12 +362,14 @@ public class TeacherExcelZvedVid extends AbstractExcelView implements Vidomist_z
         try{
         for(Subject s : marksMapEx.get(Subject.EXAM).keySet()){
             createCell(header3,i++,s.toString(),style1);
+            subjMarksMap.put(s,new ArrayList<Integer>());
         }
         }catch (NullPointerException e){}
 
         try{
             for(Subject s : marksMapEx.get(Subject.DUF_ZALIK).keySet()){
                 createCell(header3, i++, s.toString(), style1);
+                subjMarksMap.put(s,new ArrayList<Integer>());
             }
         }catch (NullPointerException e){}
 
@@ -176,6 +381,7 @@ public class TeacherExcelZvedVid extends AbstractExcelView implements Vidomist_z
         try{
             for(Subject s : marksMapEx.get(Subject.OTHER).keySet()){
                 createCell(header3, i++, s.toString(), style1);
+                subjMarksMap.put(s, new ArrayList<Integer>());
             }
         }catch (NullPointerException e){}
         createCell(header3, i, AVG_MARK, style1);
@@ -185,7 +391,7 @@ public class TeacherExcelZvedVid extends AbstractExcelView implements Vidomist_z
             createCell(indexes, j, "", style);
 
 
-
+        this.colNum = colN;
 
         return sheet;
     }

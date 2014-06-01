@@ -5,10 +5,7 @@ import org.springframework.jdbc.core.simple.ParameterizedRowMapper;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
-import java.util.Collection;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by troll on 27.12.13.
@@ -114,15 +111,20 @@ public class Mark {
             return "зарах";
     }
 
-    public String getEctsMark() {
-        return null;
-    }
+
 
     public String getNationalScaleMark(String controlForm) {
         if(controlForm == Subject.ZALIK)
-            return getNationalScaleMark().toString();
-        else
             return getZalMark();
+        else
+            return getNationalScaleMark().toString();
+    }
+
+    public String getFMark(String controlForm){
+        if(controlForm == Subject.ZALIK)
+            return getZalMark();
+        else
+            return getMark().toString();
     }
 
     public static Map<Integer,Integer> getStatistics(Collection<Mark> values) {
@@ -161,5 +163,15 @@ public class Mark {
             }}catch (NullPointerException e){}
         }
         return res;
+    }
+
+
+    public static String quality(List<Integer> integers) {
+        return "100%";
+    }
+
+    public static String success(List<Integer> integers) {
+
+        return "100%";
     }
 }
