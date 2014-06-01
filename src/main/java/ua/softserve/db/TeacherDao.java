@@ -18,36 +18,34 @@ public class TeacherDao {
     DataSource dataSource;
 
 
-
     public Teacher getTeacher(int subjId, int grId) {
         JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
-        List<Teacher> result =  jdbcTemplate.query(GET_TEACHER_BY_SUBJ,new Object[]{subjId, grId},Teacher.teacherRm);
+        List<Teacher> result = jdbcTemplate.query(GET_TEACHER_BY_SUBJ, new Object[]{subjId, grId}, Teacher.teacherRm);
 
-        if(result.isEmpty()){
+        if (result.isEmpty()) {
             return null;
         }
         return (result.get(0));
     }
 
     public Teacher getTeacherInfo(String login) {
-        return getTeacherInfo(getId(login, dataSource ));
+        return getTeacherInfo(getId(login, dataSource));
     }
 
     public Teacher getTeacherInfo(int id) {
         JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
-        List<Teacher> result = jdbcTemplate.query(GET_TEACHER_INFO,new Object[]{id},Teacher.teacherRm);
+        List<Teacher> result = jdbcTemplate.query(GET_TEACHER_INFO, new Object[]{id}, Teacher.teacherRm);
 
-        if(result.isEmpty())
+        if (result.isEmpty())
             return null;
         else
             return (result.get(0));
     }
 
 
-
-    public List<Teacher> getAllTeachers(){
+    public List<Teacher> getAllTeachers() {
         JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
-        List<Teacher> result = jdbcTemplate.query(GET_ALL_TEACHERS,Teacher.teacherInfoRowMapper);
+        List<Teacher> result = jdbcTemplate.query(GET_ALL_TEACHERS, Teacher.teacherInfoRowMapper);
 
         if (result.isEmpty())
             return null;
@@ -57,9 +55,9 @@ public class TeacherDao {
 
     public boolean updTeacher(Integer id, String name, String surname, String patronimic) {
         JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
-        int result = jdbcTemplate.update(UPDATE_TEACHER, name,surname,patronimic, id);
+        int result = jdbcTemplate.update(UPDATE_TEACHER, name, surname, patronimic, id);
 
-        if (result>0)
+        if (result > 0)
             return true;
         else return false;
 
@@ -67,19 +65,19 @@ public class TeacherDao {
 
     public boolean newTeacher(String name, String surname, String patronimic) {
         JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
-        int result = jdbcTemplate.update(INSERT_TEACHER, name,surname,patronimic);
+        int result = jdbcTemplate.update(INSERT_TEACHER, name, surname, patronimic);
 
-        if (result>0)
+        if (result > 0)
             return true;
         else return false;
     }
 
 
     public boolean updTeacher(Teacher teac) {
-        return updTeacher(teac.getId(),teac.getName(),teac.getSurname(),teac.getPatronimic());
+        return updTeacher(teac.getId(), teac.getName(), teac.getSurname(), teac.getPatronimic());
     }
 
     public boolean newTeacher(Teacher teac) {
-        return newTeacher(teac.getName(),teac.getSurname(),teac.getPatronimic());
+        return newTeacher(teac.getName(), teac.getSurname(), teac.getPatronimic());
     }
 }

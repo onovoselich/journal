@@ -7,12 +7,12 @@ public class Triple<X, Y, Z> {
     public final X x;
     public final Y y;
     public final Z z;
+
     public Triple(X x, Y y, Z z) {
         this.x = x;
         this.y = y;
         this.z = z;
     }
-
 
 
     public X getX() {
@@ -22,6 +22,7 @@ public class Triple<X, Y, Z> {
     public Y getY() {
         return y;
     }
+
     public Z getZ() {
         return z;
     }
@@ -39,11 +40,11 @@ public class Triple<X, Y, Z> {
         if (other == this) {
             return true;
         }
-        if (!(other instanceof Triple)){
+        if (!(other instanceof Triple)) {
             return false;
         }
-        Triple<X,Y,Z> other_ = (Triple<X,Y,Z>) other;
-        return other_.x == this.x && other_.y == this.y && other_.z == this.z ;
+        Triple<X, Y, Z> other_ = (Triple<X, Y, Z>) other;
+        return other_.x == this.x && other_.y == this.y && other_.z == this.z;
     }
 
     @Override

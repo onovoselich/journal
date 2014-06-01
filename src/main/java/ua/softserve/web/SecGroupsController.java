@@ -44,7 +44,7 @@ public class SecGroupsController {
 
     @RequestMapping({"", "/"})
     public String students(@RequestParam(value = "vid", required = false) Integer degree,
-                           ModelMap model ) {
+                           ModelMap model) {
 
         List<Spetiality> specs = specDao.getAllSpecs();
         for (Spetiality spec : specs) {
@@ -80,7 +80,7 @@ public class SecGroupsController {
         model.put("message", SUCCESS);
 
 
-        return "redirect:"+request.getHeader("referer");
+        return "redirect:" + request.getHeader("referer");
     }
 
     @RequestMapping(value = "alter_spec", method = RequestMethod.POST)
@@ -94,7 +94,7 @@ public class SecGroupsController {
         model.put("message", SUCCESS);
 
 
-        return "redirect:"+request.getHeader("referer");
+        return "redirect:" + request.getHeader("referer");
     }
 
     @RequestMapping(value = "alter_group", method = RequestMethod.POST)
@@ -114,7 +114,7 @@ public class SecGroupsController {
         model.put("message", SUCCESS);
 
 
-        return "redirect:"+request.getHeader("referer");
+        return "redirect:" + request.getHeader("referer");
     }
 
     @RequestMapping(value = "add_group", method = RequestMethod.POST)
@@ -133,7 +133,7 @@ public class SecGroupsController {
         model.put("message", SUCCESS);
 
 
-        return "redirect:"+request.getHeader("referer");
+        return "redirect:" + request.getHeader("referer");
     }
 
 
@@ -158,7 +158,7 @@ public class SecGroupsController {
             @RequestParam("gr_id") Integer grId,
             @RequestParam("teac_id") Integer teacId,
             @RequestParam("subj_id") Integer subjectId,
- //           @RequestParam("sum") List<Integer> sum,
+            //           @RequestParam("sum") List<Integer> sum,
             ModelMap model,
             HttpServletRequest request) throws UpdateException {
 
@@ -166,26 +166,26 @@ public class SecGroupsController {
         if (!tgsDao.updTgs(id, teacId, grId, subjectId))
             throw new UpdateException();
 
-        try{
-            Set<Integer> sum =  subjectDao.getSubject(subjectId).getSums().keySet();
+        try {
+            Set<Integer> sum = subjectDao.getSubject(subjectId).getSums().keySet();
 
-        List<Integer> sumList = tgsDao.getSumesters(teacId,grId,subjectId);
-        if(sumList!=null && !sumList.isEmpty()){
-            for(Integer i:sum){
-                if(!sumList.contains(i))
-                    tgsDao.addTgs(teacId,grId,subjectId,i);
+            List<Integer> sumList = tgsDao.getSumesters(teacId, grId, subjectId);
+            if (sumList != null && !sumList.isEmpty()) {
+                for (Integer i : sum) {
+                    if (!sumList.contains(i))
+                        tgsDao.addTgs(teacId, grId, subjectId, i);
+                }
+                for (Integer i : sumList) {
+                    if (!sum.contains(i))
+                        tgsDao.delTgs(teacId, grId, subjectId, i);
+                }
             }
-            for(Integer i:sumList){
-                if(!sum.contains(i))
-                    tgsDao.delTgs(teacId,grId,subjectId,i);
-            }
+            model.put("message", SUCCESS);
+        } catch (NullPointerException e) {
+            throw new RuntimeException("Спочатку визначте симестри, у яких читатиметься цей предмет");
         }
-        model.put("message", SUCCESS);
-    }catch (NullPointerException e){
-        throw new RuntimeException("Спочатку визначте симестри, у яких читатиметься цей предмет");
-    }
 
-        return "redirect:"+request.getHeader("referer");
+        return "redirect:" + request.getHeader("referer");
     }
 
     @RequestMapping("add_tgs")
@@ -195,20 +195,20 @@ public class SecGroupsController {
             @RequestParam("gr_id") Integer grId,
             @RequestParam("teac_id") Integer teacId,
             @RequestParam("subj_id") Integer subjectId,
-  //          @RequestParam("sum")Integer[] sum,
+            //          @RequestParam("sum")Integer[] sum,
             ModelMap model,
             HttpServletRequest request) throws UpdateException {
 
-        try{
-            Set<Integer> sum =  subjectDao.getSubject(subjectId).getSums().keySet();
-        for(Integer i:sum)
-            if (!tgsDao.addTgs(teacId, grId, subjectId, i))
-                throw new UpdateException();
-        model.put("message", SUCCESS);
-        }catch (NullPointerException e){
+        try {
+            Set<Integer> sum = subjectDao.getSubject(subjectId).getSums().keySet();
+            for (Integer i : sum)
+                if (!tgsDao.addTgs(teacId, grId, subjectId, i))
+                    throw new UpdateException();
+            model.put("message", SUCCESS);
+        } catch (NullPointerException e) {
             throw new RuntimeException("Спочатку визначте симестри, у яких читатиметься цей предмет");
         }
 
-        return "redirect:"+request.getHeader("referer");
+        return "redirect:" + request.getHeader("referer");
     }
 }

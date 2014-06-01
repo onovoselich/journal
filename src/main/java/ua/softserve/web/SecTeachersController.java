@@ -60,7 +60,7 @@ public class SecTeachersController {
             throw new UpdateException();
         model.put("message", SUCCESS);
 
-        return "redirect:"+request.getHeader("referer");
+        return "redirect:" + request.getHeader("referer");
     }
 
     @RequestMapping("add_teacher")
@@ -72,7 +72,7 @@ public class SecTeachersController {
             throw new UpdateException();
         model.put("message", SUCCESS);
 
-        return "redirect:"+request.getHeader("referer");
+        return "redirect:" + request.getHeader("referer");
 
     }
 
@@ -100,11 +100,11 @@ public class SecTeachersController {
     public String teacherTgs(
             @RequestParam("id") Integer teacId,
             ModelMap model) {
-        Map<Spetiality,List<Subject>> subjList = new TreeMap<Spetiality, List<Subject>>();
-        for(Spetiality sp:specDao.getAllSpecs()){
+        Map<Spetiality, List<Subject>> subjList = new TreeMap<Spetiality, List<Subject>>();
+        for (Spetiality sp : specDao.getAllSpecs()) {
             List<Subject> sl = subjectDao.getSpecSubjects(sp.getId());
-            if(sl!=null&&!sl.isEmpty())
-                subjList.put(sp,sl);
+            if (sl != null && !sl.isEmpty())
+                subjList.put(sp, sl);
         }
 
         model.put("subj_list", subjList);
@@ -121,37 +121,37 @@ public class SecTeachersController {
                          @RequestParam("gr_id") Integer grId,
                          @RequestParam("teac_id") Integer teacId,
                          @RequestParam("subj_id") Integer subjectId,
-                    //     @RequestParam List<Integer> sum,
+                         //     @RequestParam List<Integer> sum,
                          HttpServletRequest request) throws UpdateException {
 
 
-        if (groupDao.getGroup(grId).getSpec().getId()!=subjectDao.getSubject(subjectId).getSpetiality().getId())
+        if (groupDao.getGroup(grId).getSpec().getId() != subjectDao.getSubject(subjectId).getSpetiality().getId())
             throw new RuntimeException("Оберіть предмет з категорії відповідної спеціальності");
 
-        try{
-            Set<Integer> sum =  subjectDao.getSubject(subjectId).getSums().keySet();
-        if (!tgsDao.updTgs(id, teacId, grId, subjectId))
-            throw new UpdateException();
+        try {
+            Set<Integer> sum = subjectDao.getSubject(subjectId).getSums().keySet();
+            if (!tgsDao.updTgs(id, teacId, grId, subjectId))
+                throw new UpdateException();
 
-        List<Integer> sumList = tgsDao.getSumesters(teacId,grId,subjectId);
-        if(sumList!=null && !sumList.isEmpty()){
-            for(Integer i:sum){
-                if(!sumList.contains(i))
-                    tgsDao.addTgs(teacId,grId,subjectId,i);
+            List<Integer> sumList = tgsDao.getSumesters(teacId, grId, subjectId);
+            if (sumList != null && !sumList.isEmpty()) {
+                for (Integer i : sum) {
+                    if (!sumList.contains(i))
+                        tgsDao.addTgs(teacId, grId, subjectId, i);
+                }
+                for (Integer i : sumList) {
+                    if (!sum.contains(i))
+                        tgsDao.delTgs(teacId, grId, subjectId, i);
+                }
             }
-            for(Integer i:sumList){
-                if(!sum.contains(i))
-                    tgsDao.delTgs(teacId,grId,subjectId,i);
-            }
-        }
 
 
-        model.put("message", SUCCESS);
-        }catch (NullPointerException e){
+            model.put("message", SUCCESS);
+        } catch (NullPointerException e) {
             throw new RuntimeException("Спочатку визначте симестри, у яких читатиметься цей предмет");
         }
 
-        return "redirect:"+request.getHeader("referer");
+        return "redirect:" + request.getHeader("referer");
     }
 
     @RequestMapping("add_tgs")
@@ -159,22 +159,22 @@ public class SecTeachersController {
                          @RequestParam("gr_id") Integer grId,
                          @RequestParam("teac_id") Integer teacId,
                          @RequestParam("subj_id") Integer subjectId,
-                    //     @RequestParam Integer[] sum,
+                         //     @RequestParam Integer[] sum,
                          HttpServletRequest request) throws UpdateException {
 
 
-        try{
-            Set<Integer> sum =  subjectDao.getSubject(subjectId).getSums().keySet();
-    for(Integer i:sum)
-        if (!tgsDao.addTgs(teacId, grId, subjectId,i))
-            throw new UpdateException();
-        model.put("message", SUCCESS);
+        try {
+            Set<Integer> sum = subjectDao.getSubject(subjectId).getSums().keySet();
+            for (Integer i : sum)
+                if (!tgsDao.addTgs(teacId, grId, subjectId, i))
+                    throw new UpdateException();
+            model.put("message", SUCCESS);
 
-        }catch (NullPointerException e){
+        } catch (NullPointerException e) {
             throw new RuntimeException("Спочатку визначте симестри, у яких читатиметься цей предмет");
         }
 
-        return "redirect:"+request.getHeader("referer");
+        return "redirect:" + request.getHeader("referer");
     }
 
 }

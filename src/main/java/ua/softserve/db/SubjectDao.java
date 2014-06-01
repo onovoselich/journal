@@ -8,6 +8,7 @@ import javax.sql.DataSource;
 import java.util.List;
 
 import static ua.softserve.db.SqlQueries.*;
+
 /**
  * Created by troll on 04.01.14.
  */
@@ -15,114 +16,118 @@ public class SubjectDao {
     @Autowired
     DataSource dataSource;
 
-    public List<Subject> getGroupSubjects(int grId){
+    public List<Subject> getGroupSubjects(int grId) {
         JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
-        List<Subject> result =  (List<Subject>)jdbcTemplate.query(GET_GROUP_SUBJECTS, new Object[]{grId},Subject.subjectRm);
+        List<Subject> result = (List<Subject>) jdbcTemplate.query(GET_GROUP_SUBJECTS, new Object[]{grId}, Subject.subjectRm);
 
-        if(result.isEmpty()){
-            return null;
-        }
-        return result;
-    }
-    public List<Subject> getGroupSubjects(int grId, int sum){
-        JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
-        List<Subject> result =  (List<Subject>)jdbcTemplate.query(GET_GROUP_SUBJECTS_SUM, new Object[]{grId,sum},Subject.subjectRm);
-
-        if(result.isEmpty()){
+        if (result.isEmpty()) {
             return null;
         }
         return result;
     }
 
-    public Subject getSubject(int subId){
+    public List<Subject> getGroupSubjects(int grId, int sum) {
         JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
-        List<Subject> result = jdbcTemplate.query(GET_SUBJECT, new Object[]{subId},Subject.subjectInfoRm);
+        List<Subject> result = (List<Subject>) jdbcTemplate.query(GET_GROUP_SUBJECTS_SUM, new Object[]{grId, sum}, Subject.subjectRm);
 
-        if(result.isEmpty()){
-             return null;
+        if (result.isEmpty()) {
+            return null;
+        }
+        return result;
+    }
+
+    public Subject getSubject(int subId) {
+        JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
+        List<Subject> result = jdbcTemplate.query(GET_SUBJECT, new Object[]{subId}, Subject.subjectInfoRm);
+
+        if (result.isEmpty()) {
+            return null;
         }
         return (result.get(0));
 
     }
 
-    public List<Subject> getTeacherGroupSubjects(int teacId,int grId){
+    public List<Subject> getTeacherGroupSubjects(int teacId, int grId) {
         JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
-        List<Subject> result = jdbcTemplate.query(GET_TEACHER_GROUP_SUBJECTS,new Object[]{teacId,grId},Subject.subjectRm);
-        if(result.isEmpty()){
+        List<Subject> result = jdbcTemplate.query(GET_TEACHER_GROUP_SUBJECTS, new Object[]{teacId, grId}, Subject.subjectRm);
+        if (result.isEmpty()) {
             return null;
         }
         return (result);
     }
 
-    public List<Subject> getTeacherSubjects(int teacId){
+    public List<Subject> getTeacherSubjects(int teacId) {
         JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
-        List<Subject> result = jdbcTemplate.query(GET_TEACHER_SUBJECTS,new Object[]{teacId},Subject.subjectRm);
+        List<Subject> result = jdbcTemplate.query(GET_TEACHER_SUBJECTS, new Object[]{teacId}, Subject.subjectRm);
         if (result.isEmpty())
             return null;
         else
 
-            return  result;
+            return result;
     }
 
-    public List<Subject> getAllSubjects(){
+    public List<Subject> getAllSubjects() {
         JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
-        List<Subject> result = jdbcTemplate.query(GET_ALL_SUBJECTS,Subject.subjectRm);
+        List<Subject> result = jdbcTemplate.query(GET_ALL_SUBJECTS, Subject.subjectRm);
 
         if (result.isEmpty())
             return null;
         else
 
-            return  result;
+            return result;
 
     }
-    public List<Subject> getSpecSubjects(Integer spId){
+
+    public List<Subject> getSpecSubjects(Integer spId) {
         JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
-        List<Subject> result = jdbcTemplate.query(GET_SPEC_SUBJECTS,Subject.subjectInfoRm,spId);
+        List<Subject> result = jdbcTemplate.query(GET_SPEC_SUBJECTS, Subject.subjectInfoRm, spId);
 
         if (result.isEmpty())
             return null;
         else
 
-            return  result;
+            return result;
 
     }
-    public List<Subject> getAllSubjectsInfo(){
+
+    public List<Subject> getAllSubjectsInfo() {
         JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
-        List<Subject> result = jdbcTemplate.query(GET_ALL_SUBJECTS,Subject.subjectInfoRm);
+        List<Subject> result = jdbcTemplate.query(GET_ALL_SUBJECTS, Subject.subjectInfoRm);
 
         if (result.isEmpty())
             return null;
         else
 
-            return  result;
+            return result;
 
     }
 
 
     public boolean updSubject(int id, String name, double ects, String sums, String cform, int specId) {
         JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
-        int result = jdbcTemplate.update(UPDATE_SUBJECT,name,ects,sums,cform,specId,id);
+        int result = jdbcTemplate.update(UPDATE_SUBJECT, name, ects, sums, cform, specId, id);
 
-        if (result>0)
+        if (result > 0)
             return true;
         else return false;
     }
 
     public boolean updSubject(Subject subj) {
-        return updSubject(subj.getId(),subj.getName(),subj.getEcts(),subj.getsSums(),subj.getControlForm(),subj.getSpetiality().getId());
+        return updSubject(subj.getId(), subj.getName(), subj.getEcts(), subj.getsSums(), subj.getControlForm(), subj.getSpetiality().getId());
     }
+
     public boolean addSubject(String name, double ects, String sums, String cform, int specId) {
         JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
 
-        int result = jdbcTemplate.update(INSERT_SUBJECT,name,ects,sums,cform,specId);
+        int result = jdbcTemplate.update(INSERT_SUBJECT, name, ects, sums, cform, specId);
 
-        if (result>0)
+        if (result > 0)
             return true;
         else return false;
     }
 
     public boolean addSubject(Subject subj) {
-        return addSubject(subj.getName(),subj.getEcts(),subj.getsSums(),subj.getControlForm(),subj.getSpetiality().getId());
+        return addSubject(subj.getName(), subj.getEcts(), subj.getsSums(), subj.getControlForm(), subj.getSpetiality().getId());
     }
 
 }

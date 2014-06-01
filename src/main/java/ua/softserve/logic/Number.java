@@ -4,9 +4,9 @@ package ua.softserve.logic;
  * Created by troll on 27.04.14.
  */
 public class Number {
-    public static String arabic2roman(int number){
+    public static String arabic2roman(int number) {
         String roman = "";
-        switch (number){
+        switch (number) {
             case 1:
                 return "I";
             case 2:

@@ -23,7 +23,7 @@
     </definition>
 
     <definition name="studentVid" extends="template">
-        <put-attribute name="body" value="stud_vid" />
+        <put-attribute name="body" value="stud_vid"/>
     </definition>
 
     <definition name="studentCard" extends="template">

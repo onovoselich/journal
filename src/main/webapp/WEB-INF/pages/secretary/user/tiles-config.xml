@@ -4,8 +4,6 @@
 <tiles-definitions>
 
 
-
-
     <definition name="addUserPage" extends="template">
         <put-attribute name="body" value="/WEB-INF/pages/secretary/user/add_user.jsp"/>
     </definition>

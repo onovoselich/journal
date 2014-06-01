@@ -6,11 +6,11 @@ package ua.softserve.logic;
 public class Tuple<X, Y> {
     public final X x;
     public final Y y;
+
     public Tuple(X x, Y y) {
         this.x = x;
         this.y = y;
     }
-
 
 
     public X getX() {
@@ -34,10 +34,10 @@ public class Tuple<X, Y> {
         if (other == this) {
             return true;
         }
-        if (!(other instanceof Tuple)){
+        if (!(other instanceof Tuple)) {
             return false;
         }
-        Tuple<X,Y> other_ = (Tuple<X,Y>) other;
+        Tuple<X, Y> other_ = (Tuple<X, Y>) other;
         return other_.x == this.x && other_.y == this.y;
     }
 

@@ -282,7 +282,8 @@
                         cols.push(cache.normalized.length); // add position for rowCache
                         cache.normalized.push(cols);
                         cols = null;
-                    };
+                    }
+                    ;
 
                     if (table.config.debug) {
                         benchmark("Building cache for " + totalRows + " rows:", cacheTime);
@@ -354,7 +355,6 @@
                             //
                         }
                     }
-
 
 
                     if (table.config.appender) {
@@ -487,14 +487,16 @@
                 function checkHeaderMetadata(cell) {
                     if (($.metadata) && ($(cell).metadata().sorter === false)) {
                         return true;
-                    };
+                    }
+                    ;
                     return false;
                 }
 
                 function checkHeaderOptions(table, i) {
                     if ((table.config.headers[i]) && (table.config.headers[i].sorter === false)) {
                         return true;
-                    };
+                    }
+                    ;
                     return false;
                 }
 
@@ -565,7 +567,8 @@
                             colgroup.append($('<col>').css('width', $(this).width()));
                         });
                         $(table).prepend(colgroup);
-                    };
+                    }
+                    ;
                 }
 
                 function updateHeaderSortCount(table, sortList) {
@@ -687,7 +690,8 @@
 
                 function getCachedSortType(parsers, i) {
                     return parsers[i].type;
-                }; /* public methods */
+                };
+                /* public methods */
                 this.construct = function (settings) {
                     return this.each(function () {
                         // if no thead or tbody quit.
@@ -730,7 +734,7 @@
                                     // get current column sort order
                                     this.order = this.count++ % 2;
                                     // always sort on the locked order.
-                                    if(this.lockedOrder) this.order = this.lockedOrder;
+                                    if (this.lockedOrder) this.order = this.lockedOrder;
 
                                     // user only whants to sort on one
                                     // column
@@ -767,7 +771,8 @@
                                             // add column to sort list array
                                             config.sortList.push([i, this.order]);
                                         }
-                                    };
+                                    }
+                                    ;
                                     setTimeout(function () {
                                         // set css for headers
                                         setHeadersCss($this[0], $headers, config.sortList, sortCSS);
@@ -789,7 +794,7 @@
                                 }
                             });
                         // apply easy methods that trigger binded events
-                        $this.bind("update", function () {
+                        $this.bind("update",function () {
                             var me = this;
                             setTimeout(function () {
                                 // rebuild parsers.
@@ -798,14 +803,14 @@
                                 // rebuild the cache map
                                 cache = buildCache(me);
                             }, 1);
-                        }).bind("updateCell", function (e, cell) {
+                        }).bind("updateCell",function (e, cell) {
                             var config = this.config;
                             // get position from the dom.
                             var pos = [(cell.parentNode.rowIndex - 1), cell.cellIndex];
                             // update cache
                             cache.normalized[pos[0]][pos[1]] = config.parsers[pos[1]].format(
                                 getElementText(config, cell), cell);
-                        }).bind("sorton", function (e, list) {
+                        }).bind("sorton",function (e, list) {
                             $(this).trigger("sortStart");
                             config.sortList = list;
                             // update and store the sortlist
@@ -816,9 +821,9 @@
                             setHeadersCss(this, $headers, sortList, sortCSS);
                             // sort the table and append it to the dom
                             appendToTable(this, multisort(this, sortList, cache));
-                        }).bind("appendCache", function () {
+                        }).bind("appendCache",function () {
                             appendToTable(this, cache);
-                        }).bind("applyWidgetId", function (e, id) {
+                        }).bind("applyWidgetId",function (e, id) {
                             getWidgetById(id).format(this);
                         }).bind("applyWidgets", function () {
                             // apply widgets
@@ -845,7 +850,8 @@
                     }
                     if (a) {
                         parsers.push(parser);
-                    };
+                    }
+                    ;
                 };
                 this.addWidget = function (widget) {
                     widgets.push(widget);
@@ -868,6 +874,7 @@
                             while (this.firstChild)
                                 this.removeChild(this.firstChild);
                         }
+
                         empty.apply(table.tBodies[0]);
                     } else {
                         table.tBodies[0].innerHTML = "";

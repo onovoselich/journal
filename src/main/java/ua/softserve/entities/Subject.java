@@ -48,7 +48,7 @@ public class Subject implements Comparable {
     private String years;
     private Integer sumestr;*/
     private Spetiality spetiality;
-    private Map<Integer,Integer> sums;
+    private Map<Integer, Integer> sums;
 
     public Map<Integer, Integer> getSums() {
         return sums;
@@ -57,13 +57,14 @@ public class Subject implements Comparable {
     public void setSums(Map<Integer, Integer> sums) {
         this.sums = sums;
     }
+
     public void setSums(String sumsStr) {
-        if (!"".equals(sumsStr)&& sumsStr!=null){
-            Map<Integer,Integer> sums = new HashMap<Integer, Integer>();
+        if (!"".equals(sumsStr) && sumsStr != null) {
+            Map<Integer, Integer> sums = new HashMap<Integer, Integer>();
             String[] pairs = sumsStr.split("[\\{\\} ,]+");
-            for(String s : pairs){
-                if(s.indexOf("=") >  0 ){
-                    sums.put(Integer.parseInt(s.substring(0,s.indexOf("="))),Integer.parseInt(s.substring(s.indexOf("=")+1)));
+            for (String s : pairs) {
+                if (s.indexOf("=") > 0) {
+                    sums.put(Integer.parseInt(s.substring(0, s.indexOf("="))), Integer.parseInt(s.substring(s.indexOf("=") + 1)));
                 }
             }
             this.sums = sums;
@@ -73,7 +74,7 @@ public class Subject implements Comparable {
     public Subject() {
     }
 
-    public Subject(ResultSet rs)throws SQLException{
+    public Subject(ResultSet rs) throws SQLException {
         this.id = rs.getInt("Id");
         this.name = rs.getString("Name");
         this.setSpetiality(new Spetiality(rs.getInt("specId")));
@@ -88,7 +89,6 @@ public class Subject implements Comparable {
     public void setSpetiality(Spetiality spetiality) {
         this.spetiality = spetiality;
     }
-
 
 
     public void setEcts(Double ects) {
@@ -125,7 +125,6 @@ public class Subject implements Comparable {
     }
 
 
-
     public String getControlForm() {
         return controlForm;
     }
@@ -157,12 +156,12 @@ public class Subject implements Comparable {
     }
 
     @Override
-    public  String toString(){
+    public String toString() {
         return getName();
     }
 
     public String getsSums() {
-        if(this.sums == null || this.sums.isEmpty())
+        if (this.sums == null || this.sums.isEmpty())
             return null;
         else
             return sums.toString();

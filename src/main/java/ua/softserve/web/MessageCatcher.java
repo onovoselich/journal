@@ -9,12 +9,11 @@ import org.springframework.stereotype.Controller;
  * Created by troll on 30.04.14.
  */
 @Controller("messageCatcher")
-public class MessageCatcher extends ViewPreparerSupport
-{
+public class MessageCatcher extends ViewPreparerSupport {
     @Override
     public void execute(TilesRequestContext tilesContext,
                         AttributeContext attributeContext) {
-        String message = (String)tilesContext.getRequestScope().get("message");
+        String message = (String) tilesContext.getRequestScope().get("message");
         System.out.println(message);
     }
 }

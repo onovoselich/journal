@@ -1,12 +1,14 @@
-header{
-    margin: 30px 0 0 20px; 
+header {
+    margin: 30px 0 0 20px;
 }
-.left-part-header span:first-child{
+
+.left-part-header span:first-child {
     font-family: fantasy;
     font-size: 34px;
     color: #ffbb19;
 }
-.left-part-header span:last-child{
+
+.left-part-header span:last-child {
     font-family: fantasy;
     font-size: 30px;
     color: #fff;
@@ -14,10 +16,12 @@ header{
     top: 9px;
     left: 20px;
 }
-.left-part-header{
+
+.left-part-header {
     float: left;
 }
-.right-part-header{
+
+.right-part-header {
     max-width: 840px;
     width: 100%;
     margin: 0 auto;
@@ -25,13 +29,16 @@ header{
     font-family: "Tahoma";
     font-size: 11px;
 }
-#active{
+
+#active {
     color: #536d7d;
 }
-.right-part-header span a{
+
+.right-part-header span a {
     text-decoration: none;
-     color: #304653;
+    color: #304653;
 }
-.not-active{
+
+.not-active {
     display: none;
 }

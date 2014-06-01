@@ -66,12 +66,12 @@ public class Mark {
     }
 
     @Override
-    public  String toString(){
+    public String toString() {
         return Integer.toString(getMark());
     }
 
     public String getFormatDate() {
-        if(date!= null)
+        if (date != null)
             return new SimpleDateFormat("yyyy-MM-dd").format(date);
         else
             return "";
@@ -82,7 +82,7 @@ public class Mark {
     }
 
     public Integer getNationalScaleMark() {
-        switch (this.mark){
+        switch (this.mark) {
             case 1:
                 return 1;
             case 2:
@@ -104,63 +104,64 @@ public class Mark {
         return null;
     }
 
-    public String getZalMark(){
-        if(this.mark<=3)
+    public String getZalMark() {
+        if (this.mark <= 3)
             return "не зарах.";
         else
             return "зарах";
     }
 
 
-
     public String getNationalScaleMark(String controlForm) {
-        if(controlForm == Subject.ZALIK)
+        if (controlForm == Subject.ZALIK)
             return getZalMark();
         else
             return getNationalScaleMark().toString();
     }
 
-    public String getFMark(String controlForm){
-        if(controlForm == Subject.ZALIK)
+    public String getFMark(String controlForm) {
+        if (controlForm == Subject.ZALIK)
             return getZalMark();
         else
             return getMark().toString();
     }
 
-    public static Map<Integer,Integer> getStatistics(Collection<Mark> values) {
-        Map<Integer,Integer>res = new HashMap<Integer, Integer>();
-        for(int i=0;i<7;i++)
+    public static Map<Integer, Integer> getStatistics(Collection<Mark> values) {
+        Map<Integer, Integer> res = new HashMap<Integer, Integer>();
+        for (int i = 0; i < 7; i++)
             res.put(i, 0);
-        for(Mark m: values){
-            try{
-            switch (m.getMark()){
-                case 12:
-                case 11:
-                case 10:
-                    res.put(0,res.get(0)+1);
-                    break;
-                case 9:
-                case 8:
-                    res.put(1,res.get(1)+1);
-                    break;
-                case 7:
-                    res.put(2,res.get(2)+1);
-                    break;
-                case 6:
-                case 5:
-                    res.put(3,res.get(3)+1);
-                    break;
-                case 4:
-                    res.put(4,res.get(4)+1);
-                    break;
-                case 3:
-                case 2:
-                    res.put(5,res.get(5)+1);
-                    break;
-                case 1:
-                    res.put(6,res.get(6)+1);
-                    break;
-            }}catch (NullPointerException e){}
+        for (Mark m : values) {
+            try {
+                switch (m.getMark()) {
+                    case 12:
+                    case 11:
+                    case 10:
+                        res.put(0, res.get(0) + 1);
+                        break;
+                    case 9:
+                    case 8:
+                        res.put(1, res.get(1) + 1);
+                        break;
+                    case 7:
+                        res.put(2, res.get(2) + 1);
+                        break;
+                    case 6:
+                    case 5:
+                        res.put(3, res.get(3) + 1);
+                        break;
+                    case 4:
+                        res.put(4, res.get(4) + 1);
+                        break;
+                    case 3:
+                    case 2:
+                        res.put(5, res.get(5) + 1);
+                        break;
+                    case 1:
+                        res.put(6, res.get(6) + 1);
+                        break;
+                }
+            } catch (NullPointerException e) {
+            }
         }
         return res;
     }

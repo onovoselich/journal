@@ -18,25 +18,20 @@ public class SpecDao {
     DataSource dataSource;
 
 
-
-
-
-    public List<Spetiality> getAllSpecs(){
+    public List<Spetiality> getAllSpecs() {
         JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
-        List<Spetiality> result = jdbcTemplate.query(GET_ALL_SPECS,Spetiality.specRm);
-        if(result.isEmpty())
+        List<Spetiality> result = jdbcTemplate.query(GET_ALL_SPECS, Spetiality.specRm);
+        if (result.isEmpty())
             return null;
         else
             return result;
     }
 
 
-
-
-    public Spetiality getSpetiality(int id){
+    public Spetiality getSpetiality(int id) {
         JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
-        List<Spetiality> result = jdbcTemplate.query(GET_SPEC,new Object[]{id},Spetiality.specRm);
-        if(result.isEmpty())
+        List<Spetiality> result = jdbcTemplate.query(GET_SPEC, new Object[]{id}, Spetiality.specRm);
+        if (result.isEmpty())
             return null;
         else
             return result.get(0);
@@ -45,9 +40,9 @@ public class SpecDao {
     public boolean addSpec(Float degree, String name, String viddil, Integer zavId) {
         JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
 
-        int result = jdbcTemplate.update(INSERT_SPEC,degree,name,viddil,zavId);
+        int result = jdbcTemplate.update(INSERT_SPEC, degree, name, viddil, zavId);
 
-        if (result>0)
+        if (result > 0)
             return true;
         else return false;
     }
@@ -55,9 +50,9 @@ public class SpecDao {
     public boolean alterSpec(Integer id, Float degree, String name, String viddil, Integer zavId) {
         JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
 
-        int result = jdbcTemplate.update(UPDATE_SPEC,degree,name,viddil,zavId,id);
+        int result = jdbcTemplate.update(UPDATE_SPEC, degree, name, viddil, zavId, id);
 
-        if (result>0)
+        if (result > 0)
             return true;
         else return false;
 
@@ -66,9 +61,9 @@ public class SpecDao {
     public boolean addSpec(Spetiality spec) {
         JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
 
-        int result = jdbcTemplate.update(INSERT_SPEC,spec.getDegree(),spec.getSpecName(),spec.getViddil(),spec.getZavViddil().getId());
+        int result = jdbcTemplate.update(INSERT_SPEC, spec.getDegree(), spec.getSpecName(), spec.getViddil(), spec.getZavViddil().getId());
 
-        if (result>0)
+        if (result > 0)
             return true;
         else return false;
     }
@@ -76,9 +71,9 @@ public class SpecDao {
     public boolean alterSpec(Spetiality spec) {
         JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
 
-        int result = jdbcTemplate.update(UPDATE_SPEC,spec.getDegree(),spec.getSpecName(),spec.getViddil(),spec.getZavViddil().getId(),spec.getId());
+        int result = jdbcTemplate.update(UPDATE_SPEC, spec.getDegree(), spec.getSpecName(), spec.getViddil(), spec.getZavViddil().getId(), spec.getId());
 
-        if (result>0)
+        if (result > 0)
             return true;
         else return false;
     }

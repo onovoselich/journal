@@ -4,8 +4,6 @@
 <tiles-definitions>
 
 
-
-
     <definition name="secTeachersPage" extends="template">
         <put-attribute name="body" value="/WEB-INF/pages/secretary/teachers/teachers.jsp"/>
     </definition>

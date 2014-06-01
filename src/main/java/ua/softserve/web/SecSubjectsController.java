@@ -36,8 +36,8 @@ public class SecSubjectsController {
     public String subjects(
             ModelMap model) {
 
-    //    model.put("tab_list",specDao.getAllSpecs());
-        model.put("spec_list",specDao.getAllSpecs());
+        //    model.put("tab_list",specDao.getAllSpecs());
+        model.put("spec_list", specDao.getAllSpecs());
         model.put("subj_list", subjectDao.getAllSubjectsInfo());
         return SUBJECTS_PAGE;
     }
@@ -64,11 +64,11 @@ public class SecSubjectsController {
                                HttpServletRequest request) throws UpdateException {
         subj.setSpetiality(new Spetiality(specId));
 
-        Map<Integer,Integer> sums = new HashMap<Integer, Integer>();
-        for(Integer s : sum){
+        Map<Integer, Integer> sums = new HashMap<Integer, Integer>();
+        for (Integer s : sum) {
             String hours = request.getParameter("sum" + s);
-            if("".equals(hours) || hours== null)
-                throw new RuntimeException("Введіть години для "+s+"-го симастра");
+            if ("".equals(hours) || hours == null)
+                throw new RuntimeException("Введіть години для " + s + "-го симастра");
             sums.put(s, Integer.parseInt(hours));
         }
 
@@ -79,7 +79,7 @@ public class SecSubjectsController {
         model.put("message", SUCCESS);
 
 
-        return "redirect:"+request.getHeader("referer");
+        return "redirect:" + request.getHeader("referer");
     }
 
     @RequestMapping(value = "add_subject", method = RequestMethod.POST)
@@ -91,10 +91,10 @@ public class SecSubjectsController {
                              HttpServletRequest request) throws UpdateException {
 
         subj.setSpetiality(new Spetiality(specId));
-        Map<Integer,Integer> sums = new HashMap<Integer, Integer>();
-        for(Integer s : sum){
-            Integer i =  Integer.parseInt(request.getParameter("sum" + s));
-            if (i==null)
+        Map<Integer, Integer> sums = new HashMap<Integer, Integer>();
+        for (Integer s : sum) {
+            Integer i = Integer.parseInt(request.getParameter("sum" + s));
+            if (i == null)
                 i = 0;
             sums.put(s, i);
         }
@@ -105,6 +105,6 @@ public class SecSubjectsController {
         model.put("message", SUCCESS);
 
 
-        return "redirect:"+request.getHeader("referer");
+        return "redirect:" + request.getHeader("referer");
     }
 }

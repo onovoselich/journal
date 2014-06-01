@@ -137,8 +137,8 @@ public class TeacherPdfVid extends AbstractPdfView implements Vidomist_H5_03 {
         p.setSpacingBefore(30);
         document.add(p);
 
-        Map<Integer,Integer> statistics = Mark.getStatistics(studMarkList.values());
-        t = examTable(statistics,times);
+        Map<Integer, Integer> statistics = Mark.getStatistics(studMarkList.values());
+        t = examTable(statistics, times);
 
         //   t.setSpacing(40);
         document.add(t);
@@ -158,7 +158,6 @@ public class TeacherPdfVid extends AbstractPdfView implements Vidomist_H5_03 {
 
 
     }
-
 
 
     private String numberGen(Group grp, Subject subj) {
@@ -193,8 +192,8 @@ public class TeacherPdfVid extends AbstractPdfView implements Vidomist_H5_03 {
                 try {
                     if (TABLE2_HEADERS[i][j] != null) {
                         c = new Cell(new Phrase(TABLE2_HEADERS[i][j], new Font(font, 10)));
-                        if(j==0&&i>1)
-                            c = new Cell(new Phrase(statistics.get(i-2).toString(), new Font(font, 10)));
+                        if (j == 0 && i > 1)
+                            c = new Cell(new Phrase(statistics.get(i - 2).toString(), new Font(font, 10)));
                         if (collspan[i][j] != null) c.setColspan(collspan[i][j]);
                         if (rowspan[i][j] != null) c.setRowspan(rowspan[i][j]);
 
@@ -344,8 +343,6 @@ public class TeacherPdfVid extends AbstractPdfView implements Vidomist_H5_03 {
 
         return p;
     }
-
-
 
 
 }

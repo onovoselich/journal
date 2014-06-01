@@ -8,31 +8,31 @@ import java.sql.SQLException;
 /**
  * Created by troll on 04.03.14.
  */
-public class Spetiality  implements Comparable<Spetiality> {
+public class Spetiality implements Comparable<Spetiality> {
 
-        private int id;
-        private Float degree;
-        private String specName;
-        private String viddil;
-        private Teacher zavViddil;
+    private int id;
+    private Float degree;
+    private String specName;
+    private String viddil;
+    private Teacher zavViddil;
 
-        public static ParameterizedRowMapper<Spetiality> specRm  = new ParameterizedRowMapper<Spetiality>() {
-            @Override
-            public Spetiality mapRow(ResultSet resultSet, int i) throws SQLException {
-                return new Spetiality(resultSet);
-            }
-        };
+    public static ParameterizedRowMapper<Spetiality> specRm = new ParameterizedRowMapper<Spetiality>() {
+        @Override
+        public Spetiality mapRow(ResultSet resultSet, int i) throws SQLException {
+            return new Spetiality(resultSet);
+        }
+    };
 
     public Spetiality() {
     }
 
-    public Spetiality(ResultSet resultSet)throws SQLException{
-            this.id = resultSet.getInt("id");
-            this.degree = resultSet.getFloat("degree");
-            this.specName = resultSet.getString("Name");
-            this.viddil = resultSet.getString("viddil");
-            this.zavViddil = new Teacher(resultSet.getInt("ZavViddil"));
-        }
+    public Spetiality(ResultSet resultSet) throws SQLException {
+        this.id = resultSet.getInt("id");
+        this.degree = resultSet.getFloat("degree");
+        this.specName = resultSet.getString("Name");
+        this.viddil = resultSet.getString("viddil");
+        this.zavViddil = new Teacher(resultSet.getInt("ZavViddil"));
+    }
 
     public Spetiality(int id) {
         this.id = id;
@@ -47,32 +47,32 @@ public class Spetiality  implements Comparable<Spetiality> {
     }
 
     public Float getDegree() {
-            return degree;
-        }
+        return degree;
+    }
 
-        public void setDegree(Float degree) {
-            this.degree = degree;
-        }
+    public void setDegree(Float degree) {
+        this.degree = degree;
+    }
 
-        public String getSpecName() {
-            return specName;
-        }
+    public String getSpecName() {
+        return specName;
+    }
 
-        public void setSpecName(String specName) {
-            this.specName = specName;
-        }
+    public void setSpecName(String specName) {
+        this.specName = specName;
+    }
 
-        public String getViddil() {
-            return viddil;
-        }
+    public String getViddil() {
+        return viddil;
+    }
 
-        public void setViddil(String viddil) {
-            this.viddil = viddil;
-        }
+    public void setViddil(String viddil) {
+        this.viddil = viddil;
+    }
 
-        public Teacher getZavViddil() {
-            return zavViddil;
-        }
+    public Teacher getZavViddil() {
+        return zavViddil;
+    }
 
 
     public void setZavViddil(Teacher zavViddil) {
@@ -80,15 +80,13 @@ public class Spetiality  implements Comparable<Spetiality> {
     }
 
 
-
-
     @Override
     public int compareTo(Spetiality o) {
-        return  this.getSpecName().compareTo(o.getSpecName());
+        return this.getSpecName().compareTo(o.getSpecName());
     }
 
     @Override
     public String toString() {
-        return  specName ;
+        return specName;
     }
 }

@@ -13,6 +13,6 @@
         <span><a href="/login">:: Sign in</a></span>
     </sec:authorize>
     <sec:authorize access="isAuthenticated()">
-    <span><a href="/logout">:: Logout</a></span>
+        <span><a href="/logout">:: Logout</a></span>
     </sec:authorize>
 </div>

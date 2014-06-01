@@ -20,25 +20,24 @@ public class UserDao {
     DataSource dataSource;
 
 
-
     public static int getId(String log, DataSource
-            dataSource){
+            dataSource) {
         JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
-        return jdbcTemplate.queryForObject(GET_ID,Integer.class,log);
+        return jdbcTemplate.queryForObject(GET_ID, Integer.class, log);
 
 
     }
 
     public boolean changePass(String login, String password) {
         JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
-        int result = jdbcTemplate.update(UPDATE_USER,password,login);
+        int result = jdbcTemplate.update(UPDATE_USER, password, login);
 
-        if (result>0)
+        if (result > 0)
             return true;
         else return false;
     }
 
-    public List<String> getAllUsers(){
+    public List<String> getAllUsers() {
         JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
         List<String> result = jdbcTemplate.queryForList(GET_ALL_USERS, String.class);
 
@@ -48,21 +47,21 @@ public class UserDao {
     }
 
 
-    public boolean addUser(int id, String role,String login, String password) {
+    public boolean addUser(int id, String role, String login, String password) {
         JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
 
-        if(0 == jdbcTemplate.update(INSERT_USER, id, role, login, password))
+        if (0 == jdbcTemplate.update(INSERT_USER, id, role, login, password))
             return false;
         else
 
 
-             return true;
+            return true;
     }
 
     public boolean delUser(String login) {
         JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
 
-        if (jdbcTemplate.update(DELETE_USER,login)==0)
+        if (jdbcTemplate.update(DELETE_USER, login) == 0)
             return false;
 
 

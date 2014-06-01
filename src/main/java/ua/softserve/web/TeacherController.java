@@ -49,45 +49,45 @@ public class TeacherController {
 
     @RequestMapping({"/", ""})
     public String main(
-                       ModelMap model) {
+            ModelMap model) {
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         Teacher teac = teacherDao.getTeacherInfo(auth.getName());
         Group grp = groupDao.getGroupByCurator(teac.getId());
 
-        List<Integer>spList = groupDao.getSpecsByZavvidd(teac.getId());
-        Map<Group,List<Subject>> gsl = new TreeMap<Group, List<Subject>>();
-        if(spList!=null || !spList.isEmpty()){
+        List<Integer> spList = groupDao.getSpecsByZavvidd(teac.getId());
+        Map<Group, List<Subject>> gsl = new TreeMap<Group, List<Subject>>();
+        if (spList != null || !spList.isEmpty()) {
 
-            model.put("i_am_zavvidd",1);
-            List<Group>grLst = new ArrayList<Group>();
-            for(Integer i:spList){
+            model.put("i_am_zavvidd", 1);
+            List<Group> grLst = new ArrayList<Group>();
+            for (Integer i : spList) {
                 grLst.addAll(groupDao.getSpecGrops(i));
             }
-            for(Group g : grLst)
-                gsl.put(g,subjectDao.getGroupSubjects(g.getId()));
+            for (Group g : grLst)
+                gsl.put(g, subjectDao.getGroupSubjects(g.getId()));
 
         }
 
-        if (grp != null){
+        if (grp != null) {
 
-            model.put("i_am_curator",1);
+            model.put("i_am_curator", 1);
             model.put("my_group", grp);
             model.put("grp_students", studentDao.getGroupStudents(grp.getId()));
-            model.put("group_list",groupDao.getTeacherGroups(teac.getId()));
+            model.put("group_list", groupDao.getTeacherGroups(teac.getId()));
 
 
-            gsl.put(grp,subjectDao.getGroupSubjects(grp.getId()));
+            gsl.put(grp, subjectDao.getGroupSubjects(grp.getId()));
         }
 
-        model.put("group_list_for_vid",JSONObject.groupListToJson(gsl));
-        Map<Group,  List<Subject>>  groupListMap = new TreeMap<Group, List<Subject>>();
+        model.put("group_list_for_vid", JSONObject.groupListToJson(gsl));
+        Map<Group, List<Subject>> groupListMap = new TreeMap<Group, List<Subject>>();
         List<Group> groups = groupDao.getTeacherGroups(teac.getId());
-        for(Group g : groups)
-            groupListMap.put(g,subjectDao.getTeacherGroupSubjects(teac.getId(),g.getId()));
+        for (Group g : groups)
+            groupListMap.put(g, subjectDao.getTeacherGroupSubjects(teac.getId(), g.getId()));
 
 
-        model.put("group_json",JSONObject.groupListToJson(groupListMap));
+        model.put("group_json", JSONObject.groupListToJson(groupListMap));
 
         model.put("teacher", teac);
 
@@ -100,79 +100,79 @@ public class TeacherController {
         return TEACHER_PAGE;
     }
 
-    @RequestMapping({ "/vidomist","/vidomist.pdf","/vidomist.xls"})
+    @RequestMapping({"/vidomist", "/vidomist.pdf", "/vidomist.xls"})
     public ModelAndView vid(@RequestParam("group_id") Integer groupId,
-                       @RequestParam("subject_id") Integer subjectId,
-                       @RequestParam(required=false) Integer sum,
-                       @RequestParam(required = false)String format,
-                       @RequestParam(required = false)String message,
-                       HttpServletRequest request,
-                       ModelMap model) {
+                            @RequestParam("subject_id") Integer subjectId,
+                            @RequestParam(required = false) Integer sum,
+                            @RequestParam(required = false) String format,
+                            @RequestParam(required = false) String message,
+                            HttpServletRequest request,
+                            ModelMap model) {
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         Teacher teac = teacherDao.getTeacherInfo(auth.getName());
         List<Integer> sumLst;
-        sumLst = tgsDao.getSumesters(groupId,subjectId);
-        if (sum==null){
+        sumLst = tgsDao.getSumesters(groupId, subjectId);
+        if (sum == null) {
             sum = groupDao.getGroup(groupId).getSumestr();
 
-            while(!sumLst.contains(sum))
+            while (!sumLst.contains(sum))
                 sum--;
         }
         Map<Integer, Integer> tgsLstSum = new HashMap<Integer, Integer>();
         Map<Integer, Map<Student, Mark>> markLstSum = new HashMap<Integer, Map<Student, Mark>>();
-        for(Integer i : sumLst){
-            Integer tgsId = tgsDao.getTeacherGroupSubject(teac.getId(), groupId, subjectId,i);
+        for (Integer i : sumLst) {
+            Integer tgsId = tgsDao.getTeacherGroupSubject(teac.getId(), groupId, subjectId, i);
 
-            if (tgsId != null){
-                tgsLstSum.put(i,tgsId);
+            if (tgsId != null) {
+                tgsLstSum.put(i, tgsId);
                 Map<Student, Mark> studMarkList = new TreeMap<Student, Mark>();
                 List<Student> studList = studentDao.getGroupStudents(groupId);
                 if (studList != null)
                     for (Student st : studList) {
-                       studMarkList.put(st, markDao.getMark(st.getId(), subjectId,i));
+                        studMarkList.put(st, markDao.getMark(st.getId(), subjectId, i));
                     }
-                markLstSum.put(i,studMarkList);
+                markLstSum.put(i, studMarkList);
             }
         }
-        model.put("cur_sum",sum);
-        model.put("sum_lst",sumLst);
+        model.put("cur_sum", sum);
+        model.put("sum_lst", sumLst);
         Group gr = groupDao.getGroup(groupId);
         gr.getSpec().setZavViddil(teacherDao.getTeacherInfo(gr.getSpec().getZavViddil().getId()));
         gr.setCurator(teacherDao.getTeacherInfo(gr.getCurator().getId()));
-        model.put("group",gr );
+        model.put("group", gr);
         Subject subj = subjectDao.getSubject(subjectId);
 //        subj.setTeacher(teacherDao.getTeacherInfo(subj.getTeacher().getId()));
-        model.put("subject",subj );
+        model.put("subject", subj);
         model.put("teac_subj_grp_id", tgsLstSum);
         model.put("stud_mark_list", markLstSum);
-        model.put("message",message);
+        model.put("message", message);
 
-        if(format!=null)
-            return new ModelAndView(TEACHER_VID_PAGE+format,model);
+        if (format != null)
+            return new ModelAndView(TEACHER_VID_PAGE + format, model);
         else
-            return new ModelAndView(getViewName(request,TEACHER_VID_PAGE),model);
+            return new ModelAndView(getViewName(request, TEACHER_VID_PAGE), model);
     }
 
-    @RequestMapping({"zvvidomist","/zvvidomist.pdf","/zvvidomist.xls"})
+    @RequestMapping({"zvvidomist", "/zvvidomist.pdf", "/zvvidomist.xls"})
     public ModelAndView zvedVid(@RequestParam("group_id") Integer groupId,
-                            @RequestParam Integer sum,
-                            @RequestParam String format,
-                            HttpServletRequest request,
-                            ModelMap model) {
+                                @RequestParam Integer sum,
+                                @RequestParam String format,
+                                HttpServletRequest request,
+                                ModelMap model) {
 
-        Map<Student,Map<String,Map<Subject,Mark>>> marksMap = new TreeMap<Student, Map<String, Map<Subject, Mark>>>();
+        Map<Student, Map<String, Map<Subject, Mark>>> marksMap = new TreeMap<Student, Map<String, Map<Subject, Mark>>>();
         List<Student> studLst = studentDao.getGroupStudents(groupId);
-        if(studLst == null || studLst.isEmpty())
-            throw  new RuntimeException("У цй групі немає студентів");
-        List<Subject> subjLst = subjectDao.getGroupSubjects(groupId,sum);
-        if(subjLst == null || subjLst.isEmpty())
+        if (studLst == null || studLst.isEmpty())
+            throw new RuntimeException("У цй групі немає студентів");
+        List<Subject> subjLst = subjectDao.getGroupSubjects(groupId, sum);
+        if (subjLst == null || subjLst.isEmpty())
             throw new RuntimeException("Не знайдено жодного предмета");
-        for(Subject subj : subjLst){
+        for (Subject subj : subjLst) {
             subj.setTeacher(teacherDao.getTeacher(subj.getId(), groupId));
         }
-        Map<String,Map<Subject,Mark>> studMarks = null;
-        for(Student stud : studLst){
+        Map<String, Map<Subject, Mark>> studMarks = null;
+        for (Student stud : studLst) {
             studMarks = new TreeMap<String, Map<Subject, Mark>>();
 
             studMarks.put(Subject.EXAM, new TreeMap<Subject, Mark>());
@@ -180,21 +180,21 @@ public class TeacherController {
             studMarks.put(Subject.DUF_ZALIK, new TreeMap<Subject, Mark>());
             studMarks.put(Subject.OTHER, new TreeMap<Subject, Mark>());
 
-            for(Subject subj : subjLst){
-                Mark mark = markDao.getMark(stud.getId(),subj.getId(),sum);
-                studMarks.get(subj.getControlForm()).put(subj,mark);
+            for (Subject subj : subjLst) {
+                Mark mark = markDao.getMark(stud.getId(), subj.getId(), sum);
+                studMarks.get(subj.getControlForm()).put(subj, mark);
             }
 
 
-            marksMap.put(stud,studMarks);
+            marksMap.put(stud, studMarks);
         }
-        model.put("marks_map",marksMap);
+        model.put("marks_map", marksMap);
         Group grp = groupDao.getGroup(groupId);
         grp.setCurator(teacherDao.getTeacherInfo(grp.getCurator().getId()));
         grp.getSpec().setZavViddil(teacherDao.getTeacherInfo(grp.getSpec().getZavViddil().getId()));
-        model.put("group",grp);
-        model.put("cur_sum",sum);
-       return new ModelAndView(TEACHER_ZVED_VID_PAGE+format,model);
+        model.put("group", grp);
+        model.put("cur_sum", sum);
+        return new ModelAndView(TEACHER_ZVED_VID_PAGE + format, model);
     }
 
     @RequestMapping(value = "/delMark", method = RequestMethod.POST)
@@ -208,9 +208,9 @@ public class TeacherController {
             throw new IOException("Невдалося видалити оцінку!");
 
         model.put("message", DELETED_SUCCESS);
-        model.put("group_id",tgsDao.getGroupId(tsgId));
-        model.put("subject_id",tgsDao.getSubjectId(tsgId));
-        model.put("sum",tgsDao.getSum(tsgId));
+        model.put("group_id", tgsDao.getGroupId(tsgId));
+        model.put("subject_id", tgsDao.getSubjectId(tsgId));
+        model.put("sum", tgsDao.getSum(tsgId));
 
 
         return "redirect:/teacher/vidomist";
@@ -233,9 +233,9 @@ public class TeacherController {
             throw new UpdateException();
 
         model.put("message", SUCCESS);
-        model.put("group_id",tgsDao.getGroupId(tgsId));
-        model.put("subject_id",tgsDao.getSubjectId(tgsId));
-        model.put("sum",tgsDao.getSum(tgsId));
+        model.put("group_id", tgsDao.getGroupId(tgsId));
+        model.put("subject_id", tgsDao.getSubjectId(tgsId));
+        model.put("sum", tgsDao.getSum(tgsId));
 
 
         return "redirect:/teacher/vidomist";
@@ -251,14 +251,13 @@ public class TeacherController {
     }
 
 
-
-    private String getViewName(HttpServletRequest request, String viewName){
+    private String getViewName(HttpServletRequest request, String viewName) {
         String requestUri = request.getRequestURI();
-        if(requestUri.indexOf(".") != -1){
+        if (requestUri.indexOf(".") != -1) {
             String extension =
                     requestUri.substring(requestUri.lastIndexOf("."));
-            return viewName+extension;
-        }else
-        return viewName;
+            return viewName + extension;
+        } else
+            return viewName;
     }
 }

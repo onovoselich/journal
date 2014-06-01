@@ -4,12 +4,11 @@ import org.springframework.jdbc.core.simple.ParameterizedRowMapper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Date;
 
 /**
  * Created by troll on 19.12.13.
  */
-public class Student implements Comparable{
+public class Student implements Comparable {
 
     public static ParameterizedRowMapper<Student> studentRm = new ParameterizedRowMapper() {
         @Override
@@ -18,7 +17,7 @@ public class Student implements Comparable{
         }
     };
 
-     public static ParameterizedRowMapper<Student> studentInfoRm = new ParameterizedRowMapper() {
+    public static ParameterizedRowMapper<Student> studentInfoRm = new ParameterizedRowMapper() {
         @Override
         public Student mapRow(ResultSet resultSet, int i) throws SQLException {
             Student student = new Student();
@@ -168,23 +167,24 @@ public class Student implements Comparable{
 
     @Override
     public int compareTo(Object o) {
-        Student st = (Student)o;
+        Student st = (Student) o;
         if (this.getSurname().compareTo(st.getSurname()) != 0)
             return (this.getSurname().compareTo(st.getSurname()));
         else if (this.getName().compareTo(st.getName()) != 0)
-            return(this.getName().compareTo(st.getName()));
+            return (this.getName().compareTo(st.getName()));
         else if (this.getPatronimic().compareTo(st.getPatronimic()) != 0)
-            return(this.getPatronimic().compareTo(st.getPatronimic()));
-        else return(this.getId().compareTo(st.getId()));
+            return (this.getPatronimic().compareTo(st.getPatronimic()));
+        else return (this.getId().compareTo(st.getId()));
 
     }
 
     @Override
-    public  String toString(){
-        return getSurname()+" "+getName().charAt(0)+". "+getPatronimic().charAt(0)+".";
+    public String toString() {
+        return getSurname() + " " + getName().charAt(0) + ". " + getPatronimic().charAt(0) + ".";
     }
-    public String getFullName(){
-        return getSurname()+" "+getName()+" "+getPatronimic();
+
+    public String getFullName() {
+        return getSurname() + " " + getName() + " " + getPatronimic();
     }
 
     public Student() {

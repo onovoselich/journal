@@ -17,9 +17,9 @@ public interface SqlQueries {
 
     public static final String MARK_INSERT = "call insert_mark(?,?,?,?)";
 
- //   public static final String GET_ALL_GROUPS = "select `id`,`Name`,`EducYear` from `groups`";
+    //   public static final String GET_ALL_GROUPS = "select `id`,`Name`,`EducYear` from `groups`";
 //    public static final String GET_ALL_STUDENTS = "select `Id`, `Name`,`Surname`,`Patronimic`,`gradebook` from `students`";
-    public static final  String GET_ID = "call get_user_id(?);";
+    public static final String GET_ID = "call get_user_id(?);";
     public static final String GET_STUDENT_INFO = "select * from `students` WHERE  `id` = ?";
     public static final String GET_GROUP_SUBJECTS = "CALL `get_group_subjects`(?);";
     public static final String GET_GROUP_SUBJECTS_SUM = "CALL `get_group_subjects_sum`(?,?);";
@@ -73,8 +73,6 @@ public interface SqlQueries {
     public static final String INSERT_GROUP = "INSERT INTO `groups` ( `Name`,`Degree`,`StartDate`,`FinishDate`,`CuratorId`,`EducYear`)  values (?,?,?,?,?,?);";
 
     public static final String UPDATE_USER = "UPDATE `users` SET `password`=?  WHERE `users`.`login` = ?;";
-
-
 
 
 }

@@ -18,9 +18,9 @@ public class Teacher {
         }
     };
 
-    public static ParameterizedRowMapper<Teacher> teacherInfoRowMapper = new ParameterizedRowMapper<Teacher>(){
+    public static ParameterizedRowMapper<Teacher> teacherInfoRowMapper = new ParameterizedRowMapper<Teacher>() {
         @Override
-        public Teacher mapRow(ResultSet resultSet, int i)throws SQLException{
+        public Teacher mapRow(ResultSet resultSet, int i) throws SQLException {
             Teacher teacher = new Teacher(resultSet);
             teacher.setSpec(resultSet.getString("Spec"));
             teacher.setDyplom(resultSet.getString("Dyplom"));
@@ -45,8 +45,8 @@ public class Teacher {
     public Teacher() {
     }
 
-    public Teacher(ResultSet rs)throws SQLException{
-        this.id =rs.getInt("Id");
+    public Teacher(ResultSet rs) throws SQLException {
+        this.id = rs.getInt("Id");
         this.name = rs.getString("Name");
         this.surname = rs.getString("Surname");
         this.patronimic = rs.getString("Patronimic");
@@ -131,20 +131,20 @@ public class Teacher {
     }
 
     @Override
-    public  String toString(){
-        if(("").equals(surname) || surname == null)
+    public String toString() {
+        if (("").equals(surname) || surname == null)
             return "";
-        if(("").equals(name )|| ("").equals(surname) || name == null || surname == null)
+        if (("").equals(name) || ("").equals(surname) || name == null || surname == null)
             return getSurname();
-        return getSurname()+" "+getName().charAt(0)+". "+getPatronimic().charAt(0)+".";
+        return getSurname() + " " + getName().charAt(0) + ". " + getPatronimic().charAt(0) + ".";
 
     }
 
-    public String getFullName(){
-        return getSurname()+" "+getName()+" "+getPatronimic();
+    public String getFullName() {
+        return getSurname() + " " + getName() + " " + getPatronimic();
     }
 
-    public static class Tgs extends Triple<Group,Subject,List<Integer>> {
+    public static class Tgs extends Triple<Group, Subject, List<Integer>> {
 
         public Tgs(Group group, Subject subject, List<Integer> integers) {
             super(group, subject, integers);

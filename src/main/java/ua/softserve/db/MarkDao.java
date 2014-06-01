@@ -18,18 +18,18 @@ public class MarkDao {
     DataSource dataSource;
 
 
-    public Mark getMark(int studId, int subjId , int sum) {
+    public Mark getMark(int studId, int subjId, int sum) {
         JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
-        List<Mark> result = jdbcTemplate.query(GET_MARK,new Object[]{studId, subjId, sum},Mark.markRm);
-        if(result.isEmpty()){
+        List<Mark> result = jdbcTemplate.query(GET_MARK, new Object[]{studId, subjId, sum}, Mark.markRm);
+        if (result.isEmpty()) {
             return null;
         }
         return (result.get(0));
     }
 
-    public boolean insert(int mark,String date, int studId, int tsgId){
+    public boolean insert(int mark, String date, int studId, int tsgId) {
         JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
-        int row = jdbcTemplate.update(MARK_INSERT,mark,date,studId,tsgId);
+        int row = jdbcTemplate.update(MARK_INSERT, mark, date, studId, tsgId);
         if (row == 1)
             return true;
         else

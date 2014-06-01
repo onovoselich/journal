@@ -47,43 +47,44 @@ public class SecStudentsController implements ServletContextAware {
     public String studentsView(ModelMap model
     ) {
 
-        model.put("spec_list",specDao.getAllSpecs());
+        model.put("spec_list", specDao.getAllSpecs());
         model.put("groups_list", groupDao.getAllGroups());
-            model.put("students_list", studentDao.getAllStudents());
+        model.put("students_list", studentDao.getAllStudents());
 
         return STUDENTS_PAGE;
     }
- /*   @RequestMapping("spec{specId}")
-    public String studentsSpecView(ModelMap model
-            ,@PathVariable Integer specId
-    ) {
 
-        model.put("spec_list",specDao.getAllSpecs());
-        model.put("groups_list", groupDao.getSpecGrops(specId));
-        model.put("students_list", studentDao.getSpecStudents(specId));
+    /*   @RequestMapping("spec{specId}")
+       public String studentsSpecView(ModelMap model
+               ,@PathVariable Integer specId
+       ) {
 
-        return STUDENTS_PAGE;
-    }
-    @RequestMapping("group{groupId}")
-    public String studentsGroupView(ModelMap model
-                                    ,@PathVariable Integer groupId
-    ) {
+           model.put("spec_list",specDao.getAllSpecs());
+           model.put("groups_list", groupDao.getSpecGrops(specId));
+           model.put("students_list", studentDao.getSpecStudents(specId));
 
-        model.put("spec_list",specDao.getAllSpecs());
-        model.put("groups_list", groupDao.getAllGroups());
-        model.put("students_list", studentDao.getGroupStudentsInfo(groupId));
+           return STUDENTS_PAGE;
+       }
+       @RequestMapping("group{groupId}")
+       public String studentsGroupView(ModelMap model
+                                       ,@PathVariable Integer groupId
+       ) {
 
-        return STUDENTS_PAGE;
-    }*/
+           model.put("spec_list",specDao.getAllSpecs());
+           model.put("groups_list", groupDao.getAllGroups());
+           model.put("students_list", studentDao.getGroupStudentsInfo(groupId));
+
+           return STUDENTS_PAGE;
+       }*/
     @RequestMapping(value = "add_student", method = RequestMethod.POST)
     public String addStudent(ModelMap model,
                              @ModelAttribute Student stud,
                              HttpServletRequest request) throws UpdateException, IOException {
 
         if (stud.getbDate().equals("")) stud.setbDate(null);
-        for(Student st:studentDao.getAllStudents())
+        for (Student st : studentDao.getAllStudents())
 
-            if(st.getGradebook()==stud.getGradebook())
+            if (st.getGradebook() == stud.getGradebook())
                 throw new IOException("Цей номер залікової книжки уже зайнятий!");
 
         if (!studentDao.newStudent(stud))
@@ -91,7 +92,7 @@ public class SecStudentsController implements ServletContextAware {
         model.put("message", SUCCESS);
 
 
-        return "redirect:"+request.getHeader("referer");
+        return "redirect:" + request.getHeader("referer");
     }
 
     @RequestMapping(value = "alter_student", method = RequestMethod.POST)
@@ -115,7 +116,7 @@ public class SecStudentsController implements ServletContextAware {
             saveImage(stud.getId() + ".jpg", image);
 
         }
-        return "redirect:"+request.getHeader("referer");
+        return "redirect:" + request.getHeader("referer");
 
     }
 

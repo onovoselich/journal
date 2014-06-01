@@ -6,13 +6,11 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
 import ua.softserve.db.TeacherDao;
 import ua.softserve.db.UserDao;
 import ua.softserve.exceptions.UpdateException;
 import ua.softserve.logic.MD5;
 
-import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
 import static ua.softserve.web.Messages.SUCCESS;
@@ -32,11 +30,11 @@ public class SecUsersController {
 
     @RequestMapping(value = "add_user", method = RequestMethod.POST)
     public String newUser(ModelMap model,
-                                @RequestParam("login") String login,
-                                @RequestParam("password") String password,
-                                @RequestParam("id") Integer teacId,
-                                @RequestParam("role") String role,
-                                @RequestParam("referer") String referer) throws UpdateException, IOException {
+                          @RequestParam("login") String login,
+                          @RequestParam("password") String password,
+                          @RequestParam("id") Integer teacId,
+                          @RequestParam("role") String role,
+                          @RequestParam("referer") String referer) throws UpdateException, IOException {
 
         for (String testLogin : userDao.getAllUsers()) {
             if (login.equals(testLogin))
@@ -48,15 +46,15 @@ public class SecUsersController {
         model.put("message", SUCCESS);
 
 
-        return "redirect:"+referer;
+        return "redirect:" + referer;
 
     }
 
     @RequestMapping(value = "upd_user", method = RequestMethod.POST)
     public String updUser(ModelMap model,
-                                @RequestParam("login") String login,
-                                @RequestParam("password") String password,
-                                @RequestParam("referer") String referer
+                          @RequestParam("login") String login,
+                          @RequestParam("password") String password,
+                          @RequestParam("referer") String referer
 
     ) throws UpdateException {
 
@@ -65,7 +63,7 @@ public class SecUsersController {
         model.put("message", SUCCESS);
 
 
-        return "redirect:"+referer;
+        return "redirect:" + referer;
 
     }
 

@@ -6,7 +6,6 @@ import ua.softserve.logic.Triple;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -31,7 +30,6 @@ public class Group implements Comparable<Group> {
             return group;
         }
     };
-
 
 
     private Integer id;
@@ -70,7 +68,6 @@ public class Group implements Comparable<Group> {
     }
 
 
-
     public Teacher getCurator() {
         return curator;
     }
@@ -104,7 +101,7 @@ public class Group implements Comparable<Group> {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return getName();
     }
 
@@ -117,9 +114,9 @@ public class Group implements Comparable<Group> {
     }
 
     public Integer getSumestr() {
-        Integer sum=this.getEducYear()*2;
-        if(Calendar.getInstance().get(Calendar.MONTH)<Calendar.MARCH)
-            sum-=1;
+        Integer sum = this.getEducYear() * 2;
+        if (Calendar.getInstance().get(Calendar.MONTH) < Calendar.MARCH)
+            sum -= 1;
         return sum;
     }
 
@@ -128,7 +125,7 @@ public class Group implements Comparable<Group> {
         return name.compareTo(o.getName());
     }
 
-    public static class Tgs extends Triple<Subject,Teacher,List<Integer>> {
+    public static class Tgs extends Triple<Subject, Teacher, List<Integer>> {
         public Tgs(Subject subject, Teacher teacher, List<Integer> integers) {
             super(subject, teacher, integers);
         }

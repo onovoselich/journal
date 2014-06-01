@@ -13,11 +13,10 @@
     </definition>
 
 
-
     <definition name="mainPage" extends="template">
         <put-attribute name="body" value="/WEB-INF/pages/main_body.jsp"/>
     </definition>
-    
+
     <definition name="loginPage" extends="template">
         <put-attribute name="body" value="/WEB-INF/pages/login_body.jsp"/>
     </definition>

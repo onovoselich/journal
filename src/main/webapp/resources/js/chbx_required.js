@@ -1,9 +1,8 @@
-
 var namedChbxs = new Object();
 
-$(function(){
+$(function () {
     var chbxs = $(':checkbox');
-    chbxs.each(function(){
+    chbxs.each(function () {
         var name = $(this).attr('id').substr(5);
         namedChbxs[name] = (namedChbxs[name] || $()).add(this);
     });
@@ -11,12 +10,12 @@ $(function(){
     chbxs.change();
 });
 
-var chbxCheck = function(){
+var chbxCheck = function () {
     var name = $(this).attr('id').substr(5);
     var cbx = namedChbxs[name];
-    if(cbx.filter(':checked').length>0){
+    if (cbx.filter(':checked').length > 0) {
         cbx.removeAttr('required');
-    }else{
-        cbx.attr('required','required');
+    } else {
+        cbx.attr('required', 'required');
     }
 }

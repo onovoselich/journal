@@ -6,7 +6,7 @@ import java.util.Calendar;
  * Created by troll on 14.05.14.
  */
 public abstract class CalendarFormat {
-    public static final String [] MONTHSES = {
+    public static final String[] MONTHSES = {
             "Січня",
             "Лютого",
             "Березня",
@@ -22,6 +22,6 @@ public abstract class CalendarFormat {
     };
 
     public static String format(Calendar c) {
-        return "\""+c.get(c.DAY_OF_MONTH)+"\" "+MONTHSES[c.get(c.MONTH)]+" "+c.get(c.YEAR)+" року";
+        return "\"" + c.get(c.DAY_OF_MONTH) + "\" " + MONTHSES[c.get(c.MONTH)] + " " + c.get(c.YEAR) + " року";
     }
 }

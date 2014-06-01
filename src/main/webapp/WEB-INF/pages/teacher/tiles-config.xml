@@ -12,32 +12,32 @@
         <put-attribute name="vid_menu" value="/WEB-INF/pages/teacher/vid_menu.jsp"/>
     </definition>
 
-<definition name="teacherPage" extends="template">
-    <put-attribute name="body" value="teac_body"/>
+    <definition name="teacherPage" extends="template">
+        <put-attribute name="body" value="teac_body"/>
 
-</definition>
+    </definition>
 
-<definition name="group_info"
+    <definition name="group_info"
                 template="/WEB-INF/pages/teacher/group_info.jsp">
-    <put-attribute name="student_card" value="/WEB-INF/pages/student/student_card.jsp"/>
-</definition>
-<!--<definition name="vid_menu"
-            template=>
-</definition>-->
-<definition name="teacherVid"
+        <put-attribute name="student_card" value="/WEB-INF/pages/student/student_card.jsp"/>
+    </definition>
+    <!--<definition name="vid_menu"
+                template=>
+    </definition>-->
+    <definition name="teacherVid"
                 extends="template">
-    <put-attribute name="body" value="/WEB-INF/pages/teacher/teacher_vid.jsp"/>
+        <put-attribute name="body" value="/WEB-INF/pages/teacher/teacher_vid.jsp"/>
 
-</definition>
+    </definition>
 
-<definition name="studInfo" extends="template">
-    <put-attribute name="body">
-        <definition template="/WEB-INF/pages/teacher/stud_info.jsp">
-            <put-attribute name="student_card" value="/WEB-INF/pages/student/student_card.jsp"/>
-        </definition>
+    <definition name="studInfo" extends="template">
+        <put-attribute name="body">
+            <definition template="/WEB-INF/pages/teacher/stud_info.jsp">
+                <put-attribute name="student_card" value="/WEB-INF/pages/student/student_card.jsp"/>
+            </definition>
 
-    </put-attribute>
+        </put-attribute>
 
-</definition>
+    </definition>
 
 </tiles-definitions>

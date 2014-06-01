@@ -18,35 +18,35 @@ public class StudentDao {
     DataSource dataSource;
 
 
-
     public Student getStudentInfo(String login) {
-        return getStudentInfo(getId(login, dataSource ));
+        return getStudentInfo(getId(login, dataSource));
     }
 
     public Student getStudentInfo(int id) {
         JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
-        List<Student> result = jdbcTemplate.query(GET_STUDENT_INFO,new Object[]{id},Student.studentInfoRm);
+        List<Student> result = jdbcTemplate.query(GET_STUDENT_INFO, new Object[]{id}, Student.studentInfoRm);
 
-        if(result.isEmpty()){
+        if (result.isEmpty()) {
             return null;
         }
         return (result.get(0));
     }
 
-    public List<Student> getGroupStudents(int grId){
+    public List<Student> getGroupStudents(int grId) {
         JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
-        List<Student> result = jdbcTemplate.query(GET_GROUP_STUDENTS,new Object[]{grId},Student.studentInfoRm);
+        List<Student> result = jdbcTemplate.query(GET_GROUP_STUDENTS, new Object[]{grId}, Student.studentInfoRm);
 
-        if(result.isEmpty()){
+        if (result.isEmpty()) {
             return null;
         }
         return (result);
     }
-    public List<Student> getGroupStudentsInfo(int grId){
-        JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
-        List<Student> result = jdbcTemplate.query(GET_GROUP_STUDENTS_INFO,new Object[]{grId},Student.studentInfoRm);
 
-        if(result.isEmpty()){
+    public List<Student> getGroupStudentsInfo(int grId) {
+        JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
+        List<Student> result = jdbcTemplate.query(GET_GROUP_STUDENTS_INFO, new Object[]{grId}, Student.studentInfoRm);
+
+        if (result.isEmpty()) {
             return null;
         }
         return (result);
@@ -54,9 +54,9 @@ public class StudentDao {
 
     public boolean updStudent(Integer id, String name, String surname, String patronimic, Integer groupId, String gender, String bDate, String gradebook, String educForm, String edukType, String phone, String address) {
         JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
-        int result = jdbcTemplate.update(UPDATE_STUDENT,name,surname,patronimic,groupId,bDate,gradebook,educForm,edukType,gender,address,phone,id );
+        int result = jdbcTemplate.update(UPDATE_STUDENT, name, surname, patronimic, groupId, bDate, gradebook, educForm, edukType, gender, address, phone, id);
 
-        if (result>0)
+        if (result > 0)
             return true;
         else return false;
 
@@ -64,12 +64,13 @@ public class StudentDao {
 
     public boolean newStudent(String name, String surname, String patronimic, Integer groupId, String gender, String bDate, String gradebook, String educForm, String edukType, String phone, String address) {
         JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
-        int result = jdbcTemplate.update(INSERT_STUDENT,name,surname,patronimic,groupId,bDate,gradebook,educForm,edukType,gender,address,phone);
+        int result = jdbcTemplate.update(INSERT_STUDENT, name, surname, patronimic, groupId, bDate, gradebook, educForm, edukType, gender, address, phone);
 
-        if (result>0)
+        if (result > 0)
             return true;
         else return false;
     }
+
     public boolean newStudent(Student stud) {
         return newStudent(stud.getName(),
                 stud.getSurname(),
@@ -82,15 +83,15 @@ public class StudentDao {
                 stud.getEdukType(),
                 stud.getPhone(),
                 stud.getAddress()
-                );
+        );
     }
 
 
     public List<Student> getAllStudents() {
         JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
-        List<Student> result = jdbcTemplate.query(GET_ALL_STUDENTS,Student.studentInfoRm);
+        List<Student> result = jdbcTemplate.query(GET_ALL_STUDENTS, Student.studentInfoRm);
 
-        if(result.isEmpty()){
+        if (result.isEmpty()) {
             return null;
         }
         return (result);
@@ -116,9 +117,9 @@ public class StudentDao {
 
     public Object getSpecStudents(Integer specId) {
         JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
-        List<Student> result = jdbcTemplate.query(GET_SPEC_STUDENTS,new Object[]{specId},Student.studentInfoRm);
+        List<Student> result = jdbcTemplate.query(GET_SPEC_STUDENTS, new Object[]{specId}, Student.studentInfoRm);
 
-        if(result.isEmpty()){
+        if (result.isEmpty()) {
             return null;
         }
         return (result);
