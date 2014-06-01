@@ -1,10 +1,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
-<div class="left-part-header">
+<%--<div class="left-part-header">
     <span>КЕП</span>
     <span>ІФНТУНГ</span>
-</div>
+</div>--%>
 <div class="right-part-header">
 
     <span><a href="/" id="active">:: Home</a></span>

@@ -1,8 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-
-<div class="title-of-content">
-    <div class="header-of-top-part">
+<%--
+<div class="title-of-content">--%>
+<div class="header-of-top-part">
         <ul>
 
 
@@ -38,14 +38,6 @@
             </sec:authorize>
         </ul>
     </div>
-    <div class="photo-kep">
-        <img src="${pageContext.request.contextPath}/resources/img/kep.png" alt="kep">
 
-        <div class="right-part-title">
-            Коледж електронних приладів Івано-Франківського національного технічного університету нафти і газу створено
-            Постановою Кабінету Міністрів України № 526 від 29 травня 1997 року та наказом Міністерства освіти України №
-            218 від 20.06.1997 року на базі Івано-Франківського технікуму електронних приладів
-        </div>
-    </div>
-</div>
+<%--</div>--%>
 
