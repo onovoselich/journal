@@ -189,7 +189,10 @@ public class TeacherController {
             marksMap.put(stud,studMarks);
         }
         model.put("marks_map",marksMap);
-        model.put("group",groupDao.getGroup(groupId));
+        Group grp = groupDao.getGroup(groupId);
+        grp.setCurator(teacherDao.getTeacherInfo(grp.getCurator().getId()));
+        grp.getSpec().setZavViddil(teacherDao.getTeacherInfo(grp.getSpec().getZavViddil().getId()));
+        model.put("group",grp);
         model.put("cur_sum",sum);
        return new ModelAndView(TEACHER_ZVED_VID_PAGE+format,model);
     }
