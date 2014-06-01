@@ -92,7 +92,7 @@ public class TeacherExcelZvedVid extends AbstractExcelView implements Vidomist_z
 
         if(allMarkK>0){
             float sa = (float)allMarkSum/allMarkK;
-            createCell(footer1,rowNum-1,Float.toString(sa),style);
+            createCell(footer1,rowNum-1,String.valueOf(Math.round(sa*100)/100.0d),style);
         }
 
         HSSFRow footer2 = sheet.createRow(++rowNum);
@@ -251,7 +251,7 @@ public class TeacherExcelZvedVid extends AbstractExcelView implements Vidomist_z
 
         if(markK>0){
             float sa = (float)markSum/markK;
-            createCell(row,i,Float.toString(sa),style);
+            createCell(row,i,String.valueOf(Math.round(sa*100)/100.0d),style);
         }
 
 

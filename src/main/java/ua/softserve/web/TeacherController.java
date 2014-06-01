@@ -171,8 +171,6 @@ public class TeacherController {
         for(Subject subj : subjLst){
             subj.setTeacher(teacherDao.getTeacher(subj.getId(), groupId));
         }
-        System.out.println("sum="+sum);
-        System.out.println("subjLst:"+subjLst);
         Map<String,Map<Subject,Mark>> studMarks = null;
         for(Student stud : studLst){
             studMarks = new TreeMap<String, Map<Subject, Mark>>();

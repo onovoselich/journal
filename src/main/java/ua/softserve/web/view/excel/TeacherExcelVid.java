@@ -34,6 +34,8 @@ public class TeacherExcelVid extends AbstractExcelView  implements Vidomist_H5_0
         Subject subj = (Subject)model.get("subject");
         Group grp = (Group)model.get("group");
         Map<Student,Mark> studMarkList = ((Map<Integer,Map<Student,Mark>>)model.get("stud_mark_list")).get(sum);
+        if(studMarkList == null)
+            throw new RuntimeException("Предмет "+subj+" не викладається на "+sum+"-му симестрі");
 
         HSSFSheet sheet = createSheet(hssfWorkbook,grp,subj,sum);
 
@@ -65,7 +67,13 @@ public class TeacherExcelVid extends AbstractExcelView  implements Vidomist_H5_0
         row.createCell(1).setCellValue(entry.getKey().toString());
         row.createCell(2).setCellValue(entry.getKey().getGradebook());
         if(entry.getValue()!=null){
-            row.createCell(3).setCellValue(entry.getValue().getNationalScaleMark(controlForm));
+            String m = "";
+            if (controlForm == Subject.ZALIK)
+                m = entry.getValue().getZalMark();
+            else
+                m = entry.getValue().getNationalScaleMark().toString();
+
+            row.createCell(3).setCellValue(m);
             row.createCell(4).setCellValue(entry.getValue().getMark());
             row.createCell(5).setCellValue(entry.getValue().getFormatDate());
         }

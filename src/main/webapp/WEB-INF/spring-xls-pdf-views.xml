@@ -14,4 +14,8 @@
     <bean id="teacherZvedVid.xls"
           class="ua.softserve.web.view.excel.TeacherExcelZvedVid">
     </bean>
+
+    <bean id = "teacherZvedVid.pdf"
+          class="ua.softserve.web.view.pdf.TeacherPdfZvedVid">
+    </bean>
 </beans>
