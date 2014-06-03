@@ -33,7 +33,7 @@ CREATE TABLE `group_teacher_subject` (
   KEY `fk_gts_subject` (`subject_ID`),
   CONSTRAINT `fk_gts_subject` FOREIGN KEY (`subject_ID`) REFERENCES `subjects` (`Id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_gts_teacher` FOREIGN KEY (`teacher_ID`) REFERENCES `teachers` (`Id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=98 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=159 DEFAULT CHARSET=utf8;
 
 /*Table structure for table `groups` */
 
@@ -70,7 +70,7 @@ CREATE TABLE `marks` (
   KEY `TeacherSubjectGroupId` (`TeacherSubjectGroupId`),
   CONSTRAINT `MarksStudents` FOREIGN KEY (`StudentId`) REFERENCES `students` (`Id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `marks_ibfk_1` FOREIGN KEY (`TeacherSubjectGroupId`) REFERENCES `group_teacher_subject` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=107 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=162 DEFAULT CHARSET=utf8;
 
 /*Table structure for table `spec` */
 
@@ -106,6 +106,7 @@ CREATE TABLE `students` (
   `Gender` varchar(1) DEFAULT NULL,
   `Address` varchar(100) DEFAULT NULL,
   `Phone` varchar(45) DEFAULT NULL,
+  `status` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`Id`),
   KEY `StudGroup_idx` (`GroupId`),
   KEY `login` (`login`),
@@ -124,10 +125,12 @@ CREATE TABLE `subjects` (
   `ECTSCredits` double DEFAULT NULL,
   `Hours` int(11) DEFAULT NULL,
   `ControlForm` varchar(45) DEFAULT NULL,
+  `sums` varchar(100) DEFAULT NULL,
+  `shortcut` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`Id`),
   KEY `specId` (`specId`),
   CONSTRAINT `subjects_ibfk_1` FOREIGN KEY (`specId`) REFERENCES `spec` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8;
 
 /*Table structure for table `teachers` */
 
@@ -170,12 +173,13 @@ BEGIN
 SELECT
     `subjects`.*
 FROM
-    `kep_v4`.`group_teacher_subject`
+    `group_teacher_subject`
     INNER JOIN `kep_v4`.`subjects` 
         ON (`group_teacher_subject`.`subject_ID` = `subjects`.`Id`)
-    INNER JOIN `kep_v4`.`groups` 
+    INNER JOIN `groups` 
         ON (`group_teacher_subject`.`group_ID` = `groups`.`Id`)
-WHERE (`groups`.`Id` =grId);
+WHERE (`groups`.`Id` =grId)
+Group by `subjects`.`Id`;
     END */$$
 DELIMITER ;
 
