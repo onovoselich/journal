@@ -168,11 +168,28 @@ public class Mark {
 
 
     public static String quality(List<Integer> integers) {
-        return "100%";
+        int n = integers.size();
+        if (n == 0)
+            return "";
+        int npos = 0;
+        for (int i : integers) {
+            if (i > 3)
+                npos++;
+        }
+        float q = npos / (float) n;
+        return Math.round(q * 100) + "%";
     }
 
     public static String success(List<Integer> integers) {
-
-        return "100%";
+        int n = integers.size();
+        if (n == 0)
+            return "";
+        int ngood = 0;
+        for (int i : integers) {
+            if (i > 6)
+                ngood++;
+        }
+        float q = ngood / (float) n;
+        return Math.round(q * 100) + "%";
     }
 }
