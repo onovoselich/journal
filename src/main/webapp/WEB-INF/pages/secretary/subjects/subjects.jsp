@@ -30,6 +30,7 @@
             <tr>
                 <th>Id</th>
                 <th>Назва</th>
+                <th>Скорочено</th>
                 <th>Спеціальність</th>
                 <th>ECTS</th>
                 <th>Години</th>
@@ -42,6 +43,8 @@
 
                         <td><input type="text" size="3" name="id" value="${subj.getId()}" readonly/></td>
                         <td><input type="text" name="name" required="required" size="30" value="${subj.getName()}"/>
+                        <td><input type="text" name="shortcut" required="required" size="10"
+                                   value="${subj.getShortcut()}"/>
                         </td>
                         <td><select name="specId" required="required">
                             <option value="" selected></option>
@@ -105,6 +108,7 @@
                 <tr>
                     <td><input type="text" name="id" size="3" value="" readonly/></td>
                     <td><input type="text" name="name" required="required" size="30" value=""/></td>
+                    <td><input type="text" name="shortcut" required="required" size="10" value=""/>
                     <td><select name="specId" required="required">
 
                         <option value="" selected></option>

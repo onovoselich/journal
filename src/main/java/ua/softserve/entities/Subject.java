@@ -44,14 +44,22 @@ public class Subject implements Comparable {
     private Double ects;
     private Integer hours;
     private String controlForm;
-    private Teacher teacher;/*
-    private String years;
-    private Integer sumestr;*/
+    private Teacher teacher;
+    private String shortcut;
     private Spetiality spetiality;
     private Map<Integer, Integer> sums;
 
     public Map<Integer, Integer> getSums() {
         return sums;
+    }
+
+
+    public String getShortcut() {
+        return shortcut;
+    }
+
+    public void setShortcut(String shortcut) {
+        this.shortcut = shortcut;
     }
 
     public void setSums(Map<Integer, Integer> sums) {
@@ -80,6 +88,7 @@ public class Subject implements Comparable {
         this.setSpetiality(new Spetiality(rs.getInt("specId")));
         this.controlForm = rs.getString("ControlForm");
         this.setSums(rs.getString("sums"));
+        this.shortcut = (rs.getString("shortcut"));
     }
 
     public Spetiality getSpetiality() {
@@ -157,7 +166,9 @@ public class Subject implements Comparable {
 
     @Override
     public String toString() {
-        return getName();
+        if (this.name.length() > 12 && this.shortcut != null)
+            return this.shortcut;
+        return this.name;
     }
 
     public String getsSums() {
