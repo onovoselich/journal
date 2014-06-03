@@ -71,6 +71,7 @@ public class StudentController {
 
         Student stud = studentDao.getStudentInfo(auth.getName());
         Map<Integer, Map<String, Map<Subject, Mark>>> markListSum = new HashMap<Integer, Map<String, Map<Subject, Mark>>>();
+        Map<Integer, Float> saLst = new TreeMap<Integer, Float>();
 
         String[] subjectsId = new String[0];
         for (int i = 1; i <= 8; i++) {
@@ -94,37 +95,32 @@ public class StudentController {
                     }
                 }
             }
+            int s = 0;
+            int k = 0;
             for (int j = 0; j < subjectsId.length; j++) {
                 Subject subj = subjectDao.getSubject(Integer.parseInt(subjectsId[j]));
                 subj.setTeacher(teacherDao.getTeacher(subj.getId(), stud.getGroupId()));
                 Mark mark = markDao.getMark(stud.getId(), subj.getId(), i);
+                if (mark != null && subj.getControlForm() != Subject.ZALIK) {
+                    s += mark.getMark();
+                    k++;
+                }
                 markList.get(subj.getControlForm()).put(subj, mark);
             }
             markListSum.put(i, markList);
-        }
-
-
-/*        if (subjectsId == null) {
-            List<Subject> grlst = subjectDao.getGroupSubjects(stud.getGroupId(),sum);
-        if (grlst==null)
-            throw new RuntimeException("Немає даних по предметам");
-
-            subjectsId = new String[grlst.size()];
-            for (int i = 0; i < grlst.size(); i++) {
-                subjectsId[i] = new String(Integer.toString(grlst.get(i).getId()));
+            if (k != 0) {
+                float sa = s / (float) k;
+                saLst.put(i, Math.round(sa * 100) / 100f);
             }
         }
 
-        for (int i = 0; i < subjectsId.length; i++) {
-            Subject subj = subjectDao.getSubject(Integer.parseInt(subjectsId[i]));
-            subj.setTeacher(teacherDao.getTeacher(subj.getId(), stud.getGroupId()));
-            Mark mark = markDao.getMark(stud.getId(), subj.getId(),sum);
-            markList.get(subj.getControlForm()).put(subj, mark);
-        }*/
+
+
 
         model.put("sum", sum);
         model.put("student", stud);
         model.put("marks", markListSum);
+        model.put("sa", saLst);
 
         return STUDENT_VID_PAGE;
     }

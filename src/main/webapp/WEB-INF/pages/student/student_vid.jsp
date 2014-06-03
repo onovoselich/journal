@@ -69,6 +69,9 @@
                             </c:forEach>
 
                         </c:forEach>
+                        <td>
+                            <div>Середній бал</div>
+                        </td>
                     </tr>
                     <tr></tr>
                     <tr>
@@ -78,10 +81,15 @@
                             <c:forEach var="cc" items="${columnName.value}">
                                 <td>
                                         ${cc.value}
+
                                 </td>
                             </c:forEach>
 
                         </c:forEach>
+                        <td>
+                                ${sa.get(i.key)}
+
+                        </td>
                     </tr>
                     <tr>
                         <th>Викладач</th>
@@ -101,3 +109,4 @@
         </c:forEach>
 
     </div>
+</div>
