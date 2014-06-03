@@ -44,31 +44,47 @@
                                 Іспити
                             </th>
                         </c:if>
-                        <c:if test='${!i.value.get("Залік").isEmpty()}'>
-                            <th colspan=${i.value.get("Залік").size()}>
-                                Заліки
-                            </th>
-                        </c:if>
                         <c:if test='${!i.value.get("Д/З").isEmpty()}'>
                             <th colspan=${i.value.get("Д/З").size()}>
                                 Д\З
                             </th>
                         </c:if>
 
+                        <c:if test='${!i.value.get("Залік").isEmpty()}'>
+                            <th colspan=${i.value.get("Залік").size()}>
+                                Заліки
+                            </th>
+                        </c:if>
                     </tr>
                     <tr>
                         <th>Предмет</th>
-                        <c:forEach var="columnName" items="${i.value}">
 
+                        <c:forEach var="cc" items="${i.value.get('Іспит')}">
+                            <td>
+                                <div>
+                                        ${cc.key}</div>
+                            </td>
+                        </c:forEach>
+                        <c:forEach var="cc" items='${i.value.get("Д/З")}'>
+                            <td>
+                                <div>
+                                        ${cc.key}</div>
+                            </td>
+                        </c:forEach>
 
-                            <c:forEach var="cc" items="${columnName.value}">
-                                <td>
+                        <c:forEach var="cc" items="${i.value.get('Залік')}">
+                            <td>
+                                <div>
+                                        ${cc.key}</div>
+                            </td>
+                        </c:forEach>
+
+                        <c:forEach var="cc" items="${i.value.get('other')}">
+                        <td>
                                     <div>
                                             ${cc.key}</div>
                                 </td>
                             </c:forEach>
-
-                        </c:forEach>
                         <td>
                             <div>Середній бал</div>
                         </td>
