@@ -43,7 +43,7 @@
 
                         <td><input type="text" size="3" name="id" value="${subj.getId()}" readonly/></td>
                         <td><input type="text" name="name" required="required" size="30" value="${subj.getName()}"/>
-                        <td><input type="text" name="shortcut" required="required" size="10"
+                        <td><input type="text" name="shortcut" size="10"
                                    value="${subj.getShortcut()}"/>
                         </td>
                         <td><select name="specId" required="required">
@@ -92,6 +92,9 @@
                             <option value="Д/З" <c:if test="${subj.getControlForm().equals('Д/З')}">selected</c:if>>
                                 Д/З
                             </option>
+                            <option value="other" <c:if test="${subj.getControlForm().equals('other')}">selected</c:if>>
+                                Інше
+                            </option>
                         </select></td>
                         <td>
                             <input type="submit" value="upd"/>
@@ -108,7 +111,7 @@
                 <tr>
                     <td><input type="text" name="id" size="3" value="" readonly/></td>
                     <td><input type="text" name="name" required="required" size="30" value=""/></td>
-                    <td><input type="text" name="shortcut" required="required" size="10" value=""/>
+                    <td><input type="text" name="shortcut" size="10" value=""/>
                     <td><select name="specId" required="required">
 
                         <option value="" selected></option>
@@ -116,7 +119,7 @@
                             <option value="${sp.getId()}">${sp}</option>
                         </c:forEach></select>
                     </td>
-                    <td><input type="text" name="ects" required="required" size="6" class="float" value=""/></td>
+                    <td><input type="text" name="ects" size="6" class="float" value=""/></td>
                     <td>
                         <table>
                             <tr>
@@ -145,6 +148,7 @@
                         <option value="Іспит">Іспит</option>
                         <option value="Залік">Залік</option>
                         <option value="Д/З">Д/З</option>
+                        <option value="other">Інше</option>
                     </select></td>
                     <td>
                         <input type="submit" value="add"/>

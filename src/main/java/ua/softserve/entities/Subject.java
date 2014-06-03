@@ -14,7 +14,7 @@ public class Subject implements Comparable {
     public static final String EXAM = "Іспит";
     public static final String ZALIK = "Залік";
     public static final String DUF_ZALIK = "Д/З";
-    public static final String OTHER = "practcursdupl";
+    public static final String OTHER = "other";
 
 
     public static ParameterizedRowMapper<Subject> subjectRm = new ParameterizedRowMapper() {
@@ -166,7 +166,7 @@ public class Subject implements Comparable {
 
     @Override
     public String toString() {
-        if (this.name.length() > 12 && this.shortcut != null)
+        if (this.name.length() > 12 && this.shortcut != null && !"".equals(this.shortcut))
             return this.shortcut;
         return this.name;
     }
