@@ -77,4 +77,9 @@ body {
     margin-bottom: 20px;
 }
 
+.alarm {
+    font-size: 20pt;
+    color: red;
+    text-align: center;
+}
 

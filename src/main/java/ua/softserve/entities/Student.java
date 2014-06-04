@@ -10,6 +10,7 @@ import java.sql.SQLException;
  */
 public class Student implements Comparable {
 
+
     public static ParameterizedRowMapper<Student> studentRm = new ParameterizedRowMapper() {
         @Override
         public Student mapRow(ResultSet resultSet, int i) throws SQLException {
@@ -51,6 +52,15 @@ public class Student implements Comparable {
     private String gender;
     private String address;
     private String phone;
+    private boolean alarm;
+
+    public boolean isAlarm() {
+        return alarm;
+    }
+
+    public void setAlarm(boolean alarm) {
+        this.alarm = alarm;
+    }
 
     public String getLogin() {
         return login;

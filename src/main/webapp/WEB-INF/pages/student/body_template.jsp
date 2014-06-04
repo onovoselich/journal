@@ -8,9 +8,9 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/content-popup.js"></script>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/student-page.css">
 <div>
-    <c:if test="${not empty alarm}">
-        <div class="header-of-main" style="background-color: red">Увага</div>
-        <div class="main-part"><p>У вас 2 або більше негативних оцінок!<br/>Ви будетевідраховані.</p></div>
+    <c:if test="${student.isAlarm()}">
+        <div class="header-of-main">Увага</div>
+        <div class="main-part alarm"><p>У вас 2 або більше негативних оцінок!<br/>Ви будете відраховані.</p></div>
     </c:if>
 
 

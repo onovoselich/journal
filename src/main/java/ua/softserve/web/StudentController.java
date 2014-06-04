@@ -52,6 +52,9 @@ public class StudentController {
             sum = 1;
         }
 
+        if (markDao.getNegMarksCount(student.getId()) >= 2)
+            student.setAlarm(true);
+
         model.put("sum", sum);
         model.put("student", student);
         Map<Integer, List<Subject>> subjLstBySum = new TreeMap<Integer, List<Subject>>();
@@ -59,8 +62,6 @@ public class StudentController {
             subjLstBySum.put(i, subjectDao.getGroupSubjects(student.getGroupId(), i));
         model.put("subjectList", subjLstBySum);
 
-        if (markDao.getNegMarksCount(student.getId()) >= 2)
-            model.put("alarm", true);
         return STUDENT_PAGE;
     }
 
