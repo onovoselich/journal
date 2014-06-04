@@ -8,13 +8,9 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/content-popup.js"></script>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/student-page.css">
 <div>
-    <c:if test="${student.isAlarm()}">
-        <div class="header-of-main">Увага</div>
-        <div class="main-part alarm"><p>У вас 2 або більше негативних оцінок!<br/>Ви будете відраховані.</p></div>
-    </c:if>
 
 
-    <div class="header-of-main student-card student-card-header">Картка студента<a href="#" id="studentinfopopup"
+<div class="header-of-main student-card student-card-header">Картка студента<a href="#" id="studentinfopopup"
                                                                                    class="popup">↑</a></div>
     <div class="main-part student-card-main">
         <tiles:insertAttribute name="stud_card"/>

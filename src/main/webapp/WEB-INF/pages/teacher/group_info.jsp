@@ -14,7 +14,10 @@
     <div class="list-student">
         <ol>
             <c:forEach var="stud" items="${grp_students}">
-                <li>
+                <li
+                        <c:if test="${stud.isAlarm()}"> title="Студент можебути відрахований" class="alarm"</c:if>
+                        >
+
                     <a id="a${stud.getId()}" href="#"> ${stud}</a>
                 </li>
             </c:forEach>

@@ -5,7 +5,12 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 
-<img src="${pageContext.request.contextPath}/resources/photoes/${student.getId()}.jpg" alt="">
+<c:if test="${student.isAlarm()}">
+    <div class=" alarm"><p>Загроза відрахування!</p></div>
+</c:if>
+<br/>
+<img width="200px" height="263px" src="${pageContext.request.contextPath}/resources/photoes/${student.getId()}.jpg"
+     alt="no photo">
 
 <div class="main-text">
     <ul>
@@ -23,6 +28,5 @@
         <li class="address">${student.getAddress()}</li>
         <li class="phone">${student.getPhone()}</li>
     </ul>
+
 </div>
-
-

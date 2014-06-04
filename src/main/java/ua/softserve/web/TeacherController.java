@@ -73,7 +73,12 @@ public class TeacherController {
 
             model.put("i_am_curator", 1);
             model.put("my_group", grp);
-            model.put("grp_students", studentDao.getGroupStudents(grp.getId()));
+            List<Student> grpStudsLst = studentDao.getGroupStudents(grp.getId());
+            for (Student student : grpStudsLst) {
+                if (markDao.getNegMarksCount(student.getId()) >= 2)
+                    student.setAlarm(true);
+            }
+            model.put("grp_students", grpStudsLst);
             model.put("group_list", groupDao.getTeacherGroups(teac.getId()));
 
 

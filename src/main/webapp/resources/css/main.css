@@ -77,9 +77,25 @@ body {
     margin-bottom: 20px;
 }
 
-.alarm {
+div.alarm {
     font-size: 20pt;
-    color: red;
     text-align: center;
+    color: red;
+    font-weight: bold;
+    text-decoration: blink;
+    display: inline-block;
+    margin: 6px;
+    border-radius: 6px;
+    border: 2px solid red;
+    background-color: rgba(255, 90, 0, 0.2);
+    padding: 8px;
+    -webkit-animation: blink 2s linear infinite;
+    animation: blink 2s linear infinite;
+}
+
+li.alarm a {
+    border-radius: 6px;
+    background-color: rgba(255, 90, 0, 0.2);
+
 }
 
