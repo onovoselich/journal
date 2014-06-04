@@ -104,3 +104,32 @@ tr.alarm {
     background-color: rgba(255, 90, 0, 0.2);
 }
 
+#vidmenu {
+    font-weight: bold;
+}
+
+#vidmenu div {
+    display: inline-block;
+    width: 48%;
+    vertical-align: top;
+    padding: 10px 0px 5px 20px;
+}
+
+#vidmenu input[type="submit"] {
+    display: block;
+    margin: 20px auto;
+    width: 100px;
+    height: 30px;
+    background: linear-gradient(to bottom, #303D45 0%, #10171A 53%, #202B31 100%) repeat scroll 0% 0% transparent;
+    opacity: 1;
+    border: medium none;
+    border-radius: 5px;
+    color: #FFF;
+    font-family: fantasy;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+#vidmenu input[type='submit']:hover {
+    color: chartreuse;
+}
