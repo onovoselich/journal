@@ -58,6 +58,9 @@ public class StudentController {
         for (Integer i = 1; i <= 8; i++)
             subjLstBySum.put(i, subjectDao.getGroupSubjects(student.getGroupId(), i));
         model.put("subjectList", subjLstBySum);
+
+        if (markDao.getNegMarksCount(student.getId()) >= 2)
+            model.put("alarm", true);
         return STUDENT_PAGE;
     }
 

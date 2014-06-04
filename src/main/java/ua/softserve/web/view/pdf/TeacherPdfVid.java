@@ -54,21 +54,15 @@ public class TeacherPdfVid extends AbstractPdfView implements Vidomist_H5_03 {
         p.setSpacingAfter(20);
         document.add(p);
 
-/*            p = new Paragraph(VIDDILENNYA+" "+grp.getSpec().getViddil()+"\n" +
-                    SPECIALITY+" "+grp.getSpec().getSpecName()+"\n" +
-                    COURSE+" "+grp.getEducYear()+" " +
-                    GROUP+" "+grp.getName()+"\n"
-                    ,new Font(times,14));
-            document.add(p);*/
 
         document.add(newParagraph(VIDDILENNYA, grp.getSpec().getViddil(), times));
         document.add(newParagraph(SPECIALITY, grp.getSpec().getSpecName(), times));
         document.add(newParagraph(COURSE, ua.softserve.logic.Number.arabic2roman(grp.getEducYear()), GROUP, grp.getName(), times));
 
-        String stYear = "    ";
-        String fYear = "    ";
-        if (grp.getStartDate() != null) stYear = grp.getStartDate().substring(0, 4);
-        if (grp.getFinishDate() != null) fYear = grp.getFinishDate().substring(0, 4);
+        String stYear = "_____";
+        String fYear = "_____";
+/*        if (grp.getStartDate() != null) stYear = grp.getStartDate().substring(0, 4);
+        if (grp.getFinishDate() != null) fYear = grp.getFinishDate().substring(0, 4);*/
         p = new Paragraph(stYear + " - " + fYear + " " + ED_YEAR, new Font(times, 14));
         p.setAlignment(Element.ALIGN_CENTER);
         document.add(p);

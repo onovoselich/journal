@@ -7,8 +7,7 @@ import ua.softserve.entities.Mark;
 import javax.sql.DataSource;
 import java.util.List;
 
-import static ua.softserve.db.SqlQueries.GET_MARK;
-import static ua.softserve.db.SqlQueries.MARK_INSERT;
+import static ua.softserve.db.SqlQueries.*;
 
 /**
  * Created by troll on 04.01.14.
@@ -36,5 +35,12 @@ public class MarkDao {
             return false;
 
 
+    }
+
+    public Integer getNegMarksCount(Integer studId) {
+        JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
+        Integer res = jdbcTemplate.queryForInt(NEG_MARKS_COUNT, studId);
+
+        return res;
     }
 }
