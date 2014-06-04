@@ -18,6 +18,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 import static ua.softserve.web.Messages.SUCCESS;
 
@@ -40,6 +41,8 @@ public class SecStudentsController implements ServletContextAware {
     UserDao userDao;
     @Autowired
     SpecDao specDao;
+    @Autowired
+    MarkDao markDao;
 
     private ServletContext servletContext;
 
@@ -49,7 +52,11 @@ public class SecStudentsController implements ServletContextAware {
 
         model.put("spec_list", specDao.getAllSpecs());
         model.put("groups_list", groupDao.getAllGroups());
-        model.put("students_list", studentDao.getAllStudents());
+        List<Student> studLst = studentDao.getAllStudents();
+        for (Student st : studLst)
+            if (markDao.getNegMarksCount(st.getId()) >= 2)
+                st.setAlarm(true);
+        model.put("students_list", studLst);
 
         return STUDENTS_PAGE;
     }

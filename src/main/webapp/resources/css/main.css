@@ -99,3 +99,8 @@ li.alarm a {
 
 }
 
+tr.alarm {
+
+    background-color: rgba(255, 90, 0, 0.2);
+}
+

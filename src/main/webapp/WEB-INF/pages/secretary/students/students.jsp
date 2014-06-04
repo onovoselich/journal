@@ -60,9 +60,12 @@
         </tr>
         <c:forEach var="student" items="${students_list}">
             <form action="/secretary/students/alter_student" enctype="multipart/form-data" method="post">
-                <tr class="tabcontent content_g${student.getGroupId()}">
+                <tr
+                        <c:if test="${student.isAlarm()}">title="Студент підлягає відрахуванню!" </c:if> class="
+                <c:if test="${student.isAlarm()}">alarm</c:if>
+                tabcontent content_g${student.getGroupId()}">
 
-                    <td><input name="id" size="3" type="text" readonly value="${student.getId()}"/></td>
+                <td><input name="id" size="3" type="text" readonly value="${student.getId()}"/></td>
                     <td><input name="name" required="required" type="text" size="8" value="${student.getName()}"/></td>
                     <td><input name="patronimic" type="text" size="8" value="${student.getPatronimic()}"/></td>
                     <td><input name="surname" required="required" type="text" size="8" value="${student.getSurname()}"/>
