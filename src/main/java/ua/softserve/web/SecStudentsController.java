@@ -53,36 +53,15 @@ public class SecStudentsController implements ServletContextAware {
         model.put("spec_list", specDao.getAllSpecs());
         model.put("groups_list", groupDao.getAllGroups());
         List<Student> studLst = studentDao.getAllStudents();
-        for (Student st : studLst)
-            if (markDao.getNegMarksCount(st.getId()) >= 2)
+        for (Student st : studLst) {
+            if (!"vidrah".equals(st.getStatus()) && markDao.getNegMarksCount(st.getId()) >= 2)
                 st.setAlarm(true);
+        }
         model.put("students_list", studLst);
 
         return STUDENTS_PAGE;
     }
 
-    /*   @RequestMapping("spec{specId}")
-       public String studentsSpecView(ModelMap model
-               ,@PathVariable Integer specId
-       ) {
-
-           model.put("spec_list",specDao.getAllSpecs());
-           model.put("groups_list", groupDao.getSpecGrops(specId));
-           model.put("students_list", studentDao.getSpecStudents(specId));
-
-           return STUDENTS_PAGE;
-       }
-       @RequestMapping("group{groupId}")
-       public String studentsGroupView(ModelMap model
-                                       ,@PathVariable Integer groupId
-       ) {
-
-           model.put("spec_list",specDao.getAllSpecs());
-           model.put("groups_list", groupDao.getAllGroups());
-           model.put("students_list", studentDao.getGroupStudentsInfo(groupId));
-
-           return STUDENTS_PAGE;
-       }*/
     @RequestMapping(value = "add_student", method = RequestMethod.POST)
     public String addStudent(ModelMap model,
                              @ModelAttribute Student stud,
@@ -144,6 +123,20 @@ public class SecStudentsController implements ServletContextAware {
         model.put("role", UserDao.ROLE_STUDENT);
 
         return ADD_USER_PAGE;
+    }
+
+    @RequestMapping(value = "vidrah", method = RequestMethod.POST)
+    public String vidrStudent(ModelMap model,
+                              @RequestParam("id") Integer studId) {
+        studentDao.vidrah(studId);
+        return "redirect:/secretary/students";
+    }
+
+    @RequestMapping(value = "reestablish", method = RequestMethod.POST)
+    public String reestStudent(ModelMap model,
+                               @RequestParam("id") Integer studId) {
+        studentDao.reest(studId);
+        return "redirect:/secretary/students";
     }
 
     @Override

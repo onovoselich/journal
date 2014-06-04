@@ -124,4 +124,23 @@ public class StudentDao {
         }
         return (result);
     }
+
+    public boolean vidrah(Integer studId) {
+        JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
+        int result = jdbcTemplate.update(VIDRAH_STUDENT, studId);
+
+        if (result > 0)
+            return true;
+        else return false;
+    }
+
+    public boolean reest(Integer studId) {
+        JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
+        int result = jdbcTemplate.update(REESTABLISH_STUDENT, studId);
+
+        if (result > 0)
+            return true;
+        else return false;
+    }
+
 }

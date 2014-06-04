@@ -27,8 +27,8 @@
 <div class="main-part">
 <div class="tabs">
     <ul>
-        <li><a id="tab_all" href="/secretary/students">all</a></li>
-        <%-- <c:forEach items="${spec_list}" var="sp"><li>
+        <li><a id="tab_all" href="#">all</a></li>
+    <%-- <c:forEach items="${spec_list}" var="sp"><li>
              <a id="tab_s${sp.getId()}" href="/secretary/students/spec" >${sp}</a>
          </li></c:forEach></ul>
      </div>
@@ -36,9 +36,11 @@
      <div class="tabs"><ul>--%>
         <c:forEach items="${groups_list}" var="gr">
             <li>
-                <a id="tab_g${gr.getId()}" href="/secretary/students/group">${gr}</a>
+                <a id="tab_g${gr.getId()}" href="#">${gr}</a>
             </li>
-        </c:forEach></ul>
+        </c:forEach>
+        <li><a id="tab_noone" href="#">Відраховані</a></li>
+    </ul>
 </div>
 <div class="table">
     <table>
@@ -63,6 +65,7 @@
                 <tr
                         <c:if test="${student.isAlarm()}">title="Студент підлягає відрахуванню!" </c:if> class="
                 <c:if test="${student.isAlarm()}">alarm</c:if>
+                <c:if test="${student.getStatus() == 'vidrah'}">content_noone</c:if>
                 tabcontent content_g${student.getGroupId()}">
 
                 <td><input name="id" size="3" type="text" readonly value="${student.getId()}"/></td>
@@ -95,6 +98,12 @@
                     <td rowspan="2">
                         <input type="submit" value="upd"/>
                         <input type="reset" value="cancel"/>
+                        <c:if test="${student.getStatus() == 'vidrah'}">
+                            <input type="submit" formaction="/secretary/students/reestablish" value="reest."/>
+                        </c:if>
+                        <c:if test="${student.isAlarm()}">
+                            <input type="submit" formaction="/secretary/students/vidrah" value="vidrah."/>
+                        </c:if>
                     </td>
                 </tr>
                 <tr>

@@ -105,12 +105,20 @@
                                         <option value="${j}" <c:if test="${row.value.getMark() == j}">selected</c:if>>${j}</option>
                                    </c:forEach>
                                 </select>--%>
-                            <input class="integer" size="3" name="mark" type="number" max="12" min="1"
-                                   value="${row.value.getMark()}">
+                                    <input class="integer" size="3" type="number" name="mark" max="12" min="1"
+                                    <c:if test="${row.key.getStatus() == 'vidrah'}">
+                                           readonly="readonly" disabled="disabled"
+                                    </c:if>
+
+                                           value="${row.value.getMark()}">
 
                         </td>
                         <td>
-                            <input name="date" class="data" size="9" type="text" value="${row.value.getDate()}"/>
+                            <input name="date" class="data" size="9" type="text" value="${row.value.getDate()}"
+                                    <c:if test="${row.key.getStatus() == 'vidrah'}">
+                                        readonly = "readonly" disabled="disabled"
+                                    </c:if>
+                                    />
 
 
                         <td>

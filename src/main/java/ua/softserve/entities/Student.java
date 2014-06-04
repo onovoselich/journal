@@ -21,14 +21,9 @@ public class Student implements Comparable {
     public static ParameterizedRowMapper<Student> studentInfoRm = new ParameterizedRowMapper() {
         @Override
         public Student mapRow(ResultSet resultSet, int i) throws SQLException {
-            Student student = new Student();
-            student.setId(resultSet.getInt("Id"));
+            Student student = new Student(resultSet);
             student.setGroupId(resultSet.getInt("GroupId"));
-            student.setName(resultSet.getString("Name"));
-            student.setSurname(resultSet.getString("Surname"));
-            student.setPatronimic(resultSet.getString("Patronimic"));
             student.setbDate(resultSet.getString("BDate"));
-            student.setGradebook(resultSet.getString("Gradebook"));
             student.setEducForm(resultSet.getString("EducForm"));
             student.setEdukType(resultSet.getString("EducType"));
             student.setLogin(resultSet.getString("login"));
@@ -53,6 +48,15 @@ public class Student implements Comparable {
     private String address;
     private String phone;
     private boolean alarm;
+    private String status;
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
     public boolean isAlarm() {
         return alarm;
@@ -76,6 +80,7 @@ public class Student implements Comparable {
         this.surname = rs.getString("Surname");
         this.patronimic = rs.getString("Patronimic");
         this.gradebook = rs.getString("Gradebook");
+        this.status = rs.getString("Status");
     }
 
     public Integer getId() {
@@ -190,7 +195,10 @@ public class Student implements Comparable {
 
     @Override
     public String toString() {
-        return getSurname() + " " + getName().charAt(0) + ". " + getPatronimic().charAt(0) + ".";
+        String res = getSurname() + " " + getName().charAt(0) + ". " + getPatronimic().charAt(0) + ". ";
+        if ("vidrah".equals(this.status))
+            res += "(відрах.) ";
+        return res;
     }
 
     public String getFullName() {

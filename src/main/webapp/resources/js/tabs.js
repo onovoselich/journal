@@ -10,13 +10,19 @@ $(document).ready(function () {
 });
 
 function showContent(sum) {
-    if (sum == "all")
-        $(".tabcontent").show()
+    if (sum == "all") {
+        $(".tabcontent").show();
+    }
     else {
         $(".tabcontent").hide()
 
         $("#content_" + sum).show();
         $(".content_" + sum).show();
+    }
+
+    if (sum != "noone") {
+        $(".content_noone").hide();
+        $("#content_noone").hide();
     }
     $(".tabs a").removeClass("current")
     $("#tab_" + sum).addClass("current");

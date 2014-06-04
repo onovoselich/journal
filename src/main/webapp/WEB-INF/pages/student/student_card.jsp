@@ -9,6 +9,10 @@
     <div class=" alarm"><p>Загроза відрахування!</p></div>
 </c:if>
 <br/>
+<c:if test="${student.getStatus() == 'vidrah'}">
+    <div class=" alarm"><p>Студента відраховано!</p></div>
+</c:if>
+<br/>
 <img width="200px" height="263px" src="${pageContext.request.contextPath}/resources/photoes/${student.getId()}.jpg"
      alt="no photo">
 

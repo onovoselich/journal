@@ -75,6 +75,8 @@ public interface SqlQueries {
     public static final String UPDATE_USER = "UPDATE `users` SET `password`=?  WHERE `users`.`login` = ?;";
 
     public static final String NEG_MARKS_COUNT = "CALL `count_stud_neg_marks`(?);";
+    public static final String VIDRAH_STUDENT = "UPDATE `students` SET `Status` =  'vidrah' WHERE `id` = ?;";
+    public static final String REESTABLISH_STUDENT = "UPDATE `students` SET `Status` =  null WHERE `id` = ?;";
 
 
 }

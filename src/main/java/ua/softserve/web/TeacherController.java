@@ -75,7 +75,7 @@ public class TeacherController {
             model.put("my_group", grp);
             List<Student> grpStudsLst = studentDao.getGroupStudents(grp.getId());
             for (Student student : grpStudsLst) {
-                if (markDao.getNegMarksCount(student.getId()) >= 2)
+                if (!"vidrah".equals(student.getStatus()) && markDao.getNegMarksCount(student.getId()) >= 2)
                     student.setAlarm(true);
             }
             model.put("grp_students", grpStudsLst);
@@ -252,7 +252,7 @@ public class TeacherController {
     public String studCard(ModelMap model,
                            @RequestParam("stud_id") Integer studId) {
         Student student = studentDao.getStudentInfo(studId);
-        if (markDao.getNegMarksCount(student.getId()) >= 2)
+        if (!"vidrah".equals(student.getStatus()) && markDao.getNegMarksCount(student.getId()) >= 2)
             student.setAlarm(true);
         model.put("student", student);
         return STUD_INFO_PAGE;
