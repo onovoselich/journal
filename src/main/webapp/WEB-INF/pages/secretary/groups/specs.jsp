@@ -37,9 +37,9 @@
                             </c:forEach>
 
                         </select></td>
-                        <td><a href="/secretary/groups?vid=${spec.getId()}"><img class="str-down" alt="right"
-                                                                                 src="${pageContext.request.contextPath}/resources/img/str-right.png"/></a>
-                        </td>
+                            <%--<td><a href="/secretary/groups?vid=${spec.getId()}"><img class="str-down" alt="right"
+                                                                                     src="${pageContext.request.contextPath}/resources/img/str-right.png"/></a>
+                            </td>--%>
                         <td>
                             <input type="submit" value="upd"/>
                             <input type="reset" value="cancel"/>
@@ -61,7 +61,7 @@
                         </c:forEach>
 
                     </select></td>
-                    <td></td>
+                    <%--<td></td>--%>
                     <td>
                         <input type="submit" value="add"/>
                         <input type="reset" value="cancel"/>

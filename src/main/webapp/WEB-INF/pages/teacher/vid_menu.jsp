@@ -24,7 +24,7 @@
         <ul>
             <li><a id="tab_1" href="#">Звичайна</a></li>
             <li><a id="tab_2" href="#">Зведена</a></li>
-            <li><a id="tab_3" href="#">Загальна</a></li>
+            <%--<li><a id="tab_3" href="#">Загальна</a></li>--%>
         </ul>
     </div>
     <form id="vidmenu" method="get">

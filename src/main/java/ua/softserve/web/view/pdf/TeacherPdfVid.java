@@ -30,6 +30,9 @@ public class TeacherPdfVid extends AbstractPdfView implements Vidomist_H5_03 {
         Group grp = (Group) model.get("group");
         Map<Student, Mark> studMarkList = ((Map<Integer, Map<Student, Mark>>) model.get("stud_mark_list")).get(sum);
 
+        if (studMarkList == null)
+            throw new RuntimeException("Предмет " + subj + " не викладається на " + sum + "-му симестрі");
+
 
         BaseFont times =
                 BaseFont.createFont(request.getSession().getServletContext().getRealPath("/WEB-INF/times.ttf"), "cp1251", BaseFont.EMBEDDED);

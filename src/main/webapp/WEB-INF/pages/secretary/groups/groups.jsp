@@ -66,9 +66,9 @@
                                 </c:forEach>
                             </select>
                         </td>
-                        <td><a href="/secretary/students/group${group.getId()}"><img class="str-down" alt="right"
-                                                                                     src="${pageContext.request.contextPath}/resources/img/str-right.png"/></a>
-                        </td>
+                            <%--<td><a href="/secretary/students/group${group.getId()}"><img class="str-down" alt="right"
+                                                                                         src="${pageContext.request.contextPath}/resources/img/str-right.png"/></a>
+                            </td>--%>
                         <td>
                             <input type="submit" value="upd"/>
 
@@ -108,7 +108,7 @@
                             </c:forEach>
                         </select>
                     </td>
-                    <td></td>
+                    <%--<td></td>--%>
                     <td>
                         <input type="submit" value="add"/>
 

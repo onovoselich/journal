@@ -8,8 +8,8 @@
 <table name="group_teacher_subject" view="colnames">
 <left>267</left>
 <top>75</top>
-<width>124</width>
-<height>208</height>
+<width>128</width>
+<height>163</height>
 <sql_create_table>CREATE TABLE `group_teacher_subject` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `teacher_ID` int(11) NOT NULL,
@@ -23,7 +23,7 @@
   KEY `fk_gts_subject` (`subject_ID`),
   CONSTRAINT `fk_gts_subject` FOREIGN KEY (`subject_ID`) REFERENCES `subjects` (`Id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_gts_teacher` FOREIGN KEY (`teacher_ID`) REFERENCES `teachers` (`Id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=89 DEFAULT CHARSET=utf8</sql_create_table>
+) ENGINE=InnoDB AUTO_INCREMENT=160 DEFAULT CHARSET=utf8</sql_create_table>
 </table>
 <table name="groups" view="colnames">
 <left>205</left>
@@ -62,13 +62,13 @@
   KEY `TeacherSubjectGroupId` (`TeacherSubjectGroupId`),
   CONSTRAINT `MarksStudents` FOREIGN KEY (`StudentId`) REFERENCES `students` (`Id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `marks_ibfk_1` FOREIGN KEY (`TeacherSubjectGroupId`) REFERENCES `group_teacher_subject` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=100 DEFAULT CHARSET=utf8</sql_create_table>
+) ENGINE=InnoDB AUTO_INCREMENT=168 DEFAULT CHARSET=utf8</sql_create_table>
 </table>
 <table name="students" view="colnames">
 <left>494</left>
 <top>13</top>
-<width>105</width>
-<height>281</height>
+<width>109</width>
+<height>305</height>
 <sql_create_table>CREATE TABLE `students` (
   `Id` int(11) NOT NULL AUTO_INCREMENT,
   `GroupId` int(11) NOT NULL,
@@ -83,6 +83,7 @@
   `Gender` varchar(1) DEFAULT NULL,
   `Address` varchar(100) DEFAULT NULL,
   `Phone` varchar(45) DEFAULT NULL,
+  `Status` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`Id`),
   KEY `StudGroup_idx` (`GroupId`),
   KEY `login` (`login`),
@@ -102,14 +103,16 @@
   `ECTSCredits` double DEFAULT NULL,
   `Hours` int(11) DEFAULT NULL,
   `ControlForm` varchar(45) DEFAULT NULL,
+  `sums` varchar(100) DEFAULT NULL,
+  `shortcut` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`Id`),
   KEY `specId` (`specId`),
   CONSTRAINT `subjects_ibfk_1` FOREIGN KEY (`specId`) REFERENCES `spec` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8</sql_create_table>
+) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8</sql_create_table>
 </table>
 <table name="teachers" view="colnames">
-<left>635</left>
-<top>247</top>
+<left>638</left>
+<top>254</top>
 <width>106</width>
 <height>226</height>
 <sql_create_table>CREATE TABLE `teachers` (
@@ -140,8 +143,8 @@
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8</sql_create_table>
 </table>
 <table name="spec" view="colnames">
-<left>424</left>
-<top>313</top>
+<left>378</left>
+<top>310</top>
 <width>96</width>
 <height>141</height>
 <sql_create_table>CREATE TABLE `spec` (
