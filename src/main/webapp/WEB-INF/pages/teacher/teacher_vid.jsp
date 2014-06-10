@@ -4,7 +4,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
-<%@ page import="ua.softserve.logic.Number" %>
+<%@ page import="ua.journal.logic.Number" %>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/jquery.ui.datepicker.css">
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/jquery.ui.theme.css">
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/jquery.ui.core.css">
@@ -105,12 +105,12 @@
                                         <option value="${j}" <c:if test="${row.value.getMark() == j}">selected</c:if>>${j}</option>
                                    </c:forEach>
                                 </select>--%>
-                                    <input class="integer" size="3" type="number" name="mark" max="12" min="1"
-                                    <c:if test="${row.key.getStatus() == 'vidrah'}">
-                                           readonly="readonly" disabled="disabled"
-                                    </c:if>
+                            <input class="integer" size="3" type="number" name="mark" max="12" min="1"
+                            <c:if test="${row.key.getStatus() == 'vidrah'}">
+                                   readonly="readonly" disabled="disabled"
+                            </c:if>
 
-                                           value="${row.value.getMark()}">
+                                   value="${row.value.getMark()}">
 
                         </td>
                         <td>

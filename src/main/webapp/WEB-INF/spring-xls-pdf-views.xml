@@ -5,17 +5,17 @@
 
 
     <bean id="teacherVid.pdf"
-          class="ua.softserve.web.view.pdf.TeacherPdfVid">
+          class="ua.journal.web.view.pdf.TeacherPdfVid">
     </bean>
     <bean id="teacherVid.xls"
-          class="ua.softserve.web.view.excel.TeacherExcelVid">
+          class="ua.journal.web.view.excel.TeacherExcelVid">
     </bean>
 
     <bean id="teacherZvedVid.xls"
-          class="ua.softserve.web.view.excel.TeacherExcelZvedVid">
+          class="ua.journal.web.view.excel.TeacherExcelZvedVid">
     </bean>
 
     <bean id="teacherZvedVid.pdf"
-          class="ua.softserve.web.view.pdf.TeacherPdfZvedVid">
+          class="ua.journal.web.view.pdf.TeacherPdfZvedVid">
     </bean>
 </beans>

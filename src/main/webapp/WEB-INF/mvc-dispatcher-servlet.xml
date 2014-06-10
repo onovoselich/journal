@@ -15,7 +15,7 @@
     <!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
     <mvc:resources mapping="/resources/**" location="/resources/"/>
 
-    <context:component-scan base-package="ua.softserve.web"/>
+    <context:component-scan base-package="ua.journal.web"/>
     <context:annotation-config/>
 
     <!--<bean class="org.springframework.web.servlet.view.UrlBasedViewResolver">
@@ -48,14 +48,14 @@
     </bean>
 
 
-    <bean class="ua.softserve.db.GroupDao" scope="prototype"/>
-    <bean class="ua.softserve.db.MarkDao" scope="prototype"/>
-    <bean class="ua.softserve.db.StudentDao" scope="prototype"/>
-    <bean class="ua.softserve.db.SubjectDao" scope="prototype"/>
-    <bean class="ua.softserve.db.TeacherDao" scope="prototype"/>
-    <bean class="ua.softserve.db.SpecDao" scope="prototype"/>
-    <bean class="ua.softserve.db.UserDao" scope="prototype"/>
-    <bean class="ua.softserve.db.TgsDao" scope="prototype"/>
+    <bean class="ua.journal.db.GroupDao" scope="prototype"/>
+    <bean class="ua.journal.db.MarkDao" scope="prototype"/>
+    <bean class="ua.journal.db.StudentDao" scope="prototype"/>
+    <bean class="ua.journal.db.SubjectDao" scope="prototype"/>
+    <bean class="ua.journal.db.TeacherDao" scope="prototype"/>
+    <bean class="ua.journal.db.SpecDao" scope="prototype"/>
+    <bean class="ua.journal.db.UserDao" scope="prototype"/>
+    <bean class="ua.journal.db.TgsDao" scope="prototype"/>
 
 
     <bean id="dataSource"

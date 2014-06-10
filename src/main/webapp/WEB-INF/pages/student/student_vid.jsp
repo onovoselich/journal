@@ -4,7 +4,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
-<%@ page import="ua.softserve.logic.Number" %>
+<%@ page import="ua.journal.logic.Number" %>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/student-vid.css">
 
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/tabs.js"></script>
@@ -80,11 +80,11 @@
                         </c:forEach>
 
                         <c:forEach var="cc" items="${i.value.get('other')}">
-                        <td>
-                                    <div>
-                                            ${cc.key}</div>
-                                </td>
-                            </c:forEach>
+                            <td>
+                                <div>
+                                        ${cc.key}</div>
+                            </td>
+                        </c:forEach>
                         <td>
                             <div>Середній бал</div>
                         </td>
